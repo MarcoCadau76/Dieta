@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Piano Alimentare</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F4EF;
+    --card: #FFFFFF;
+    --text: #1C1C1C;
+    --sub: #6B6B6B;
+    --ale: #2D6A4F;
+    --ale-light: #D8F3DC;
+    --ale-mid: #95D5B2;
+    --mar: #1D3557;
+    --mar-light: #D6E8FA;
+    --mar-mid: #90B8E0;
+    --accent: #E76F51;
+    --border: #E5E0D8;
+    --carbo: #FFF3CD;
+    --prot: #D1ECF1;
+    --verd: #D4EDDA;
+    --radius: 16px;
+    --shadow: 0 2px 16px rgba(0,0,0,0.07);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 90px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 20px 0;
+  }
+  .app-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+  }
+  .person-tabs {
+    display: flex; gap: 8px;
+    margin-bottom: 12px;
+  }
+  .person-tab {
+    flex: 1; padding: 10px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    background: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--sub);
+  }
+  .person-tab.ale.active { border-color: var(--ale); background: var(--ale-light); color: var(--ale); }
+  .person-tab.mar.active { border-color: var(--mar); background: var(--mar-light); color: var(--mar); }
+
+  /* ── NAV SETTIMANE ── */
+  .week-nav {
+    display: flex; gap: 6px;
+    padding: 12px 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .week-nav::-webkit-scrollbar { display: none; }
+  .week-btn {
+    flex-shrink: 0;
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: white;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--sub);
+  }
+  .week-btn.active.ale { background: var(--ale); border-color: var(--ale); color: white; }
+  .week-btn.active.mar { background: var(--mar); border-color: var(--mar); color: white; }
+
+  /* ── CONTENT ── */
+  .content { padding: 0 16px; }
+
+  /* ── SEZIONE LISTA SPESA ── */
+  .spesa-bar {
+    margin: 8px 16px 0;
+    padding: 13px 18px;
+    border-radius: var(--radius);
+    background: var(--accent);
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(231,111,81,0.3);
+    transition: opacity 0.2s;
+  }
+  .spesa-bar:active { opacity: 0.85; }
+  .spesa-bar span { font-size: 18px; }
+
+  .spesa-panel {
+    display: none;
+    margin: 8px 16px;
+    background: white;
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    animation: slideDown 0.25s ease;
+  }
+  .spesa-panel.open { display: block; }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .spesa-panel h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+  .spesa-category { margin-bottom: 14px; }
+  .spesa-category h4 {
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--sub);
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .spesa-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 7px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #F5F5F5;
+    cursor: pointer;
+  }
+  .spesa-item:last-child { border-bottom: none; }
+  .spesa-item .check {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    transition: all 0.15s;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+  }
+  .spesa-item.done .check { background: #2D6A4F; border-color: #2D6A4F; color: white; }
+  .spesa-item.done .item-name { text-decoration: line-through; color: var(--sub); }
+
+  /* ── GIORNI ── */
+  .day-card {
+    background: white;
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .day-header {
+    padding: 14px 18px;
+    font-weight: 600;
+    font-size: 15px;
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .day-header.ale { border-left: 4px solid var(--ale); }
+  .day-header.mar { border-left: 4px solid var(--mar); }
+  .day-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .day-dot.ale { background: var(--ale); }
+  .day-dot.mar { background: var(--mar); }
+  .day-chevron { margin-left: auto; color: var(--sub); transition: transform 0.2s; font-size: 13px; }
+  .day-card.open .day-chevron { transform: rotate(180deg); }
+
+  .day-body { display: none; padding: 0 18px 16px; }
+  .day-card.open .day-body { display: block; }
+
+  .meal-section { margin-top: 12px; }
+  .meal-label {
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--sub); margin-bottom: 8px;
+  }
+  .meal-row {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+  .tag {
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12px; font-weight: 500;
+    line-height: 1.3;
+  }
+  .tag.c { background: var(--carbo); }
+  .tag.p { background: var(--prot); }
+  .tag.v { background: var(--verd); }
+  .tag-label { font-size: 10px; font-weight: 700; margin-right: 3px; opacity: 0.6; }
+
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white;
+    border-top: 1px solid var(--border);
+    display: flex;
+    padding: 10px 0 20px;
+    z-index: 100;
+  }
+  .nav-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; gap: 3px;
+    font-size: 11px; color: var(--sub);
+    cursor: pointer; transition: color 0.2s;
+  }
+  .nav-item.active { color: var(--accent); }
+  .nav-icon { font-size: 22px; }
+
+  .view { display: none; }
+  .view.active { display: block; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="app-title">🥗 Piano Alimentare</div>
+  <div class="person-tabs">
+    <button class="person-tab ale active" onclick="setPerson('ale')">Alessandra</button>
+    <button class="person-tab mar" onclick="setPerson('mar')">Marco</button>
+  </div>
+</div>
+
+<div id="view-piano" class="view active">
+  <div class="week-nav" id="weekNav"></div>
+
+  <div class="spesa-bar" onclick="toggleSpesa()">
+    🛒 Lista della spesa – Settimana <span id="spesaWeekLabel">1</span>
+    <span id="spesaArrow">▼</span>
+  </div>
+  <div class="spesa-panel" id="spesaPanel"></div>
+
+  <div class="content" id="dayList"></div>
+</div>
+
+<div class="bottom-nav">
+  <div class="nav-item active" onclick="setView('piano')">
+    <div class="nav-icon">📅</div>
+    <div>Piano</div>
+  </div>
+  <div class="nav-item" onclick="setView('info')">
+    <div class="nav-icon">ℹ️</div>
+    <div>Info</div>
+  </div>
+</div>
+
+<div id="view-info" class="view" style="padding:20px">
+  <h2 style="font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:16px">Note dieta</h2>
+  <div style="background:white;border-radius:16px;padding:20px;box-shadow:0 2px 16px rgba(0,0,0,0.07);font-size:14px;line-height:1.7;color:#444">
+    <p><strong>Olio EVO</strong>: aggiungere sempre 10g a pranzo e a cena.</p>
+    <br>
+    <p><strong>Legenda tag:</strong></p>
+    <p><span class="tag c" style="display:inline-block;margin:3px 0"><span class="tag-label">C</span>Carboidrato</span></p>
+    <p><span class="tag p" style="display:inline-block;margin:3px 0"><span class="tag-label">P</span>Proteina</span></p>
+    <p><span class="tag v" style="display:inline-block;margin:3px 0"><span class="tag-label">V</span>Verdura</span></p>
+    <br>
+    <p><strong>Logica cena:</strong></p>
+    <ul style="margin-left:16px;margin-top:6px">
+      <li>Pesce: 2–3 sere a settimana</li>
+      <li>Pollo: 2 sere (petto o coscia)</li>
+      <li>Carne rossa: 1 sera massimo</li>
+      <li>Uova: 1 sera</li>
+      <li>Legumi: 1–2 sere</li>
+    </ul>
+    <br>
+    <p><strong>Logica pranzo:</strong></p>
+    <ul style="margin-left:16px;margin-top:6px">
+      <li>Legumi: 3–4 volte a settimana (come carboidrato)</li>
+      <li>Tonno/sgombro in scatola: 2 volte</li>
+      <li>Affettati: 2–3 volte</li>
+      <li>Formaggio: 1 volta</li>
+    </ul>
+    <br>
+    <p style="color:#888;font-size:12px">Piano su 4 settimane rotanti.</p>
+  </div>
+</div>
+
+<script>
+const DAYS = ["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"];
+
+// [carbo, proteina, verdura]
+const DATA = {
+  ale: {
+    pranzo: [
+      ["Ceci in scatola 160g","Tonno al naturale 100g","Pomodori 200g"],
+      ["Pasta di semola 50g","Prosciutto crudo 70g","Cetrioli 250g"],
+      ["Lenticchie secche 60g","Sgombro al naturale 70g","Carote 100g"],
+      ["Orzo 50g","Bresaola 70g","Rucola 100g"],
+      ["Fagioli in scatola 160g","Tonno al naturale 100g","Insalata mista 250g"],
+      ["Piselli freschi/surgel. 220g","Prosciutto cotto 60g","Pomodori 200g"],
+      ["Pane comune 60g","Mozzarella di vacca 50g","Insalata mista 250g"],
+      ["Pasta di semola 50g","Tonno al naturale 100g","Pomodori 200g"],
+      ["Lenticchie in scatola 160g","Prosciutto crudo 70g","Radicchio rosso 250g"],
+      ["Orzo 50g","Bresaola 70g","Cetrioli 250g"],
+      ["Ceci secchi 80g","Sgombro al naturale 70g","Peperoni 150g"],
+      ["Pane carasau 50g","Prosciutto di tacchino 80g","Rucola 100g"],
+      ["Fagioli in scatola 160g","Tonno al naturale 100g","Pomodori 200g"],
+      ["Piselli freschi/surgel. 220g","Prosciutto cotto 60g","Asparagi 150g"],
+      ["Lenticchie secche 60g","Tonno al naturale 100g","Broccoli 150g"],
+      ["Pasta all'uovo 50g","Prosciutto crudo 70g","Fagiolini 200g"],
+      ["Ceci in scatola 160g","Sgombro al naturale 70g","Cetrioli 250g"],
+      ["Farro 50g","Bresaola 70g","Carote 100g"],
+      ["Fagioli secchi 60g","Prosciutto di tacchino 80g","Zucchine 300g"],
+      ["Orzo 50g","Tonno al naturale 100g","Peperoni 150g"],
+      ["Piselli freschi/surgel. 220g","Mozzarella di vacca 50g","Insalata mista 250g"],
+      ["Ceci secchi 80g","Tonno al naturale 100g","Pomodori 200g"],
+      ["Pasta di semola 50g","Prosciutto crudo 70g","Cetrioli 250g"],
+      ["Lenticchie in scatola 160g","Bresaola 70g","Finocchi 400g"],
+      ["Orzo 50g","Sgombro al naturale 70g","Radicchio rosso 250g"],
+      ["Fagioli in scatola 160g","Prosciutto cotto 60g","Zucchine 300g"],
+      ["Piselli freschi/surgel. 220g","Prosciutto di tacchino 80g","Insalata mista 250g"],
+      ["Pane comune 60g","Prosciutto crudo 70g","Pomodori 200g"],
+    ],
+    cena: [
+      ["Pasta di semola 40g","Orata 110g","Zucchine 300g"],
+      ["Orzo 40g","Pollo petto 110g","Broccoli 150g"],
+      ["Riso parboiled 40g","Merluzzo 150g","Fagiolini 200g"],
+      ["Pane comune 50g","Uova di gallina 70g","Insalata mista 250g"],
+      ["Farro 40g","Pollo coscia 80g","Peperoni 150g"],
+      ["Lenticchie secche 50g","Spigola 130g","Pomodori 200g"],
+      ["Patate 160g","Manzo magro 90g","Radicchio rosso 250g"],
+      ["Pasta di semola 40g","Merluzzo 150g","Zucchine 300g"],
+      ["Orzo 40g","Pollo petto 110g","Fagiolini 200g"],
+      ["Piselli surgel. 200g","Spigola 130g","Pomodori 200g"],
+      ["Riso parboiled 40g","Pollo coscia 80g","Broccoli 150g"],
+      ["Pane comune 50g","Tacchino petto 100g","Asparagi 150g"],
+      ["Fagioli secchi 50g","Orata 110g","Insalata mista 250g"],
+      ["Patate 160g","Vitellone magro 100g","Peperoni 150g"],
+      ["Pasta all'uovo 40g","Spigola 130g","Pomodori 200g"],
+      ["Orzo 40g","Pollo petto 110g","Broccoli 150g"],
+      ["Riso parboiled 40g","Merluzzo 150g","Cetrioli 250g"],
+      ["Pane comune 50g","Uova di gallina 70g","Insalata mista 250g"],
+      ["Lenticchie secche 50g","Pollo coscia 80g","Fagiolini 200g"],
+      ["Farro 40g","Orata 110g","Zucchine 300g"],
+      ["Patate 160g","Maiale magro 100g","Radicchio rosso 250g"],
+      ["Pasta di semola 40g","Merluzzo 150g","Zucchine 300g"],
+      ["Orzo 40g","Pollo petto 110g","Peperoni 150g"],
+      ["Piselli surgel. 200g","Spigola 130g","Pomodori 200g"],
+      ["Riso parboiled 40g","Pollo coscia 80g","Broccoli 150g"],
+      ["Fagioli in scatola 140g","Orata 110g","Insalata mista 250g"],
+      ["Pane comune 50g","Uova di gallina 70g","Cetrioli 250g"],
+      ["Patate 160g","Vitellone magro 100g","Fagiolini 200g"],
+    ]
+  },
+  mar: {
+    pranzo: [
+      ["Ceci in scatola 200g","Tonno al naturale 140g","Pomodori 200g"],
+      ["Pasta di semola 70g","Prosciutto crudo 90g","Cetrioli 250g"],
+      ["Lenticchie secche 80g","Sgombro al naturale 80g","Carote 100g"],
+      ["Orzo 70g","Bresaola 90g","Rucola 100g"],
+      ["Fagioli in scatola 200g","Tonno al naturale 140g","Insalata mista 250g"],
+      ["Piselli freschi/surgel. 260g","Prosciutto cotto 80g","Pomodori 200g"],
+      ["Pane comune 85g","Mozzarella di vacca 50g","Insalata mista 250g"],
+      ["Pasta di semola 70g","Tonno al naturale 140g","Pomodori 200g"],
+      ["Lenticchie in scatola 200g","Prosciutto crudo 90g","Radicchio rosso 250g"],
+      ["Orzo 70g","Bresaola 90g","Cetrioli 250g"],
+      ["Ceci secchi 70g","Sgombro al naturale 80g","Peperoni 150g"],
+      ["Pane carasau 70g","Prosciutto di tacchino 100g","Rucola 100g"],
+      ["Fagioli in scatola 200g","Tonno al naturale 140g","Pomodori 200g"],
+      ["Piselli freschi/surgel. 260g","Prosciutto cotto 80g","Asparagi 150g"],
+      ["Lenticchie secche 80g","Tonno al naturale 140g","Broccoli 150g"],
+      ["Pasta all'uovo 70g","Prosciutto crudo 90g","Fagiolini 200g"],
+      ["Ceci in scatola 200g","Sgombro al naturale 80g","Cetrioli 250g"],
+      ["Farro 70g","Bresaola 90g","Carote 100g"],
+      ["Fagioli secchi 80g","Prosciutto di tacchino 100g","Zucchine 300g"],
+      ["Orzo 70g","Tonno al naturale 140g","Peperoni 150g"],
+      ["Piselli freschi/surgel. 260g","Caprino fresco 85g","Insalata mista 250g"],
+      ["Ceci secchi 70g","Tonno al naturale 140g","Pomodori 200g"],
+      ["Pasta di semola 70g","Prosciutto crudo 90g","Cetrioli 250g"],
+      ["Lenticchie in scatola 200g","Bresaola 90g","Finocchi 400g"],
+      ["Orzo 70g","Sgombro al naturale 80g","Radicchio rosso 250g"],
+      ["Fagioli in scatola 200g","Prosciutto cotto 80g","Zucchine 300g"],
+      ["Piselli freschi/surgel. 260g","Prosciutto di tacchino 100g","Insalata mista 250g"],
+      ["Pane comune 85g","Prosciutto crudo 90g","Pomodori 200g"],
+    ],
+    cena: [
+      ["Pasta di semola 60g","Orata 140g","Zucchine 300g"],
+      ["Orzo 60g","Pollo petto 140g","Broccoli 150g"],
+      ["Riso parboiled 60g","Merluzzo 200g","Fagiolini 200g"],
+      ["Pane comune 75g","Uova di gallina (due)","Insalata mista 250g"],
+      ["Farro 60g","Pollo coscia 100g","Peperoni 150g"],
+      ["Lenticchie secche 70g","Spigola 170g","Pomodori 200g"],
+      ["Patate 250g","Manzo magro 110g","Radicchio rosso 250g"],
+      ["Pasta di semola 60g","Merluzzo 200g","Zucchine 300g"],
+      ["Orzo 60g","Pollo petto 140g","Fagiolini 200g"],
+      ["Piselli surgel. 250g","Spigola 170g","Pomodori 200g"],
+      ["Riso parboiled 60g","Pollo coscia 100g","Broccoli 150g"],
+      ["Pane comune 75g","Tacchino petto 130g","Asparagi 150g"],
+      ["Fagioli secchi 70g","Orata 140g","Insalata mista 250g"],
+      ["Patate 250g","Vitellone magro 120g","Peperoni 150g"],
+      ["Pasta all'uovo 60g","Spigola 170g","Pomodori 200g"],
+      ["Orzo 60g","Pollo petto 140g","Broccoli 150g"],
+      ["Riso parboiled 60g","Merluzzo 200g","Cetrioli 250g"],
+      ["Pane comune 75g","Uova di gallina (due)","Insalata mista 250g"],
+      ["Lenticchie secche 70g","Pollo coscia 100g","Fagiolini 200g"],
+      ["Farro 60g","Orata 140g","Zucchine 300g"],
+      ["Patate 250g","Maiale magro 130g","Radicchio rosso 250g"],
+      ["Pasta di semola 60g","Merluzzo 200g","Zucchine 300g"],
+      ["Orzo 60g","Pollo petto 140g","Peperoni 150g"],
+      ["Piselli surgel. 250g","Spigola 170g","Pomodori 200g"],
+      ["Riso parboiled 60g","Pollo coscia 100g","Broccoli 150g"],
+      ["Fagioli in scatola 180g","Orata 140g","Insalata mista 250g"],
+      ["Pane comune 75g","Uova di gallina (due)","Cetrioli 250g"],
+      ["Patate 250g","Vitellone magro 120g","Fagiolini 200g"],
+    ]
+  }
+};
+
+// Categorie spesa
+function categorize(item) {
+  const i = item.toLowerCase();
+  if (/pasta|riso|orzo|farro|pane|ceci|fagioli|lenticchie|piselli|patate|mais|fregola|gnocchi/.test(i)) return "🌾 Carboidrati & Legumi";
+  if (/tonno|sgombro|orata|merluzzo|spigola|salmone|gamberi|cozze|seppie|platessa|nasello|pesce/.test(i)) return "🐟 Pesce";
+  if (/pollo|tacchino|manzo|vitellone|maiale|hamburger/.test(i)) return "🥩 Carne";
+  if (/prosciutto|bresaola|affettato/.test(i)) return "🥓 Affettati";
+  if (/uova/.test(i)) return "🥚 Uova";
+  if (/mozzarella|fiocchi|caprino|formaggio|pecorino|stracchino|feta|philadelphia/.test(i)) return "🧀 Formaggi";
+  if (/pomodori|cetrioli|zucchine|carote|rucola|insalata|radicchio|broccoli|peperoni|fagiolini|asparagi|finocchi|spinaci|melanzane|bieta|sedano|scarola|carciofi/.test(i)) return "🥬 Verdure";
+  return "🛒 Altro";
+}
+
+function extractName(str) {
+  return str.replace(/\s*\d+g?\s*$/, '').replace(/\s*\(.*?\)/, '').trim();
+}
+
+let currentPerson = 'ale';
+let currentWeek   = 0;
+let spesaOpen     = false;
+let checkedItems  = {};
+
+function setPerson(p) {
+  currentPerson = p;
+  document.querySelectorAll('.person-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.person-tab.${p}`).classList.add('active');
+  spesaOpen = false;
+  document.getElementById('spesaPanel').classList.remove('open');
+  document.getElementById('spesaArrow').textContent = '▼';
+  renderWeekNav();
+  renderDays();
+}
+
+function setWeek(w) {
+  currentWeek = w;
+  document.getElementById('spesaWeekLabel').textContent = w + 1;
+  spesaOpen = false;
+  document.getElementById('spesaPanel').classList.remove('open');
+  document.getElementById('spesaArrow').textContent = '▼';
+  renderWeekNav();
+  renderDays();
+}
+
+function renderWeekNav() {
+  const nav = document.getElementById('weekNav');
+  nav.innerHTML = ['Sett. 1','Sett. 2','Sett. 3','Sett. 4'].map((l,i) =>
+    `<button class="week-btn ${i===currentWeek?'active '+currentPerson:''}" onclick="setWeek(${i})">${l}</button>`
+  ).join('');
+}
+
+function renderDays() {
+  const list = document.getElementById('dayList');
+  const d = DATA[currentPerson];
+  const offset = currentWeek * 7;
+  list.innerHTML = DAYS.map((day, di) => {
+    const i = offset + di;
+    const [pc, pp, pv] = d.pranzo[i];
+    const [cc, cp, cv] = d.cena[i];
+    return `
+    <div class="day-card" id="card-${di}">
+      <div class="day-header ${currentPerson}" onclick="toggleDay(${di})">
+        <div class="day-dot ${currentPerson}"></div>
+        ${day}
+        <span class="day-chevron">▾</span>
+      </div>
+      <div class="day-body">
+        <div class="meal-section">
+          <div class="meal-label">☀️ Pranzo</div>
+          <div class="meal-row">
+            <span class="tag c"><span class="tag-label">C</span>${pc}</span>
+            <span class="tag p"><span class="tag-label">P</span>${pp}</span>
+            <span class="tag v"><span class="tag-label">V</span>${pv}</span>
+          </div>
+        </div>
+        <div class="meal-section">
+          <div class="meal-label">🌙 Cena</div>
+          <div class="meal-row">
+            <span class="tag c"><span class="tag-label">C</span>${cc}</span>
+            <span class="tag p"><span class="tag-label">P</span>${cp}</span>
+            <span class="tag v"><span class="tag-label">V</span>${cv}</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleDay(di) {
+  const card = document.getElementById(`card-${di}`);
+  card.classList.toggle('open');
+}
+
+function toggleSpesa() {
+  spesaOpen = !spesaOpen;
+  const panel = document.getElementById('spesaPanel');
+  document.getElementById('spesaArrow').textContent = spesaOpen ? '▲' : '▼';
+  if (spesaOpen) {
+    panel.classList.add('open');
+    renderSpesa();
+  } else {
+    panel.classList.remove('open');
+  }
+}
+
+function renderSpesa() {
+  const d = DATA[currentPerson];
+  const offset = currentWeek * 7;
+  const items = {};
+
+  for (let di = 0; di < 7; di++) {
+    const i = offset + di;
+    const all = [...d.pranzo[i], ...d.cena[i]];
+    all.forEach(raw => {
+      const name = extractName(raw);
+      const cat  = categorize(raw);
+      if (!items[cat]) items[cat] = new Set();
+      items[cat].add(name);
+    });
+  }
+  // Aggiungi sempre olio EVO
+  if (!items["🛒 Altro"]) items["🛒 Altro"] = new Set();
+  items["🛒 Altro"].add("Olio extravergine d'oliva");
+
+  const order = ["🌾 Carboidrati & Legumi","🐟 Pesce","🥩 Carne","🥓 Affettati","🥚 Uova","🧀 Formaggi","🥬 Verdure","🛒 Altro"];
+  const key = `${currentPerson}-${currentWeek}`;
+  if (!checkedItems[key]) checkedItems[key] = {};
+
+  let html = `<h3>🛒 Spesa – Settimana ${currentWeek+1}</h3>`;
+  order.forEach(cat => {
+    if (!items[cat]) return;
+    html += `<div class="spesa-category"><h4>${cat}</h4>`;
+    [...items[cat]].sort().forEach(name => {
+      const id = `${key}-${name}`;
+      const done = checkedItems[key][name] ? 'done' : '';
+      html += `<div class="spesa-item ${done}" onclick="toggleCheck('${key}','${name}',this)">
+        <div class="check">${checkedItems[key][name] ? '✓' : ''}</div>
+        <span class="item-name">${name}</span>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  document.getElementById('spesaPanel').innerHTML = html;
+}
+
+function toggleCheck(key, name, el) {
+  checkedItems[key][name] = !checkedItems[key][name];
+  el.classList.toggle('done');
+  const check = el.querySelector('.check');
+  check.textContent = checkedItems[key][name] ? '✓' : '';
+}
+
+function setView(v) {
+  document.querySelectorAll('.view').forEach(x => x.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+}
+
+// Init
+renderWeekNav();
+renderDays();
+</script>
+</body>
+</html>
