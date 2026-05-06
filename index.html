@@ -631,14 +631,9 @@ document.addEventListener('click', function(e){
     const p=btn.dataset.p, w=+btn.dataset.w, d=+btn.dataset.d,
           m=btn.dataset.m, s=+btn.dataset.s;
     resetEdit(p,w,d,m,s);
-  } else if(action === 'colazione'){
-    var person = e.target.dataset.person || currentPerson;
-    localStorage.setItem('colazione-'+person, e.target.value);
-    renderOggi();
-  } else if(action === 'spuntino'){
-    var slot = e.target.dataset.slot;
-    var spPerson = e.target.dataset.person || currentPerson;
-    localStorage.setItem(slot+'-'+spPerson, e.target.value);
+  } else if(action === 'mealselect'){
+    var key = e.target.dataset.key;
+    localStorage.setItem(key, e.target.value);
     renderOggi();
   }
 });
@@ -726,61 +721,23 @@ const FRUTTA_DOPO_PRANZO_MAR = [
   "Arancia 200g","Pera 200g","Kiwi 100g","Pesche 200g",
 ];
 
-function buildExtraMealsHtml(person){
-  let html = '<div style="margin-top:12px">';
-
-  // COLAZIONE
-  html += '<div class="extra-meal">';
-  html += '<div class="extra-meal-title">☕ Colazione</div>';
-
-  var colList = person === 'ale' ? COLAZIONE_ALE : COLAZIONE_MAR;
-  var savedCol = localStorage.getItem('colazione-'+person);
-  var savedKcal = savedCol ? parseInt(savedCol) : colList[0].kcal;
-  html += '<select class="colazione-select" data-action="colazione" data-person="'+person+'">';
-  colList.forEach(function(c){
-    var sel = (c.kcal === savedKcal) ? ' selected' : '';
-    html += '<option value="'+c.kcal+'"'+sel+'>'+c.label+' (~'+c.kcal+' kcal)</option>';
+function buildMealSelect(title, slot, person, list){
+  var key = slot === 'frutta-pranzo' ? slot+'-mar' : slot+'-'+person;
+  var saved = localStorage.getItem(key);
+  var savedKcal = saved ? parseInt(saved) : list[0].kcal;
+  var html = '<div class="extra-meal">';
+  html += '<div class="extra-meal-title">'+title+'</div>';
+  html += '<select class="colazione-select" data-action="mealselect" data-key="'+key+'">';
+  list.forEach(function(item){
+    var sel = (item.kcal === savedKcal) ? ' selected' : '';
+    html += '<option value="'+item.kcal+'"'+sel+'>'+item.label+' (~'+item.kcal+' kcal)</option>';
   });
   html += '</select>';
-  html += '<div class="extra-note">Seleziona la tua colazione di oggi.</div>';
-  html += '</div>';
-
-  // SPUNTINO META MATTINA
-  html += '<div class="extra-meal">';
-  html += '<div class="extra-meal-title">🍎 Spuntino meta mattina</div>';
-  html += buildSpuntinoHtml('spuntino-mattina', person);
-  html += '</div>';
-
-  // SPUNTINO META POMERIGGIO
-  html += '<div class="extra-meal">';
-  html += '<div class="extra-meal-title">🍊 Spuntino meta pomeriggio</div>';
-  html += buildSpuntinoHtml('spuntino-pomeriggio', person);
-  html += '</div>';
-
-  // FRUTTA DOPO PRANZO (solo Marco)
-  if(person === 'mar'){
-    html += '<div class="extra-meal">';
-    html += '<div class="extra-meal-title">🍇 Frutta dopo pranzo (Marco)</div>';
-    html += buildSpuntinoHtml('frutta-pranzo', 'mar');
-    html += '</div>';
-  }
-
   html += '</div>';
   return html;
 }
 
-function buildSpuntinoHtml(slot, person){
-  // slot = 'spuntino-mattina' o 'spuntino-pomeriggio' o 'frutta-pranzo'
-  var saved = localStorage.getItem(slot+'-'+person);
-  var savedKcal = saved ? parseInt(saved) : SPUNTINI[0].kcal;
-  var html = '<select class="colazione-select" data-action="spuntino" data-slot="'+slot+'" data-person="'+person+'">';
-  SPUNTINI.forEach(function(s){
-    var sel = (s.kcal === savedKcal) ? ' selected' : '';
-    html += '<option value="'+s.kcal+'"'+sel+'>'+s.label+' (~'+s.kcal+' kcal)</option>';
-  });
-  html += '</select>';
-  return html;
-}
+
 
 function getTipOfDay(balance, burnedKcal, acts){
   if(balance === null){
@@ -839,16 +796,14 @@ function buildTipHtml(tip){
 
 
 function getExtraKcal(person){
-  var list = person === 'ale' ? COLAZIONE_ALE : COLAZIONE_MAR;
-  var saved = localStorage.getItem('colazione-'+person);
-  var colazioneKcal = saved ? parseInt(saved) : list[0].kcal;
-  // Spuntini: leggi selezione salvata o usa default (Mela 150g = 78 kcal)
+  var colList = person === 'ale' ? COLAZIONE_ALE : COLAZIONE_MAR;
+  var col = localStorage.getItem('colazione-'+person);
+  var colazioneKcal = col ? parseInt(col) : colList[0].kcal;
   var sp1 = localStorage.getItem('spuntino-mattina-'+person);
   var sp2 = localStorage.getItem('spuntino-pomeriggio-'+person);
-  var spuntiniKcal = (sp1 ? parseInt(sp1) : 78) + (sp2 ? parseInt(sp2) : 78);
-  // Frutta dopo pranzo solo Marco
+  var spuntiniKcal = (sp1 ? parseInt(sp1) : SPUNTINI[0].kcal) + (sp2 ? parseInt(sp2) : SPUNTINI[0].kcal);
   var fp = localStorage.getItem('frutta-pranzo-mar');
-  var fruttoDopoKcal = (person === 'mar') ? (fp ? parseInt(fp) : 78) : 0;
+  var fruttoDopoKcal = (person === 'mar') ? (fp ? parseInt(fp) : SPUNTINI[0].kcal) : 0;
   return colazioneKcal + spuntiniKcal + fruttoDopoKcal;
 }
 
@@ -908,6 +863,12 @@ function renderOggi(){
   <div class="card">
     <div class="oggi-lbl">Oggi – Sett. ${week+1}</div>
     <div class="oggi-day">${DAYS[di]}, ${dateStr}</div>
+
+    ${buildMealSelect('☕ Colazione', 'colazione', currentPerson,
+        currentPerson==='ale' ? COLAZIONE_ALE : COLAZIONE_MAR)}
+
+    ${buildMealSelect('🍎 Spuntino metà mattina', 'spuntino-mattina', currentPerson, SPUNTINI)}
+
     <div class="meal-block">
       <div class="meal-title">☀️ Pranzo <span style="font-size:10px;color:var(--sub);font-weight:400">· tocca ✏️ per modificare</span></div>
       <div class="meal-items">
@@ -921,7 +882,11 @@ function renderOggi(){
         <div class="np"><div class="nv carb-c">${np[2]}g</div><div class="nl">carb.</div></div>
       </div>
     </div>
-    <div class="divider"></div>
+
+    ${currentPerson==='mar' ? buildMealSelect('🍇 Frutta dopo pranzo', 'frutta-pranzo', 'mar', SPUNTINI) : ''}
+
+    ${buildMealSelect('🍊 Spuntino metà pomeriggio', 'spuntino-pomeriggio', currentPerson, SPUNTINI)}
+
     <div class="meal-block">
       <div class="meal-title">🌙 Cena <span style="font-size:10px;color:var(--sub);font-weight:400">· tocca ✏️ per modificare</span></div>
       <div class="meal-items">
@@ -935,9 +900,10 @@ function renderOggi(){
         <div class="np"><div class="nv carb-c">${nc[2]}g</div><div class="nl">carb.</div></div>
       </div>
     </div>
+
     <div class="divider"></div>
     <div class="meal-title" style="margin-bottom:8px">Totale giornaliero</div>
-    <div style="font-size:11px;color:var(--sub);margin-bottom:4px">* include colazione e spuntini (~${extraKcal} kcal)</div>
+    <div style="font-size:11px;color:var(--sub);margin-bottom:4px">Colazione + spuntini inclusi (~${extraKcal} kcal)</div>
     <div class="nutri-row">
       <div class="np"><div class="nv kcal-c">${totalKcal}</div><div class="nl">kcal tot.</div></div>
       <div class="np"><div class="nv prot-c">${totalProt}g</div><div class="nl">prot. tot.</div></div>
@@ -945,11 +911,10 @@ function renderOggi(){
     </div>
     ${bil}
     ${buildTipHtml(getTipOfDay(balance, burnedKcal, acts))}
-    ${buildExtraMealsHtml(currentPerson)}
   </div>`;
 }
 
-// ── PIANO ─────────────────────────────────────────────────────────────────
+// ── PIANO ───────────────────────────────────────────────────────────────── ─────────────────────────────────────────────────────────────────
 function renderWeekNav(){
   document.getElementById('weekNav').innerHTML =
     ['Sett. 1','Sett. 2','Sett. 3','Sett. 4'].map((l,i)=>
