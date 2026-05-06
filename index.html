@@ -137,6 +137,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .modified{border:1.5px solid var(--accent)!important;position:relative}
 
 
+
+/* COLAZIONE & SPUNTINI */
+.extra-meal{background:#fff;border-radius:var(--radius);padding:16px;margin-bottom:10px;box-shadow:var(--shadow)}
+.extra-meal-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--sub);margin-bottom:10px}
+.extra-item{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid #F5F5F5;font-size:13px}
+.extra-item:last-child{border-bottom:none}
+.extra-kcal{font-size:11px;font-weight:600;color:var(--accent);background:#FFF0ED;padding:2px 7px;border-radius:8px}
+.extra-note{font-size:11px;color:var(--sub);margin-top:6px;line-height:1.5}
+.frutta-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.frutta-tag{font-size:12px;background:#D4EDDA;color:#2D6A4F;padding:4px 9px;border-radius:8px;font-weight:500}
+.colazione-select{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;margin-top:6px}
+
 /* TIPS */
 .tip-box{border-radius:var(--radius);padding:16px;margin-top:12px}
 .tip-box.surplus{background:#FFF3CD;border-left:4px solid #E76F51}
@@ -624,6 +636,121 @@ document.addEventListener('click', function(e){
 
 
 
+
+const COLAZIONE_ALE = {
+  principale: "The + dolcificante",
+  note: "In alternativa: the verde, camomilla, tisana. Zucchero saccarosio 5g o zucchero integrale se non si usa dolcificante."
+};
+
+const COLAZIONE_MAR = [
+  "Latte 200ml + 3 biscotti secchi",
+  "Latte 200ml + fiocchi di cereali 30g",
+  "Yogurt bianco magro 125g + 2 biscotti secchi",
+  "Yogurt greco 0% 125g + frutta fresca 150g",
+  "Yogurt alla frutta 125g",
+  "Latte 200ml + frutta fresca 150g",
+  "Fiocchi di avena 30g + latte 200ml",
+];
+
+const FRUTTA = {
+  "Banana 100g": 89,
+  "Cachi 100g": 70,
+  "Mandarini 100g": 53,
+  "Uva 100g": 69,
+  "Melagrana 100g": 83,
+  "Fichi 100g": 74,
+  "Kiwi 100g": 61,
+  "Ciliege 100g": 63,
+  "Susine 100g": 46,
+  "Mela 150g": 78,
+  "Arancia 200g": 94,
+  "Melone 200g": 60,
+  "Pera 200g": 104,
+  "Albicocche 200g": 96,
+  "Fragole 200g": 64,
+  "Nespole 200g": 86,
+  "Pesche 200g": 78,
+  "Cocomero 300g": 90,
+};
+
+// Spuntino = yogurt O frutta (uguale per entrambi, porzioni Ale)
+const SPUNTINI = [
+  {label:"Yogurt bianco magro 125g", kcal:60},
+  {label:"Yogurt greco 0% 125g", kcal:70},
+  {label:"Yogurt alla frutta 125g", kcal:110},
+  {label:"Frutta (vedi lista)", kcal:null}, // usa FRUTTA
+];
+
+// Frutta dopo pranzo Marco
+const FRUTTA_DOPO_PRANZO_MAR = [
+  "Mela 150g","Mandarancio 150g","Banana 100g","Cocomero 300g",
+  "Arancia 200g","Pera 200g","Kiwi 100g","Pesche 200g",
+];
+
+function buildExtraMealsHtml(person){
+  let html = '<div style="margin-top:12px">';
+
+  // COLAZIONE
+  html += '<div class="extra-meal">';
+  html += '<div class="extra-meal-title">☕ Colazione</div>';
+
+  if(person === 'ale'){
+    html += '<div class="extra-item"><span>The + dolcificante</span><span class="extra-kcal">~5 kcal</span></div>';
+    html += '<div class="extra-note">In alternativa: zucchero saccarosio 5g o zucchero integrale.</div>';
+  } else {
+    html += '<select class="colazione-select" id="colazioneSelect">';
+    COLAZIONE_MAR.forEach(function(c){
+      var kcal = c.indexOf('biscotti')>=0 ? 220 : c.indexOf('cereali')>=0 ? 230 : c.indexOf('avena')>=0 ? 210 : c.indexOf('yogurt')>=0||c.indexOf('Yogurt')>=0 ? 150 : 180;
+      html += '<option value="'+kcal+'">'+c+' (~'+kcal+' kcal)</option>';
+    });
+    html += '</select>';
+  }
+  html += '</div>';
+
+  // SPUNTINO META MATTINA
+  html += '<div class="extra-meal">';
+  html += '<div class="extra-meal-title">🍎 Spuntino meta mattina</div>';
+  html += buildSpuntinoHtml();
+  html += '</div>';
+
+  // SPUNTINO META POMERIGGIO
+  html += '<div class="extra-meal">';
+  html += '<div class="extra-meal-title">🍊 Spuntino meta pomeriggio</div>';
+  html += buildSpuntinoHtml();
+  html += '</div>';
+
+  // FRUTTA DOPO PRANZO (solo Marco)
+  if(person === 'mar'){
+    html += '<div class="extra-meal">';
+    html += '<div class="extra-meal-title">🍇 Frutta dopo pranzo (Marco)</div>';
+    html += '<div class="frutta-grid">';
+    FRUTTA_DOPO_PRANZO_MAR.forEach(function(f){
+      html += '<span class="frutta-tag">'+f+'</span>';
+    });
+    html += '</div>';
+    html += '</div>';
+  }
+
+  html += '</div>';
+  return html;
+}
+
+function buildSpuntinoHtml(){
+  var html = '';
+  SPUNTINI.forEach(function(s){
+    if(s.kcal){
+      html += '<div class="extra-item"><span>'+s.label+'</span><span class="extra-kcal">~'+s.kcal+' kcal</span></div>';
+    }
+  });
+  html += '<div class="extra-meal-title" style="margin-top:10px;margin-bottom:6px">oppure frutta:</div>';
+  html += '<div class="frutta-grid">';
+  Object.keys(FRUTTA).forEach(function(f){
+    html += '<span class="frutta-tag">'+f+' (~'+FRUTTA[f]+' kcal)</span>';
+  });
+  html += '</div>';
+  return html;
+}
+
 function getTipOfDay(balance, burnedKcal, acts){
   if(balance === null){
     return {type:'neutral',icon:'💡',
@@ -768,6 +895,7 @@ function renderOggi(){
     </div>
     ${bil}
     ${buildTipHtml(getTipOfDay(balance, burnedKcal, acts))}
+    ${buildExtraMealsHtml(currentPerson)}
   </div>`;
 }
 
