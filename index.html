@@ -632,7 +632,8 @@ document.addEventListener('click', function(e){
           m=btn.dataset.m, s=+btn.dataset.s;
     resetEdit(p,w,d,m,s);
   } else if(action === 'colazione'){
-    localStorage.setItem('colazione-mar', e.target.value);
+    var person = e.target.dataset.person || currentPerson;
+    localStorage.setItem('colazione-'+person, e.target.value);
     renderOggi();
   }
 });
@@ -640,19 +641,32 @@ document.addEventListener('click', function(e){
 
 
 
-const COLAZIONE_ALE = {
-  principale: "The + dolcificante",
-  note: "In alternativa: the verde, camomilla, tisana. Zucchero saccarosio 5g o zucchero integrale se non si usa dolcificante."
-};
+
+const COLAZIONE_ALE = [
+  {label:"The + dolcificante + 2 fette biscottate integrali", kcal:80},
+  {label:"The + dolcificante + yogurt bianco magro 125g", kcal:70},
+  {label:"The + dolcificante + frutta fresca 150g", kcal:75},
+  {label:"Yogurt greco 0% 125g + frutta fresca 150g", kcal:145},
+  {label:"Yogurt bianco magro 125g + 1 cucchiaio miele", kcal:105},
+  {label:"Porridge avena 40g + acqua + frutta", kcal:180},
+  {label:"Albume d uovo 3 + frutta 150g", kcal:120},
+  {label:"Yogurt greco 0% 125g + 1 cucchiaio semi di chia", kcal:110},
+  {label:"Frutta fresca mista 200g + yogurt magro 125g", kcal:155},
+  {label:"Fiocchi di avena 30g + yogurt magro 125g", kcal:190},
+];
 
 const COLAZIONE_MAR = [
-  "Latte 200ml + 3 biscotti secchi",
-  "Latte 200ml + fiocchi di cereali 30g",
-  "Yogurt bianco magro 125g + 2 biscotti secchi",
-  "Yogurt greco 0% 125g + frutta fresca 150g",
-  "Yogurt alla frutta 125g",
-  "Latte 200ml + frutta fresca 150g",
-  "Fiocchi di avena 30g + latte 200ml",
+  {label:"Latte 200ml + 3 biscotti secchi", kcal:220},
+  {label:"Latte 200ml + fiocchi di cereali 30g", kcal:230},
+  {label:"Latte 200ml + porridge avena 40g", kcal:260},
+  {label:"Yogurt greco 0% 125g + frutta fresca 150g", kcal:145},
+  {label:"Yogurt bianco magro 125g + 2 biscotti secchi", kcal:150},
+  {label:"Yogurt alla frutta 125g", kcal:110},
+  {label:"Porridge avena 40g + latte 200ml + frutta", kcal:300},
+  {label:"Albume d uovo 3 + frutta 150g", kcal:120},
+  {label:"Latte 200ml + fiocchi di avena 30g", kcal:210},
+  {label:"Yogurt greco 0% 125g + 1 cucchiaio semi di chia", kcal:110},
+  {label:"Frutta fresca mista 200g + yogurt magro 125g", kcal:155},
 ];
 
 const FRUTTA = {
@@ -697,17 +711,16 @@ function buildExtraMealsHtml(person){
   html += '<div class="extra-meal">';
   html += '<div class="extra-meal-title">☕ Colazione</div>';
 
-  if(person === 'ale'){
-    html += '<div class="extra-item"><span>The + dolcificante</span><span class="extra-kcal">~5 kcal</span></div>';
-    html += '<div class="extra-note">In alternativa: zucchero saccarosio 5g o zucchero integrale.</div>';
-  } else {
-    html += '<select class="colazione-select" id="colazioneSelect" data-action="colazione">';
-    COLAZIONE_MAR.forEach(function(c){
-      var kcal = c.indexOf('biscotti')>=0 ? 220 : c.indexOf('cereali')>=0 ? 230 : c.indexOf('avena')>=0 ? 210 : c.indexOf('yogurt')>=0||c.indexOf('Yogurt')>=0 ? 150 : 180;
-      html += '<option value="'+kcal+'">'+c+' (~'+kcal+' kcal)</option>';
-    });
-    html += '</select>';
-  }
+  var colList = person === 'ale' ? COLAZIONE_ALE : COLAZIONE_MAR;
+  var savedCol = localStorage.getItem('colazione-'+person);
+  var savedKcal = savedCol ? parseInt(savedCol) : colList[0].kcal;
+  html += '<select class="colazione-select" data-action="colazione" data-person="'+person+'">';
+  colList.forEach(function(c){
+    var sel = (c.kcal === savedKcal) ? ' selected' : '';
+    html += '<option value="'+c.kcal+'"'+sel+'>'+c.label+' (~'+c.kcal+' kcal)</option>';
+  });
+  html += '</select>';
+  html += '<div class="extra-note">Seleziona la tua colazione di oggi.</div>';
   html += '</div>';
 
   // SPUNTINO META MATTINA
@@ -811,18 +824,10 @@ function buildTipHtml(tip){
 
 
 function getExtraKcal(person){
-  // Colazione
-  var colazioneKcal = 0;
-  if(person === 'ale'){
-    colazioneKcal = 5; // the + dolcificante
-  } else {
-    // Leggi selezione dal localStorage o usa default
-    var saved = localStorage.getItem('colazione-mar');
-    colazioneKcal = saved ? parseInt(saved) : 220; // default latte+biscotti
-  }
-  // Spuntini: 2 al giorno, media 80 kcal ciascuno (yogurt magro o frutta media)
+  var list = person === 'ale' ? COLAZIONE_ALE : COLAZIONE_MAR;
+  var saved = localStorage.getItem('colazione-'+person);
+  var colazioneKcal = saved ? parseInt(saved) : list[0].kcal;
   var spuntiniKcal = 160;
-  // Frutta dopo pranzo solo Marco: media mela 150g = ~78 kcal
   var fruttoDopoKcal = (person === 'mar') ? 78 : 0;
   return colazioneKcal + spuntiniKcal + fruttoDopoKcal;
 }
