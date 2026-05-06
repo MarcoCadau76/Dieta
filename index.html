@@ -727,9 +727,6 @@ function deleteActivity(person, idx){
 
 function renderSportToday(){
   const container = document.getElementById('sportTodayLog');
-  const protOpts = currentPerson==='ale' ? ALTERNATIVES.prot_ale : ALTERNATIVES.prot_mar;
-  const carboOptsP = ALTERNATIVES.carbo.map(c=>carboWithGrams(c, DATA[currentPerson].pranzo[idx][0]));
-  const carboOptsC = ALTERNATIVES.carbo.map(c=>carboWithGrams(c, DATA[currentPerson].cena[idx][0]));
   const acts = getTodayActivities(currentPerson);
   if(!acts.length){ container.innerHTML=''; return; }
   const totalKcal = acts.reduce((s,a)=>s+a.kcal,0);
