@@ -2,70 +2,151 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAFp0lEQVR4nO3dQW4bORBGYcrIaQaItz5FYN8hm8A6j41sfIcYc4rZjoG5TmYx006n3ZRIdpFF/nzfShEMSYuHSjUlSKfg6PPj/U/P50c9b8+vJ4/nbfakxIsWkVd9AiJGTK24qzwoISOVddimD0bIKGUVtsmDEDKsHA375ugLIGZYOtrToaCJGTUc6apovBMyWsldQbInNDGjpdzesoImZnjI6S45aGKGp9T+koImZvQgpcOrQRMzenKtx8Pn0EBPLgbNdEaPLnUZDZqY0bNYn7tBEzNGsNcpOzSkfAia6YyRbHtlQkPKb0EznTGidbdMaEh5D5rpjJEt/TKhIYWgIeUUAusGdDChIYWgIYWgIYWgIeWGC0IoYUJDCkFDCkFDCkFDCkFDCkFDCkFDCkFDCkFDCkFDCkFDCkFDyifvF4B8fz/9eL99e36I3pf7twpOfNpuLOsYL7k9P2T9rQpWDlHfzl+9X4ILgoYUduhOzDpRrRG0M0K2RdAOiLgegm6IkOsj6MqIuC2CroSQfRC0ISL2R9AGCLkfBF2IiPvEO4UFiLlfBJ2JmPtG0BmIuX/s0AkIeRxM6CuIeSwEfQExj4egI4h5TAS9g5jHRdAbxDw2gl4h5vERdPgvZM+Yvz+9/OX25GKmD9p7Ki8xE7WNqYP2jnnLMurvTy9WDzWUaYPuIeZtwN/OX++8XouKKYPuMWbYmDJob3sxM51tTBd0D9N5i5jtTBe0N/bmuqYK2ns6W+zNz//8+eHf2/uWbxPdfqvo7flh9z4lfB7aUel03gYcQjzMvfvVIl6bJujepnNpzI9/fHm/vYRdcuas+qXnU60cXjiia2eKoHv7nIblheCs7wjGyAftvWpsWca8Xj9ypP5UxYjkg/ZU44hu74LwCKX9OQTxoHtbNVCfdNA9sVw11lM6d31QPd1YyAbd03S2fjdweyGYGrXy7ryY5hy6ldqrxhLz9ncIl9vb+2O/V6g4nUMQ/eFNr+nscURXMnVVYw6BCV1Vi/PmvZ87jlEOeSG3Q/cynVu/eXIt1hliDkEwaA8192beCcxD0BVYTWdizicVtMe6UWvVIOYyUkG3VmvVIOZyBF2o1hEdMR9D0EaIuQ8EXaDG3kzMNgg6U429mZjtyATt9YbK0elMzLZkgm7BetUgZnsEnch61SDmOvhwUgLLIzpCrosJXYCY+yURdM0LQqu9mZjbkAi6Fqu9mZjbYYeOsNibCbk9JnQiYh4DQe84ujcTsx9Wjo0jezMh+xt+Qtd+yzt1OhNzH4YP2lLpqkHM/SDo/5WuGsTcF3boUHZER8h9YkLvIOZxTR907t5MzH2beuXI2ZsJeQzTT+i12HQm5nFMG3TqqkHMYxk+6JLgUlcNYh7PdDt0yhEdIY9r+Al9FDFrmSroa3szMY9vmpXj0t5MyDqmmtBry3QmZi1TBB1bNYhZj3zQsVWDmDVJBx2J+Y6YdUkHvcP0F13RH9mgd6YzMU9AMujaP0+MfkkEnbATM50nIRH0GqvG3KSCZtWATNCxI7rmLwSuZILeQcwTUgmavRkhBJ2gCRghBJ2gQ/gVNXFPTCnoECaP+fb8kHW/IrWgp7eNd6aYQwjh9Pnx/qf3iwCsMKEhhaAhhaAhhaAhhaAhhaAhhaAhhaAhhaAhhaAh5ebt+fXk/SIAK0xoSCFoSCFoSCFoSLkJIQQuDKHg7fn1xISGFIKGlPegWTswsqVfJjSk/BY0UxojWnfLhIaUD0EzpTGSba9MaEjZDZopjRHsdRqd0ESNnsX6vLhyEDV6dKlLdmhIuRo0Uxo9udZj0oQmavQgpcPklYOo4Sm1v6wdmqjhIae77ItCokZLub0dipNv/0ctpYPz0LEd0xo1HOnq8Dk0UcPS0Z5MY2QFQSmrwVhluhI2Uln/D191XSBsxNRaVZvtv8SNFtdb/wK+qTnyTqnmbgAAAABJRU5ErkJggg==">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Dieta">
 <title>Piano Alimentare</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg:#F7F4EF;--card:#FFFFFF;--text:#1C1C1C;--sub:#6B6B6B;
-    --ale:#2D6A4F;--ale-light:#D8F3DC;--mar:#1D3557;--mar-light:#D6E8FA;
-    --accent:#E76F51;--border:#E5E0D8;--carbo:#FFF3CD;--prot:#D1ECF1;--verd:#D4EDDA;
-    --radius:16px;--shadow:0 2px 16px rgba(0,0,0,0.07);
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:90px}
-  .header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:14px 20px 0}
-  .app-title{font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-0.5px;margin-bottom:12px}
-  .person-tabs{display:flex;gap:8px;margin-bottom:12px}
-  .person-tab{flex:1;padding:10px;border:2px solid var(--border);border-radius:12px;background:white;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;color:var(--sub)}
-  .person-tab.ale.active{border-color:var(--ale);background:var(--ale-light);color:var(--ale)}
-  .person-tab.mar.active{border-color:var(--mar);background:var(--mar-light);color:var(--mar)}
-  .week-nav{display:flex;gap:6px;padding:12px 20px;overflow-x:auto;scrollbar-width:none}
-  .week-nav::-webkit-scrollbar{display:none}
-  .week-btn{flex-shrink:0;padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);background:white;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;color:var(--sub)}
-  .week-btn.active.ale{background:var(--ale);border-color:var(--ale);color:white}
-  .week-btn.active.mar{background:var(--mar);border-color:var(--mar);color:white}
-  .content{padding:0 16px}
-  .spesa-bar{margin:8px 16px 0;padding:13px 18px;border-radius:var(--radius);background:var(--accent);color:white;font-weight:600;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 12px rgba(231,111,81,0.3)}
-  .spesa-panel{display:none;margin:8px 16px;background:white;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);animation:slideDown 0.25s ease}
-  .spesa-panel.open{display:block}
-  @keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-  .spesa-panel h3{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:16px}
-  .spesa-category{margin-bottom:14px}
-  .spesa-category h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--sub);margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--border)}
-  .spesa-item{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:14px;border-bottom:1px solid #F5F5F5;cursor:pointer}
-  .spesa-item:last-child{border-bottom:none}
-  .spesa-item .check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px}
-  .spesa-item.done .check{background:#2D6A4F;border-color:#2D6A4F;color:white}
-  .spesa-item.done .item-name{text-decoration:line-through;color:var(--sub)}
-  .day-card{background:white;border-radius:var(--radius);margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
-  .day-header{padding:14px 18px;font-weight:600;font-size:15px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
-  .day-header.ale{border-left:4px solid var(--ale)}
-  .day-header.mar{border-left:4px solid var(--mar)}
-  .day-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-  .day-dot.ale{background:var(--ale)}
-  .day-dot.mar{background:var(--mar)}
-  .day-chevron{margin-left:auto;color:var(--sub);transition:transform 0.2s;font-size:13px}
-  .day-card.open .day-chevron{transform:rotate(180deg)}
-  .day-body{display:none;padding:0 18px 16px}
-  .day-card.open .day-body{display:block}
-  .meal-section{margin-top:12px}
-  .meal-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--sub);margin-bottom:8px}
-  .meal-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px}
-  .tag{padding:5px 10px;border-radius:8px;font-size:12px;font-weight:500;line-height:1.3}
-  .tag.c{background:var(--carbo)}.tag.p{background:var(--prot)}.tag.v{background:var(--verd)}
-  .tag-label{font-size:10px;font-weight:700;margin-right:3px;opacity:0.6}
-  .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);display:flex;padding:10px 0 20px;z-index:100}
-  .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;color:var(--sub);cursor:pointer}
-  .nav-item.active{color:var(--accent)}
-  .nav-icon{font-size:22px}
-  .view{display:none}.view.active{display:block}
+:root{
+  --bg:#F7F4EF;--card:#fff;--text:#1C1C1C;--sub:#6B6B6B;
+  --ale:#2D6A4F;--ale-light:#D8F3DC;--mar:#1D3557;--mar-light:#D6E8FA;
+  --accent:#E76F51;--border:#E5E0D8;--carbo:#FFF3CD;--prot:#D1ECF1;--verd:#D4EDDA;
+  --radius:16px;--shadow:0 2px 16px rgba(0,0,0,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:90px}
+.header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:12px 16px 0}
+.app-title{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:10px}
+.person-tabs{display:flex;gap:8px;margin-bottom:10px}
+.person-tab{flex:1;padding:9px;border:2px solid var(--border);border-radius:12px;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:var(--sub);font-family:'DM Sans',sans-serif}
+.person-tab.ale.active{border-color:var(--ale);background:var(--ale-light);color:var(--ale)}
+.person-tab.mar.active{border-color:var(--mar);background:var(--mar-light);color:var(--mar)}
+.week-nav{display:flex;gap:6px;padding:10px 16px;overflow-x:auto;scrollbar-width:none}
+.week-nav::-webkit-scrollbar{display:none}
+.week-btn{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:500;cursor:pointer;color:var(--sub);font-family:'DM Sans',sans-serif}
+.week-btn.active.ale{background:var(--ale);border-color:var(--ale);color:#fff}
+.week-btn.active.mar{background:var(--mar);border-color:var(--mar);color:#fff}
+.content{padding:0 16px}
+/* OGGI */
+.wrap{padding:0 16px}
+.card{background:#fff;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:12px}
+.oggi-lbl{font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.oggi-day{font-family:'DM Serif Display',serif;font-size:26px;margin-bottom:16px}
+.meal-block{margin-bottom:14px}
+.meal-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--sub);margin-bottom:8px}
+.meal-items{display:flex;flex-direction:column;gap:5px}
+.meal-item{padding:9px 12px;border-radius:10px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px}
+.meal-item.c{background:var(--carbo)}.meal-item.p{background:var(--prot)}.meal-item.v{background:var(--verd)}
+.ilbl{font-size:10px;font-weight:700;opacity:.45;min-width:12px}
+.nutri-row{display:flex;gap:6px;margin-top:10px}
+.np{flex:1;background:#F8F8F8;border-radius:10px;padding:8px;text-align:center}
+.nv{font-size:15px;font-weight:700}.nl{font-size:10px;color:var(--sub)}
+.kcal-c{color:#E76F51}.prot-c{color:#2D6A4F}.carb-c{color:#1D3557}
+.divider{height:1px;background:var(--border);margin:14px 0}
+/* BILANCIO */
+.bilancio{border-radius:var(--radius);padding:16px;margin-top:4px}
+.bil-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:var(--sub)}
+.bil-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.2);font-size:13px}
+.bil-row:last-child{border-bottom:none;padding-top:10px;font-weight:700;font-size:15px}
+.bil-pos{color:#2D6A4F}.bil-neg{color:#E76F51}.bil-neu{color:#1D3557}
+.progress-bar{height:8px;border-radius:4px;background:#eee;margin-top:10px;overflow:hidden}
+.progress-fill{height:100%;border-radius:4px;transition:width .4s ease}
+.progress-lbl{font-size:11px;color:var(--sub);margin-top:4px;text-align:right}
+/* PROFILO */
+.profile-form{display:flex;flex-direction:column;gap:10px}
+.pf-row{display:flex;gap:8px}
+.pf-input{flex:1;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--text)}
+.pf-input:focus{outline:none;border-color:var(--accent)}
+.pf-select{flex:1;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--text)}
+.save-btn{padding:11px;border-radius:10px;background:var(--ale);color:#fff;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.save-btn:active{opacity:.85}
+.tdee-badge{background:var(--ale-light);color:var(--ale);border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;margin-top:4px;text-align:center}
+/* SPESA */
+.spesa-bar{margin:8px 16px 0;padding:13px 18px;border-radius:var(--radius);background:var(--accent);color:#fff;font-weight:600;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 12px rgba(231,111,81,.3)}
+.spesa-panel{display:none;margin:8px 16px;background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.spesa-panel.open{display:block;animation:sd .2s ease}
+@keyframes sd{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.spesa-panel h3{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:4px}
+.spesa-sub{font-size:12px;color:var(--sub);margin-bottom:16px}
+.spesa-cat{margin-bottom:14px}
+.spesa-cat h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--sub);margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+.spesa-item{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:14px;border-bottom:1px solid #F5F5F5;cursor:pointer}
+.spesa-item:last-child{border-bottom:none}
+.ck{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px}
+.spesa-item.done .ck{background:var(--ale);border-color:var(--ale);color:#fff}
+.spesa-item.done .iname{text-decoration:line-through;color:var(--sub)}
+.qty-badge{margin-left:auto;font-size:11px;color:var(--sub);background:#F0F0F0;padding:2px 7px;border-radius:10px;flex-shrink:0}
+/* PIANO */
+.day-card{background:#fff;border-radius:var(--radius);margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
+.day-hd{padding:14px 18px;font-weight:600;font-size:15px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.day-hd.ale{border-left:4px solid var(--ale)}.day-hd.mar{border-left:4px solid var(--mar)}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot.ale{background:var(--ale)}.dot.mar{background:var(--mar)}
+.chv{margin-left:auto;color:var(--sub);transition:transform .2s}
+.day-card.open .chv{transform:rotate(180deg)}
+.day-body{display:none;padding:0 18px 16px}
+.day-card.open .day-body{display:block}
+.msec{margin-top:12px}
+.mlbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--sub);margin-bottom:8px}
+.mrow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.tag{padding:5px 10px;border-radius:8px;font-size:12px;font-weight:500;line-height:1.3}
+.tag.c{background:var(--carbo)}.tag.p{background:var(--prot)}.tag.v{background:var(--verd)}
+.tlbl{font-size:10px;font-weight:700;margin-right:3px;opacity:.55}
+.nmini{display:flex;gap:6px;margin-top:6px}
+.nm{font-size:11px;padding:3px 8px;border-radius:8px;background:#F4F4F4;color:var(--sub)}
+.nm b{color:var(--text)}
+/* SPORT */
+.sport-form{display:flex;flex-direction:column;gap:10px}
+.srow{display:flex;gap:8px}
+.sselect,.sinput{flex:1;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--text)}
+.sselect:focus,.sinput:focus{outline:none;border-color:var(--accent)}
+.add-btn{padding:11px;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.sport-log h4,.month-hd{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--sub);margin:14px 0 10px}
+.sentry{display:flex;align-items:center;padding:9px 0;border-bottom:1px solid #F5F5F5;gap:10px}
+.sentry:last-child{border-bottom:none}
+.sico{font-size:20px;flex-shrink:0}
+.sinfo{flex:1}
+.sname{font-weight:600;font-size:14px}
+.sdetail{font-size:12px;color:var(--sub)}
+.skcal{font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap}
+.sdel{background:none;border:none;color:#ccc;font-size:16px;cursor:pointer;padding:4px}
+.stot{background:var(--ale-light);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.stot-lbl{font-size:12px;color:var(--ale)}
+.stot-val{font-size:15px;font-weight:700;color:var(--ale)}
+/* STORICO */
+.mentry{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid #F5F5F5;gap:10px}
+.mentry:last-child{border-bottom:none}
+.mdate{font-size:12px;font-weight:600;color:var(--sub);min-width:76px}
+.macts{flex:1;font-size:12px;color:var(--text);line-height:1.5}
+.mkcal{font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap}
+
+/* MODIFICA ALIMENTI */
+.tag-wrap{position:relative;display:inline-block}
+.edit-btn{background:none;border:none;cursor:pointer;font-size:13px;opacity:0.4;padding:2px 4px;vertical-align:middle;line-height:1}
+.edit-btn:hover{opacity:0.8}
+.edit-panel{display:none;position:absolute;left:0;top:110%;z-index:200;background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:10px;box-shadow:0 8px 24px rgba(0,0,0,.12);min-width:200px}
+.edit-panel.open{display:block;animation:sd .15s ease}
+.edit-panel select{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;margin-bottom:8px}
+.edit-panel select:focus{outline:none;border-color:var(--accent)}
+.edit-actions{display:flex;gap:6px}
+.edit-ok{flex:1;padding:7px;border-radius:8px;background:var(--ale);color:#fff;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.edit-cancel{flex:1;padding:7px;border-radius:8px;background:#F0F0F0;color:var(--sub);font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.edit-reset{width:100%;padding:6px;border-radius:8px;background:#FFF0ED;color:var(--accent);font-size:11px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:4px}
+.modified{border:1.5px solid var(--accent)!important;position:relative}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);display:flex;padding:10px 0 20px;z-index:100}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:var(--sub);cursor:pointer}
+.nav-item.active{color:var(--accent)}
+.nav-icon{font-size:20px}
+.view{display:none}.view.active{display:block}
+.section-title{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:14px}
 </style>
 </head>
 <body>
+
 <div class="header">
   <div class="app-title">🥗 Piano Alimentare</div>
   <div class="person-tabs">
@@ -73,147 +154,679 @@
     <button class="person-tab mar" onclick="setPerson('mar')">Marco</button>
   </div>
 </div>
-<div id="view-piano" class="view active">
+
+<!-- OGGI -->
+<div id="view-oggi" class="view active">
+  <div class="wrap" id="oggiContent"></div>
+</div>
+
+<!-- PIANO -->
+<div id="view-piano" class="view">
   <div class="week-nav" id="weekNav"></div>
-  <div class="spesa-bar" onclick="toggleSpesa()">🛒 Lista della spesa – Settimana <span id="spesaWeekLabel">1</span><span id="spesaArrow" style="margin-left:8px">▼</span></div>
+  <div class="spesa-bar" onclick="toggleSpesa()">
+    🛒 Lista spesa unica – Sett. <span id="spesaWL">1</span>
+    <span id="spesaArrow">▼</span>
+  </div>
   <div class="spesa-panel" id="spesaPanel"></div>
   <div class="content" id="dayList"></div>
 </div>
-<div class="bottom-nav">
-  <div class="nav-item active" onclick="setView('piano',this)"><div class="nav-icon">📅</div><div>Piano</div></div>
-  <div class="nav-item" onclick="setView('info',this)"><div class="nav-icon">ℹ️</div><div>Info</div></div>
-</div>
-<div id="view-info" class="view" style="padding:20px">
-  <h2 style="font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:16px">Note dieta</h2>
-  <div style="background:white;border-radius:16px;padding:20px;box-shadow:var(--shadow);font-size:14px;line-height:1.7;color:#444">
-    <p><strong>Olio EVO</strong>: aggiungere sempre 10g a pranzo e a cena.</p><br>
-    <p><strong>Legenda:</strong> <span class="tag c" style="display:inline-block"><span class="tag-label">C</span>Carboidrato</span> <span class="tag p" style="display:inline-block"><span class="tag-label">P</span>Proteina</span> <span class="tag v" style="display:inline-block"><span class="tag-label">V</span>Verdura</span></p><br>
-    <p><strong>Regole pranzo:</strong></p>
-    <ul style="margin-left:16px;margin-top:6px">
-      <li>Tonno in scatola: max 1 volta a settimana</li>
-      <li>Insaccati: max 1 volta a settimana</li>
-      <li>Legumi: 3–4 volte a settimana</li>
-    </ul><br>
-    <p><strong>Regole cena:</strong></p>
-    <ul style="margin-left:16px;margin-top:6px">
-      <li>Pesce fresco: 2–3 sere</li>
-      <li>Pollo: 2 sere</li>
-      <li>Carne rossa: max 1 sera</li>
-      <li>Uova: 1 sera</li>
-    </ul>
+
+<!-- SPORT -->
+<div id="view-sport" class="view">
+  <div class="wrap">
+    <div class="card">
+      <div class="section-title">💪 Attività fisica</div>
+      <div class="sport-form">
+        <div class="srow">
+          <select class="sselect" id="sportPerson">
+            <option value="ale">Alessandra</option>
+            <option value="mar">Marco</option>
+          </select>
+          <select class="sselect" id="sportType">
+            <option value="corsa">🏃 Corsa</option>
+            <option value="camminata">🚶 Camminata</option>
+            <option value="palestra">🏋️ Palestra</option>
+            <option value="cyclette">🚴 Cyclette</option>
+            <option value="nuoto">🏊 Nuoto</option>
+            <option value="altro">⚡ Altro</option>
+          </select>
+        </div>
+        <div class="srow">
+          <input class="sinput" id="sportMin" type="number" placeholder="Durata (min)" min="1" max="600">
+          <input class="sinput" id="sportKcal" type="number" placeholder="Kcal manuali (opz.)">
+        </div>
+        <input class="sinput" id="sportNote" type="text" placeholder="Note (es. 5km, circuito gambe...)">
+        <button class="add-btn" onclick="addActivity()">+ Aggiungi attività</button>
+      </div>
+      <div class="sport-log" id="sportTodayLog"></div>
+    </div>
+    <div class="card" id="monthLogCard">
+      <div class="section-title">📅 Storico ultimo mese</div>
+      <div id="monthLog"></div>
+    </div>
   </div>
 </div>
+
+<!-- PROFILO -->
+<div id="view-profilo" class="view">
+  <div class="wrap">
+    <div class="card">
+      <div class="section-title">👤 Profilo Alessandra</div>
+      <div class="profile-form" id="profileFormAle">
+        <div class="pf-row">
+          <input class="pf-input" id="ale-eta" type="number" placeholder="Età" min="10" max="100">
+          <select class="pf-select" id="ale-sesso">
+            <option value="f">Donna</option>
+            <option value="m">Uomo</option>
+          </select>
+        </div>
+        <div class="pf-row">
+          <input class="pf-input" id="ale-peso" type="number" placeholder="Peso (kg)" min="30" max="200">
+          <input class="pf-input" id="ale-altezza" type="number" placeholder="Altezza (cm)" min="100" max="220">
+        </div>
+        <button class="save-btn" onclick="saveProfile('ale')">Salva</button>
+        <div class="tdee-badge" id="ale-tdee-badge" style="display:none"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="section-title">👤 Profilo Marco</div>
+      <div class="profile-form" id="profileFormMar">
+        <div class="pf-row">
+          <input class="pf-input" id="mar-eta" type="number" placeholder="Età" min="10" max="100">
+          <select class="pf-select" id="mar-sesso">
+            <option value="m">Uomo</option>
+            <option value="f">Donna</option>
+          </select>
+        </div>
+        <div class="pf-row">
+          <input class="pf-input" id="mar-peso" type="number" placeholder="Peso (kg)" min="30" max="200">
+          <input class="pf-input" id="mar-altezza" type="number" placeholder="Altezza (cm)" min="100" max="220">
+        </div>
+        <button class="save-btn" onclick="saveProfile('mar')">Salva</button>
+        <div class="tdee-badge" id="mar-tdee-badge" style="display:none"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="font-size:12px;color:var(--sub);line-height:1.7">
+        <b>Come calcoliamo il fabbisogno:</b><br>
+        Formula di Mifflin-St Jeor + moltiplicatore attività (1.55 per moderatamente attivo).<br>
+        Le calorie bruciate con l'attività registrata vengono aggiunte al fabbisogno base del giorno.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <div class="nav-item active" id="nav-oggi" onclick="setView('oggi',this)">
+    <div class="nav-icon">☀️</div><div>Oggi</div>
+  </div>
+  <div class="nav-item" id="nav-piano" onclick="setView('piano',this)">
+    <div class="nav-icon">📅</div><div>Piano</div>
+  </div>
+  <div class="nav-item" id="nav-sport" onclick="setView('sport',this)">
+    <div class="nav-icon">💪</div><div>Attività</div>
+  </div>
+  <div class="nav-item" id="nav-profilo" onclick="setView('profilo',this)">
+    <div class="nav-icon">👤</div><div>Profilo</div>
+  </div>
+</div>
+
 <script>
 const DAYS = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"];
 const DATA = {
-  ale: { pranzo: [["Ceci in scatola 160g", "Tonno al naturale 100g", "Pomodori 200g"], ["Pasta di semola 50g", "Uova di gallina 70g", "Cetrioli 250g"], ["Lenticchie secche 60g", "Sgombro al naturale 70g", "Carote 100g"], ["Orzo 50g", "Fiocchi di latte 100g", "Rucola 100g"], ["Fagioli in scatola 160g", "Ricotta magra 100g", "Insalata mista 250g"], ["Piselli freschi/surgel. 220g", "Prosciutto crudo 70g", "Pomodori 200g"], ["Pane comune 60g", "Mozzarella di vacca 50g", "Insalata mista 250g"], ["Pasta di semola 50g", "Tonno al naturale 100g", "Pomodori 200g"], ["Lenticchie in scatola 160g", "Fiocchi di latte 100g", "Radicchio rosso 250g"], ["Orzo 50g", "Sgombro al naturale 70g", "Cetrioli 250g"], ["Ceci secchi 80g", "Uova di gallina 70g", "Peperoni 150g"], ["Pane carasau 50g", "Bresaola 70g", "Rucola 100g"], ["Fagioli in scatola 160g", "Ricotta magra 100g", "Pomodori 200g"], ["Piselli freschi/surgel. 220g", "Mozzarella di vacca 50g", "Asparagi 150g"], ["Lenticchie secche 60g", "Tonno al naturale 100g", "Broccoli 150g"], ["Pasta all'uovo 50g", "Sgombro al naturale 70g", "Fagiolini 200g"], ["Ceci in scatola 160g", "Fiocchi di latte 100g", "Cetrioli 250g"], ["Farro 50g", "Prosciutto cotto 60g", "Carote 100g"], ["Fagioli secchi 60g", "Ricotta magra 100g", "Zucchine 300g"], ["Orzo 50g", "Uova di gallina 70g", "Peperoni 150g"], ["Piselli freschi/surgel. 220g", "Mozzarella di vacca 50g", "Insalata mista 250g"], ["Ceci secchi 80g", "Tonno al naturale 100g", "Pomodori 200g"], ["Pasta di semola 50g", "Sgombro al naturale 70g", "Cetrioli 250g"], ["Lenticchie in scatola 160g", "Fiocchi di latte 100g", "Finocchi 400g"], ["Orzo 50g", "Bresaola 70g", "Radicchio rosso 250g"], ["Fagioli in scatola 160g", "Ricotta magra 100g", "Zucchine 300g"], ["Piselli freschi/surgel. 220g", "Uova di gallina 70g", "Insalata mista 250g"], ["Pane comune 60g", "Mozzarella di vacca 50g", "Pomodori 200g"]], cena: [["Pasta di semola 40g", "Orata 110g", "Zucchine 300g"], ["Orzo 40g", "Pollo petto 110g", "Broccoli 150g"], ["Riso parboiled 40g", "Merluzzo 150g", "Fagiolini 200g"], ["Pane comune 50g", "Uova di gallina 70g", "Insalata mista 250g"], ["Farro 40g", "Pollo coscia 80g", "Peperoni 150g"], ["Lenticchie secche 50g", "Spigola 130g", "Pomodori 200g"], ["Patate 160g", "Manzo magro 90g", "Radicchio rosso 250g"], ["Pasta di semola 40g", "Merluzzo 150g", "Zucchine 300g"], ["Orzo 40g", "Pollo petto 110g", "Fagiolini 200g"], ["Piselli surgel. 200g", "Spigola 130g", "Pomodori 200g"], ["Riso parboiled 40g", "Pollo coscia 80g", "Broccoli 150g"], ["Pane comune 50g", "Tacchino petto 100g", "Asparagi 150g"], ["Fagioli secchi 50g", "Orata 110g", "Insalata mista 250g"], ["Patate 160g", "Vitellone magro 100g", "Peperoni 150g"], ["Pasta all'uovo 40g", "Spigola 130g", "Pomodori 200g"], ["Orzo 40g", "Pollo petto 110g", "Broccoli 150g"], ["Riso parboiled 40g", "Merluzzo 150g", "Cetrioli 250g"], ["Pane comune 50g", "Uova di gallina 70g", "Insalata mista 250g"], ["Lenticchie secche 50g", "Pollo coscia 80g", "Fagiolini 200g"], ["Farro 40g", "Orata 110g", "Zucchine 300g"], ["Patate 160g", "Maiale magro 100g", "Radicchio rosso 250g"], ["Pasta di semola 40g", "Merluzzo 150g", "Zucchine 300g"], ["Orzo 40g", "Pollo petto 110g", "Peperoni 150g"], ["Piselli surgel. 200g", "Spigola 130g", "Pomodori 200g"], ["Riso parboiled 40g", "Pollo coscia 80g", "Broccoli 150g"], ["Fagioli in scatola 140g", "Orata 110g", "Insalata mista 250g"], ["Pane comune 50g", "Uova di gallina 70g", "Cetrioli 250g"], ["Patate 160g", "Vitellone magro 100g", "Fagiolini 200g"]] },
-  mar: { pranzo: [["Ceci in scatola 200g", "Tonno al naturale 140g", "Pomodori 200g"], ["Pasta di semola 70g", "Uova di gallina (due)", "Cetrioli 250g"], ["Lenticchie secche 80g", "Sgombro al naturale 80g", "Carote 100g"], ["Orzo 70g", "Fiocchi di latte 100g", "Rucola 100g"], ["Fagioli in scatola 200g", "Ricotta magra 120g", "Insalata mista 250g"], ["Piselli freschi/surgel. 260g", "Prosciutto crudo 90g", "Pomodori 200g"], ["Pane comune 85g", "Mozzarella di vacca 50g", "Insalata mista 250g"], ["Pasta di semola 70g", "Tonno al naturale 140g", "Pomodori 200g"], ["Lenticchie in scatola 200g", "Fiocchi di latte 100g", "Radicchio rosso 250g"], ["Orzo 70g", "Sgombro al naturale 80g", "Cetrioli 250g"], ["Ceci secchi 70g", "Uova di gallina (due)", "Peperoni 150g"], ["Pane carasau 70g", "Bresaola 90g", "Rucola 100g"], ["Fagioli in scatola 200g", "Ricotta magra 120g", "Pomodori 200g"], ["Piselli freschi/surgel. 260g", "Mozzarella di vacca 50g", "Asparagi 150g"], ["Lenticchie secche 80g", "Tonno al naturale 140g", "Broccoli 150g"], ["Pasta all'uovo 70g", "Sgombro al naturale 80g", "Fagiolini 200g"], ["Ceci in scatola 200g", "Fiocchi di latte 100g", "Cetrioli 250g"], ["Farro 70g", "Prosciutto cotto 80g", "Carote 100g"], ["Fagioli secchi 80g", "Ricotta magra 120g", "Zucchine 300g"], ["Orzo 70g", "Uova di gallina (due)", "Peperoni 150g"], ["Piselli freschi/surgel. 260g", "Caprino fresco 85g", "Insalata mista 250g"], ["Ceci secchi 70g", "Tonno al naturale 140g", "Pomodori 200g"], ["Pasta di semola 70g", "Sgombro al naturale 80g", "Cetrioli 250g"], ["Lenticchie in scatola 200g", "Fiocchi di latte 100g", "Finocchi 400g"], ["Orzo 70g", "Bresaola 90g", "Radicchio rosso 250g"], ["Fagioli in scatola 200g", "Ricotta magra 120g", "Zucchine 300g"], ["Piselli freschi/surgel. 260g", "Uova di gallina (due)", "Insalata mista 250g"], ["Pane comune 85g", "Mozzarella di vacca 50g", "Pomodori 200g"]], cena: [["Pasta di semola 60g", "Orata 140g", "Zucchine 300g"], ["Orzo 60g", "Pollo petto 140g", "Broccoli 150g"], ["Riso parboiled 60g", "Merluzzo 200g", "Fagiolini 200g"], ["Pane comune 75g", "Uova di gallina (due)", "Insalata mista 250g"], ["Farro 60g", "Pollo coscia 100g", "Peperoni 150g"], ["Lenticchie secche 70g", "Spigola 170g", "Pomodori 200g"], ["Patate 250g", "Manzo magro 110g", "Radicchio rosso 250g"], ["Pasta di semola 60g", "Merluzzo 200g", "Zucchine 300g"], ["Orzo 60g", "Pollo petto 140g", "Fagiolini 200g"], ["Piselli surgel. 250g", "Spigola 170g", "Pomodori 200g"], ["Riso parboiled 60g", "Pollo coscia 100g", "Broccoli 150g"], ["Pane comune 75g", "Tacchino petto 130g", "Asparagi 150g"], ["Fagioli secchi 70g", "Orata 140g", "Insalata mista 250g"], ["Patate 250g", "Vitellone magro 120g", "Peperoni 150g"], ["Pasta all'uovo 60g", "Spigola 170g", "Pomodori 200g"], ["Orzo 60g", "Pollo petto 140g", "Broccoli 150g"], ["Riso parboiled 60g", "Merluzzo 200g", "Cetrioli 250g"], ["Pane comune 75g", "Uova di gallina (due)", "Insalata mista 250g"], ["Lenticchie secche 70g", "Pollo coscia 100g", "Fagiolini 200g"], ["Farro 60g", "Orata 140g", "Zucchine 300g"], ["Patate 250g", "Maiale magro 130g", "Radicchio rosso 250g"], ["Pasta di semola 60g", "Merluzzo 200g", "Zucchine 300g"], ["Orzo 60g", "Pollo petto 140g", "Peperoni 150g"], ["Piselli surgel. 250g", "Spigola 170g", "Pomodori 200g"], ["Riso parboiled 60g", "Pollo coscia 100g", "Broccoli 150g"], ["Fagioli in scatola 180g", "Orata 140g", "Insalata mista 250g"], ["Pane comune 75g", "Uova di gallina (due)", "Cetrioli 250g"], ["Patate 250g", "Vitellone magro 120g", "Fagiolini 200g"]] }
+  ale:{ pranzo: [["Ceci in scatola 160g", "Tonno al naturale 100g", "Pomodori 200g"], ["Pasta di semola 50g", "Uova di gallina 70g", "Cetrioli 250g"], ["Lenticchie secche 60g", "Sgombro al naturale 70g", "Carote 100g"], ["Orzo 50g", "Fiocchi di latte 100g", "Rucola 100g"], ["Fagioli in scatola 160g", "Ricotta magra 100g", "Insalata mista 250g"], ["Piselli freschi/surgel. 220g", "Prosciutto crudo 70g", "Pomodori 200g"], ["Pane comune 60g", "Mozzarella di vacca 50g", "Insalata mista 250g"], ["Pasta di semola 50g", "Tonno al naturale 100g", "Pomodori 200g"], ["Lenticchie in scatola 160g", "Fiocchi di latte 100g", "Radicchio rosso 250g"], ["Orzo 50g", "Sgombro al naturale 70g", "Cetrioli 250g"], ["Ceci secchi 80g", "Uova di gallina 70g", "Peperoni 150g"], ["Pane carasau 50g", "Bresaola 70g", "Rucola 100g"], ["Fagioli in scatola 160g", "Ricotta magra 100g", "Pomodori 200g"], ["Piselli freschi/surgel. 220g", "Mozzarella di vacca 50g", "Asparagi 150g"], ["Lenticchie secche 60g", "Tonno al naturale 100g", "Broccoli 150g"], ["Pasta all'uovo 50g", "Sgombro al naturale 70g", "Fagiolini 200g"], ["Ceci in scatola 160g", "Fiocchi di latte 100g", "Cetrioli 250g"], ["Farro 50g", "Prosciutto cotto 60g", "Carote 100g"], ["Fagioli secchi 60g", "Ricotta magra 100g", "Zucchine 300g"], ["Orzo 50g", "Uova di gallina 70g", "Peperoni 150g"], ["Piselli freschi/surgel. 220g", "Mozzarella di vacca 50g", "Insalata mista 250g"], ["Ceci secchi 80g", "Tonno al naturale 100g", "Pomodori 200g"], ["Pasta di semola 50g", "Sgombro al naturale 70g", "Cetrioli 250g"], ["Lenticchie in scatola 160g", "Fiocchi di latte 100g", "Finocchi 400g"], ["Orzo 50g", "Bresaola 70g", "Radicchio rosso 250g"], ["Fagioli in scatola 160g", "Ricotta magra 100g", "Zucchine 300g"], ["Piselli freschi/surgel. 220g", "Uova di gallina 70g", "Insalata mista 250g"], ["Pane comune 60g", "Mozzarella di vacca 50g", "Pomodori 200g"]], cena: [["Pasta di semola 40g", "Orata 110g", "Zucchine 300g"], ["Orzo 40g", "Pollo petto 110g", "Broccoli 150g"], ["Riso parboiled 40g", "Merluzzo 150g", "Fagiolini 200g"], ["Pane comune 50g", "Uova di gallina 70g", "Insalata mista 250g"], ["Farro 40g", "Pollo coscia 80g", "Peperoni 150g"], ["Lenticchie secche 50g", "Spigola 130g", "Pomodori 200g"], ["Patate 160g", "Manzo magro 90g", "Radicchio rosso 250g"], ["Pasta di semola 40g", "Merluzzo 150g", "Zucchine 300g"], ["Orzo 40g", "Pollo petto 110g", "Fagiolini 200g"], ["Piselli surgel. 200g", "Spigola 130g", "Pomodori 200g"], ["Riso parboiled 40g", "Pollo coscia 80g", "Broccoli 150g"], ["Pane comune 50g", "Tacchino petto 100g", "Asparagi 150g"], ["Fagioli secchi 50g", "Orata 110g", "Insalata mista 250g"], ["Patate 160g", "Vitellone magro 100g", "Peperoni 150g"], ["Pasta all'uovo 40g", "Spigola 130g", "Pomodori 200g"], ["Orzo 40g", "Pollo petto 110g", "Broccoli 150g"], ["Riso parboiled 40g", "Merluzzo 150g", "Cetrioli 250g"], ["Pane comune 50g", "Uova di gallina 70g", "Insalata mista 250g"], ["Lenticchie secche 50g", "Pollo coscia 80g", "Fagiolini 200g"], ["Farro 40g", "Orata 110g", "Zucchine 300g"], ["Patate 160g", "Maiale magro 100g", "Radicchio rosso 250g"], ["Pasta di semola 40g", "Merluzzo 150g", "Zucchine 300g"], ["Orzo 40g", "Pollo petto 110g", "Peperoni 150g"], ["Piselli surgel. 200g", "Spigola 130g", "Pomodori 200g"], ["Riso parboiled 40g", "Pollo coscia 80g", "Broccoli 150g"], ["Fagioli in scatola 140g", "Orata 110g", "Insalata mista 250g"], ["Pane comune 50g", "Uova di gallina 70g", "Cetrioli 250g"], ["Patate 160g", "Vitellone magro 100g", "Fagiolini 200g"]] },
+  mar:{ pranzo: [["Ceci in scatola 200g", "Tonno al naturale 140g", "Pomodori 200g"], ["Pasta di semola 70g", "Uova di gallina (due)", "Cetrioli 250g"], ["Lenticchie secche 80g", "Sgombro al naturale 80g", "Carote 100g"], ["Orzo 70g", "Fiocchi di latte 100g", "Rucola 100g"], ["Fagioli in scatola 200g", "Ricotta magra 120g", "Insalata mista 250g"], ["Piselli freschi/surgel. 260g", "Prosciutto crudo 90g", "Pomodori 200g"], ["Pane comune 85g", "Mozzarella di vacca 50g", "Insalata mista 250g"], ["Pasta di semola 70g", "Tonno al naturale 140g", "Pomodori 200g"], ["Lenticchie in scatola 200g", "Fiocchi di latte 100g", "Radicchio rosso 250g"], ["Orzo 70g", "Sgombro al naturale 80g", "Cetrioli 250g"], ["Ceci secchi 70g", "Uova di gallina (due)", "Peperoni 150g"], ["Pane carasau 70g", "Bresaola 90g", "Rucola 100g"], ["Fagioli in scatola 200g", "Ricotta magra 120g", "Pomodori 200g"], ["Piselli freschi/surgel. 260g", "Mozzarella di vacca 50g", "Asparagi 150g"], ["Lenticchie secche 80g", "Tonno al naturale 140g", "Broccoli 150g"], ["Pasta all'uovo 70g", "Sgombro al naturale 80g", "Fagiolini 200g"], ["Ceci in scatola 200g", "Fiocchi di latte 100g", "Cetrioli 250g"], ["Farro 70g", "Prosciutto cotto 80g", "Carote 100g"], ["Fagioli secchi 80g", "Ricotta magra 120g", "Zucchine 300g"], ["Orzo 70g", "Uova di gallina (due)", "Peperoni 150g"], ["Piselli freschi/surgel. 260g", "Caprino fresco 85g", "Insalata mista 250g"], ["Ceci secchi 70g", "Tonno al naturale 140g", "Pomodori 200g"], ["Pasta di semola 70g", "Sgombro al naturale 80g", "Cetrioli 250g"], ["Lenticchie in scatola 200g", "Fiocchi di latte 100g", "Finocchi 400g"], ["Orzo 70g", "Bresaola 90g", "Radicchio rosso 250g"], ["Fagioli in scatola 200g", "Ricotta magra 120g", "Zucchine 300g"], ["Piselli freschi/surgel. 260g", "Uova di gallina (due)", "Insalata mista 250g"], ["Pane comune 85g", "Mozzarella di vacca 50g", "Pomodori 200g"]], cena: [["Pasta di semola 60g", "Orata 140g", "Zucchine 300g"], ["Orzo 60g", "Pollo petto 140g", "Broccoli 150g"], ["Riso parboiled 60g", "Merluzzo 200g", "Fagiolini 200g"], ["Pane comune 75g", "Uova di gallina (due)", "Insalata mista 250g"], ["Farro 60g", "Pollo coscia 100g", "Peperoni 150g"], ["Lenticchie secche 70g", "Spigola 170g", "Pomodori 200g"], ["Patate 250g", "Manzo magro 110g", "Radicchio rosso 250g"], ["Pasta di semola 60g", "Merluzzo 200g", "Zucchine 300g"], ["Orzo 60g", "Pollo petto 140g", "Fagiolini 200g"], ["Piselli surgel. 250g", "Spigola 170g", "Pomodori 200g"], ["Riso parboiled 60g", "Pollo coscia 100g", "Broccoli 150g"], ["Pane comune 75g", "Tacchino petto 130g", "Asparagi 150g"], ["Fagioli secchi 70g", "Orata 140g", "Insalata mista 250g"], ["Patate 250g", "Vitellone magro 120g", "Peperoni 150g"], ["Pasta all'uovo 60g", "Spigola 170g", "Pomodori 200g"], ["Orzo 60g", "Pollo petto 140g", "Broccoli 150g"], ["Riso parboiled 60g", "Merluzzo 200g", "Cetrioli 250g"], ["Pane comune 75g", "Uova di gallina (due)", "Insalata mista 250g"], ["Lenticchie secche 70g", "Pollo coscia 100g", "Fagiolini 200g"], ["Farro 60g", "Orata 140g", "Zucchine 300g"], ["Patate 250g", "Maiale magro 130g", "Radicchio rosso 250g"], ["Pasta di semola 60g", "Merluzzo 200g", "Zucchine 300g"], ["Orzo 60g", "Pollo petto 140g", "Peperoni 150g"], ["Piselli surgel. 250g", "Spigola 170g", "Pomodori 200g"], ["Riso parboiled 60g", "Pollo coscia 100g", "Broccoli 150g"], ["Fagioli in scatola 180g", "Orata 140g", "Insalata mista 250g"], ["Pane comune 75g", "Uova di gallina (due)", "Cetrioli 250g"], ["Patate 250g", "Vitellone magro 120g", "Fagiolini 200g"]] }
 };
+const NUTRI_DATA = {"ale": {"pranzo": [[428, 39, 35], [400, 17, 41], [426, 31, 42], [390, 19, 44], [412, 23, 33], [477, 33, 37], [412, 17, 37], [411, 34, 42], [400, 27, 41], [394, 23, 42], [516, 25, 57], [410, 28, 42], [410, 23, 34], [421, 23, 38], [450, 45, 42], [423, 26, 45], [420, 26, 38], [385, 19, 44], [485, 27, 46], [404, 15, 46], [428, 22, 37], [524, 43, 54], [394, 24, 41], [434, 29, 47], [420, 28, 46], [425, 24, 37], [402, 22, 36], [410, 16, 38]], "cena": [[391, 29, 38], [392, 34, 37], [408, 34, 40], [358, 15, 31], [386, 21, 37], [427, 37, 34], [389, 26, 37], [401, 35, 38], [413, 33, 39], [412, 35, 34], [386, 22, 38], [352, 30, 32], [408, 34, 32], [384, 26, 36], [396, 31, 34], [392, 34, 37], [384, 32, 35], [358, 15, 31], [447, 30, 38], [387, 29, 37], [408, 26, 37], [401, 35, 38], [392, 31, 38], [412, 35, 34], [386, 22, 38], [364, 32, 26], [358, 15, 31], [405, 28, 37]]}, "mar": {"pranzo": [[520, 52, 42], [512, 23, 55], [509, 38, 54], [460, 21, 58], [476, 28, 40], [559, 40, 42], [478, 19, 50], [525, 47, 56], [440, 30, 48], [476, 27, 56], [522, 27, 51], [516, 37, 58], [474, 27, 41], [453, 25, 43], [564, 60, 53], [508, 31, 59], [468, 28, 45], [483, 25, 58], [581, 34, 58], [516, 20, 60], [506, 27, 43], [532, 52, 48], [476, 28, 55], [474, 32, 54], [520, 36, 61], [489, 28, 44], [476, 28, 41], [476, 19, 51]], "cena": [[491, 37, 52], [494, 43, 51], [516, 44, 56], [466, 21, 44], [484, 27, 51], [536, 49, 46], [486, 32, 52], [511, 46, 52], [516, 42, 54], [491, 45, 41], [484, 27, 53], [449, 38, 45], [506, 44, 44], [479, 32, 52], [507, 40, 48], [494, 43, 51], [492, 43, 51], [466, 21, 44], [547, 39, 50], [485, 37, 51], [521, 34, 52], [511, 46, 52], [494, 40, 53], [491, 45, 41], [484, 27, 53], [430, 40, 32], [466, 21, 44], [500, 34, 52]]}};
 
-function categorize(item) {
-  const i = item.toLowerCase();
-  if (/pasta|riso|orzo|farro|pane|ceci|fagioli|lenticchie|piselli|patate|gnocchi/.test(i)) return "🌾 Carboidrati & Legumi";
-  if (/tonno|sgombro|orata|merluzzo|spigola|salmone|gamberi|cozze|platessa|nasello/.test(i)) return "🐟 Pesce";
-  if (/pollo|tacchino|manzo|vitellone|maiale|hamburger/.test(i)) return "🥩 Carne";
-  if (/prosciutto|bresaola/.test(i)) return "🥓 Affettati";
-  if (/uova/.test(i)) return "🥚 Uova";
-  if (/mozzarella|fiocchi|caprino|ricotta|formaggio/.test(i)) return "🧀 Formaggi";
-  if (/pomodori|cetrioli|zucchine|carote|rucola|insalata|radicchio|broccoli|peperoni|fagiolini|asparagi|finocchi|scarola/.test(i)) return "🥬 Verdure";
-  return "🛒 Altro";
+// Calorie bruciate per minuto per kg di peso corporeo (MET approssimativo)
+const MET = { corsa:10, camminata:3.5, palestra:6, cyclette:8, nuoto:9, altro:5 };
+const SPORT_ICON = { corsa:'🏃', camminata:'🚶', palestra:'🏋️', cyclette:'🚴', nuoto:'🏊', altro:'⚡' };
+const ACTIVITY_FACTOR = 1.55; // moderatamente attivo
+
+let currentPerson = 'ale';
+let currentWeek = getAutoWeek();
+let spesaOpen = false;
+
+// ── STORAGE HELPERS ───────────────────────────────────────────────────────
+function load(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }
+function save(k,v){ localStorage.setItem(k, JSON.stringify(v)); }
+
+function todayKey(){ return new Date().toISOString().slice(0,10); }
+
+function getAutoWeek(){
+  // Ruota su 4 settimane basandosi sulla settimana ISO dell'anno
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 1);
+  const weekNum = Math.floor((now - start) / (7 * 86400000));
+  return weekNum % 4;
 }
-function extractName(s) { return s.replace(/\s*\d+g?\s*$/, '').replace(/\s*\(.*?\)/, '').trim(); }
 
-let currentPerson='ale', currentWeek=0, spesaOpen=false, checkedItems={};
-
-function setPerson(p) {
-  currentPerson=p;
+// ── PERSONA / SETTIMANA ───────────────────────────────────────────────────
+function setPerson(p){
+  currentPerson = p;
   document.querySelectorAll('.person-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelector(`.person-tab.${p}`).classList.add('active');
-  spesaOpen=false; document.getElementById('spesaPanel').classList.remove('open');
-  document.getElementById('spesaArrow').textContent='▼';
+  document.querySelector('.person-tab.'+p).classList.add('active');
+  // sync sport person select
+  document.getElementById('sportPerson').value = p;
+  renderAll();
+}
+
+function setWeek(w){
+  currentWeek = w;
+  document.getElementById('spesaWL').textContent = w+1;
+  spesaOpen = false;
+  document.getElementById('spesaPanel').classList.remove('open');
+  document.getElementById('spesaArrow').textContent = '▼';
   renderWeekNav(); renderDays();
 }
-function setWeek(w) {
-  currentWeek=w; document.getElementById('spesaWeekLabel').textContent=w+1;
-  spesaOpen=false; document.getElementById('spesaPanel').classList.remove('open');
-  document.getElementById('spesaArrow').textContent='▼';
-  renderWeekNav(); renderDays();
+
+function renderAll(){ renderOggi(); renderWeekNav(); renderDays(); renderSportToday(); renderMonthLog(); }
+
+// ── OGGI ─────────────────────────────────────────────────────────────────
+function renderOggi(){
+  const now = new Date();
+  const di = now.getDay() === 0 ? 6 : now.getDay()-1; // 0=lun
+  const week = getAutoWeek();
+  const idx = week*7 + di;
+  const d = DATA[currentPerson];
+  const [pc,pp,pv] = d.pranzo[idx];
+  const [cc,cp,cv] = d.cena[idx];
+  const np = NUTRI_DATA[currentPerson].pranzo[idx];
+  const nc = NUTRI_DATA[currentPerson].cena[idx];
+  const totalKcal = np[0] + nc[0];
+  const totalProt = np[1] + nc[1];
+  const totalCarb = np[2] + nc[2];
+
+  // Attività di oggi
+  const acts = getTodayActivities(currentPerson);
+  const burnedKcal = acts.reduce((s,a)=>s+a.kcal,0);
+  const burnedMin  = acts.reduce((s,a)=>s+a.min,0);
+
+  // TDEE
+  const tdee = getTDEE(currentPerson);
+  const target = tdee > 0 ? tdee + burnedKcal : 0;
+  const balance = target > 0 ? totalKcal - target : null;
+
+  const monthNames = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+  const dateStr = now.getDate()+' '+monthNames[now.getMonth()]+' '+now.getFullYear();
+
+  let bil = '';
+  if(target > 0){
+    const pct = Math.min(100, Math.round(totalKcal/target*100));
+    const balSign = balance >= 0 ? '+' : '';
+    const balCol = balance > 200 ? '#E76F51' : balance < -200 ? '#1D3557' : '#2D6A4F';
+    bil = `
+    <div class="divider"></div>
+    <div class="bil-title">Bilancio calorico</div>
+    <div class="bil-row"><span>Ingerite (P+C)</span><span class="kcal-c">${totalKcal} kcal</span></div>
+    <div class="bil-row"><span>Fabbisogno base</span><span>${tdee} kcal</span></div>
+    ${burnedKcal>0?`<div class="bil-row"><span>Bruciate attività (${burnedMin} min)</span><span class="prot-c">+${burnedKcal} kcal</span></div>`:''}
+    <div class="bil-row"><span>Obiettivo giornaliero</span><span>${target} kcal</span></div>
+    <div class="bil-row"><span>Bilancio</span><span style="color:${balCol};font-weight:700">${balSign}${balance} kcal</span></div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${pct>105?'#E76F51':'#2D6A4F'}"></div></div>
+    <div class="progress-lbl">${pct}% dell'obiettivo coperto</div>`;
+  } else {
+    bil = `<div style="margin-top:10px;font-size:12px;color:var(--sub)">Inserisci i dati nel profilo per vedere il bilancio calorico.</div>`;
+  }
+
+  document.getElementById('oggiContent').innerHTML = `
+  <div class="card">
+    <div class="oggi-lbl">Oggi – Sett. ${week+1}</div>
+    <div class="oggi-day">${DAYS[di]}, ${dateStr}</div>
+    <div class="meal-block">
+      <div class="meal-title">☀️ Pranzo</div>
+      <div class="meal-items">
+        <div class="meal-item c"><span class="ilbl">C</span>${pc}</div>
+        <div class="meal-item p"><span class="ilbl">P</span>${pp}</div>
+        <div class="meal-item v"><span class="ilbl">V</span>${pv}</div>
+      </div>
+      <div class="nutri-row">
+        <div class="np"><div class="nv kcal-c">${np[0]}</div><div class="nl">kcal</div></div>
+        <div class="np"><div class="nv prot-c">${np[1]}g</div><div class="nl">prot.</div></div>
+        <div class="np"><div class="nv carb-c">${np[2]}g</div><div class="nl">carb.</div></div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="meal-block">
+      <div class="meal-title">🌙 Cena</div>
+      <div class="meal-items">
+        <div class="meal-item c"><span class="ilbl">C</span>${cc}</div>
+        <div class="meal-item p"><span class="ilbl">P</span>${cp}</div>
+        <div class="meal-item v"><span class="ilbl">V</span>${cv}</div>
+      </div>
+      <div class="nutri-row">
+        <div class="np"><div class="nv kcal-c">${nc[0]}</div><div class="nl">kcal</div></div>
+        <div class="np"><div class="nv prot-c">${nc[1]}g</div><div class="nl">prot.</div></div>
+        <div class="np"><div class="nv carb-c">${nc[2]}g</div><div class="nl">carb.</div></div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="meal-title" style="margin-bottom:8px">Totale giornaliero</div>
+    <div class="nutri-row">
+      <div class="np"><div class="nv kcal-c">${totalKcal}</div><div class="nl">kcal tot.</div></div>
+      <div class="np"><div class="nv prot-c">${totalProt}g</div><div class="nl">prot. tot.</div></div>
+      <div class="np"><div class="nv carb-c">${totalCarb}g</div><div class="nl">carb. tot.</div></div>
+    </div>
+    ${bil}
+  </div>`;
 }
-function renderWeekNav() {
-  document.getElementById('weekNav').innerHTML=['Sett. 1','Sett. 2','Sett. 3','Sett. 4'].map((l,i)=>
-    `<button class="week-btn ${i===currentWeek?'active '+currentPerson:''}" onclick="setWeek(${i})">${l}</button>`).join('');
+
+// ── PIANO ─────────────────────────────────────────────────────────────────
+function renderWeekNav(){
+  document.getElementById('weekNav').innerHTML =
+    ['Sett. 1','Sett. 2','Sett. 3','Sett. 4'].map((l,i)=>
+      `<button class="week-btn ${i===currentWeek?'active '+currentPerson:''}" onclick="setWeek(${i})">${l}</button>`
+    ).join('');
 }
-function renderDays() {
-  const d=DATA[currentPerson], offset=currentWeek*7;
-  document.getElementById('dayList').innerHTML=DAYS.map((day,di)=>{
-    const i=offset+di, [pc,pp,pv]=d.pranzo[i], [cc,cp,cv]=d.cena[i];
+
+function buildTagWithEdit(label, cls, tlbl, opts, person, weekIdx, dayIdx, meal, slot){
+  const panelId = `ep-${person}-${weekIdx}-${dayIdx}-${meal}-${slot}`;
+  const selectId = `es-${person}-${weekIdx}-${dayIdx}-${meal}-${slot}`;
+  const isModified = !!localStorage.getItem(modKey(person,weekIdx,dayIdx,meal,slot));
+  const optHtml = opts.map(o=>`<option value="${o}" ${o===label?'selected':''}>${o}</option>`).join('');
+  return `<span class="tag-wrap">
+    <span class="tag ${cls} ${isModified?'modified':''}">
+      <span class="tlbl">${tlbl}</span>${label}
+      <button class="edit-btn" onclick="toggleEdit('${panelId}',event)" title="Modifica">✏️</button>
+    </span>
+    <div class="edit-panel" id="${panelId}">
+      <select id="${selectId}">${optHtml}</select>
+      <div class="edit-actions">
+        <button class="edit-cancel" onclick="closeAllEdits()">Annulla</button>
+        <button class="edit-ok" onclick="applyEdit('${person}',${weekIdx},${dayIdx},'${meal}',${slot},'${selectId}','')">Salva</button>
+      </div>
+      ${isModified?`<button class="edit-reset" onclick="resetEdit('${person}',${weekIdx},${dayIdx},'${meal}',${slot})">↩ Ripristina originale</button>`:''}
+    </div>
+  </span>`;
+}
+
+function renderDays(){
+  const p = currentPerson, offset = currentWeek*7;
+  document.getElementById('dayList').innerHTML = DAYS.map((day,di)=>{
+    const i=offset+di;
+    // Recupera valori (modificati o originali)
+    const pc=getMeal(p,currentWeek,di,'pranzo',0), pp=getMeal(p,currentWeek,di,'pranzo',1), pv=getMeal(p,currentWeek,di,'pranzo',2);
+    const cc=getMeal(p,currentWeek,di,'cena',0),   cp=getMeal(p,currentWeek,di,'cena',1),   cv=getMeal(p,currentWeek,di,'cena',2);
+    const np=NUTRI_DATA[p].pranzo[i], nc=NUTRI_DATA[p].cena[i];
+    const protOpts = p==='ale' ? ALTERNATIVES.prot_ale : ALTERNATIVES.prot_mar;
+    // Carbo options: preserva i grammi originali
+    const carboOptsP = ALTERNATIVES.carbo.map(c=>carboWithGrams(c, DATA[p].pranzo[i][0]));
+    const carboOptsC = ALTERNATIVES.carbo.map(c=>carboWithGrams(c, DATA[p].cena[i][0]));
     return `<div class="day-card" id="card-${di}">
-      <div class="day-header ${currentPerson}" onclick="toggleDay(${di})">
-        <div class="day-dot ${currentPerson}"></div>${day}<span class="day-chevron">▾</span>
+      <div class="day-hd ${p}" onclick="toggleDay(${di})">
+        <div class="dot ${p}"></div>${day}
+        <span class="chv">▾</span>
       </div>
       <div class="day-body">
-        <div class="meal-section"><div class="meal-label">☀️ Pranzo</div><div class="meal-row">
-          <span class="tag c"><span class="tag-label">C</span>${pc}</span>
-          <span class="tag p"><span class="tag-label">P</span>${pp}</span>
-          <span class="tag v"><span class="tag-label">V</span>${pv}</span>
-        </div></div>
-        <div class="meal-section"><div class="meal-label">🌙 Cena</div><div class="meal-row">
-          <span class="tag c"><span class="tag-label">C</span>${cc}</span>
-          <span class="tag p"><span class="tag-label">P</span>${cp}</span>
-          <span class="tag v"><span class="tag-label">V</span>${cv}</span>
-        </div></div>
-      </div></div>`;
+        <div class="msec"><div class="mlbl">☀️ Pranzo <span style="font-size:10px;color:var(--sub);font-weight:400">· tocca ✏️ per modificare</span></div>
+          <div class="mrow">
+            ${buildTagWithEdit(pc,'c','C',carboOptsP,p,currentWeek,di,'pranzo',0)}
+            ${buildTagWithEdit(pp,'p','P',protOpts,p,currentWeek,di,'pranzo',1)}
+            ${buildTagWithEdit(pv,'v','V',ALTERNATIVES.verd,p,currentWeek,di,'pranzo',2)}
+          </div>
+          <div class="nmini">
+            <span class="nm"><b class="kcal-c">${np[0]}</b> kcal</span>
+            <span class="nm"><b class="prot-c">${np[1]}g</b> prot</span>
+            <span class="nm"><b class="carb-c">${np[2]}g</b> carb</span>
+          </div>
+        </div>
+        <div class="msec" style="margin-top:12px"><div class="mlbl">🌙 Cena <span style="font-size:10px;color:var(--sub);font-weight:400">· tocca ✏️ per modificare</span></div>
+          <div class="mrow">
+            ${buildTagWithEdit(cc,'c','C',carboOptsC,p,currentWeek,di,'cena',0)}
+            ${buildTagWithEdit(cp,'p','P',protOpts,p,currentWeek,di,'cena',1)}
+            ${buildTagWithEdit(cv,'v','V',ALTERNATIVES.verd,p,currentWeek,di,'cena',2)}
+          </div>
+          <div class="nmini">
+            <span class="nm"><b class="kcal-c">${nc[0]}</b> kcal</span>
+            <span class="nm"><b class="prot-c">${nc[1]}g</b> prot</span>
+            <span class="nm"><b class="carb-c">${nc[2]}g</b> carb</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
   }).join('');
 }
-function toggleDay(di) { document.getElementById(`card-${di}`).classList.toggle('open'); }
-function toggleSpesa() {
-  spesaOpen=!spesaOpen;
-  document.getElementById('spesaArrow').textContent=spesaOpen?'▲':'▼';
-  const panel=document.getElementById('spesaPanel');
-  if(spesaOpen){ panel.classList.add('open'); renderSpesa(); } else panel.classList.remove('open');
+
+function toggleDay(di){ document.getElementById('card-'+di).classList.toggle('open'); }
+
+// ── SPESA UNICA ───────────────────────────────────────────────────────────
+function categorize(item){
+  const i=item.toLowerCase();
+  if(/pasta|riso|orzo|farro|pane|ceci|fagioli|lenticchie|piselli|patate|gnocchi/.test(i)) return '🌾 Carboidrati & Legumi';
+  if(/tonno|sgombro|orata|merluzzo|spigola|salmone|gamberi|cozze|platessa|nasello/.test(i)) return '🐟 Pesce';
+  if(/pollo|tacchino|manzo|vitellone|maiale|hamburger/.test(i)) return '🥩 Carne';
+  if(/prosciutto|bresaola/.test(i)) return '🥓 Affettati';
+  if(/uova/.test(i)) return '🥚 Uova';
+  if(/mozzarella|fiocchi|caprino|ricotta|formaggio/.test(i)) return '🧀 Formaggi';
+  if(/pomodori|cetrioli|zucchine|carote|rucola|insalata|radicchio|broccoli|peperoni|fagiolini|asparagi|finocchi|scarola/.test(i)) return '🥬 Verdure';
+  return '🛒 Altro';
 }
-function renderSpesa() {
-  const d=DATA[currentPerson], offset=currentWeek*7, items={};
-  for(let di=0;di<7;di++) {
-    const i=offset+di;
-    [...d.pranzo[i],...d.cena[i]].forEach(raw=>{
-      const name=extractName(raw), cat=categorize(raw);
-      if(!items[cat]) items[cat]=new Set();
-      items[cat].add(name);
-    });
-  }
-  if(!items["🛒 Altro"]) items["🛒 Altro"]=new Set();
-  items["🛒 Altro"].add("Olio extravergine d'oliva");
-  const order=["🌾 Carboidrati & Legumi","🐟 Pesce","🥩 Carne","🥓 Affettati","🥚 Uova","🧀 Formaggi","🥬 Verdure","🛒 Altro"];
-  const key=`${currentPerson}-${currentWeek}`;
-  if(!checkedItems[key]) checkedItems[key]={};
-  let html=`<h3>🛒 Spesa – Settimana ${currentWeek+1}</h3>`;
+
+function parseGrams(s){
+  const m = s.match(/(\d+)g/);
+  return m ? parseInt(m[1]) : 0;
+}
+
+function extractName(s){
+  return s.replace(/\s*\d+g[^\s]*/g,'').replace(/\s*\(.*?\)/g,'').trim();
+}
+
+function toggleSpesa(){
+  spesaOpen = !spesaOpen;
+  document.getElementById('spesaArrow').textContent = spesaOpen ? '▲' : '▼';
+  const panel = document.getElementById('spesaPanel');
+  if(spesaOpen){ panel.classList.add('open'); renderSpesa(); }
+  else panel.classList.remove('open');
+}
+
+function renderSpesa(){
+  const offset = currentWeek*7;
+  // Aggrega entrambe le persone
+  const items = {}; // cat -> name -> totalGrams
+  ['ale','mar'].forEach(p=>{
+    for(let di=0;di<7;di++){
+      const i=offset+di;
+      [...DATA[p].pranzo[i],...DATA[p].cena[i]].forEach(raw=>{
+        const name=extractName(raw), cat=categorize(raw), g=parseGrams(raw);
+        if(!items[cat]) items[cat]={};
+        items[cat][name] = (items[cat][name]||0) + g;
+      });
+    }
+  });
+  if(!items['🛒 Altro']) items['🛒 Altro']={};
+  items['🛒 Altro']["Olio extravergine di oliva"] = 140; // 10g x 2 pasti x 7 giorni
+
+  const order=['🌾 Carboidrati & Legumi','🐟 Pesce','🥩 Carne','🥓 Affettati','🥚 Uova','🧀 Formaggi','🥬 Verdure','🛒 Altro'];
+  const key = `spesa-${currentWeek}`;
+  const checked = load(key) || {};
+
+  let html = `<h3>🛒 Spesa settimana ${currentWeek+1}</h3>
+    <div class="spesa-sub">Quantità per entrambi · tocca per spuntare</div>`;
+
   order.forEach(cat=>{
     if(!items[cat]) return;
-    html+=`<div class="spesa-category"><h4>${cat}</h4>`;
-    [...items[cat]].sort().forEach(name=>{
-      const done=checkedItems[key][name]?'done':'';
-      html+=`<div class="spesa-item ${done}" onclick="toggleCheck('${key}','${name}',this)">
-        <div class="check">${checkedItems[key][name]?'✓':''}</div>
-        <span class="item-name">${name}</span></div>`;
+    html += `<div class="spesa-cat"><h4>${cat}</h4>`;
+    Object.entries(items[cat]).sort((a,b)=>a[0].localeCompare(b[0])).forEach(([name,g])=>{
+      const done = checked[name] ? 'done' : '';
+      const qty = g > 0 ? `${g}g` : '';
+      html += `<div class="spesa-item ${done}" onclick="toggleCheck('${key}','${name}',this)">
+        <div class="ck">${checked[name]?'✓':''}</div>
+        <span class="iname">${name}</span>
+        ${qty?`<span class="qty-badge">${qty}</span>`:''}
+      </div>`;
     });
-    html+='</div>';
+    html += '</div>';
   });
-  document.getElementById('spesaPanel').innerHTML=html;
+  document.getElementById('spesaPanel').innerHTML = html;
 }
-function toggleCheck(key,name,el) {
-  checkedItems[key][name]=!checkedItems[key][name];
+
+function toggleCheck(key,name,el){
+  const checked = load(key) || {};
+  checked[name] = !checked[name];
+  save(key, checked);
   el.classList.toggle('done');
-  el.querySelector('.check').textContent=checkedItems[key][name]?'✓':'';
+  el.querySelector('.ck').textContent = checked[name] ? '✓' : '';
 }
-function setView(v,el) {
+
+// ── SPORT ─────────────────────────────────────────────────────────────────
+function calcKcalAuto(type, min, person){
+  const profile = load('profile-'+person);
+  const peso = profile ? profile.peso : 70;
+  const met = MET[type] || 5;
+  return Math.round(met * peso * min / 60);
+}
+
+function getTodayActivities(person){
+  const key = 'sport-'+person+'-'+todayKey();
+  return load(key) || [];
+}
+
+function addActivity(){
+  const person = document.getElementById('sportPerson').value;
+  const type   = document.getElementById('sportType').value;
+  const min    = parseInt(document.getElementById('sportMin').value) || 0;
+  const kcalM  = parseInt(document.getElementById('sportKcal').value) || 0;
+  const note   = document.getElementById('sportNote').value.trim();
+  if(!min && !kcalM){ alert('Inserisci almeno la durata o le kcal'); return; }
+  const kcal = kcalM > 0 ? kcalM : calcKcalAuto(type, min, person);
+  const key = 'sport-'+person+'-'+todayKey();
+  const acts = load(key) || [];
+  acts.push({ type, min, kcal, note, ts: Date.now() });
+  save(key, acts);
+  // reset form
+  document.getElementById('sportMin').value='';
+  document.getElementById('sportKcal').value='';
+  document.getElementById('sportNote').value='';
+  renderSportToday(); renderMonthLog(); renderOggi();
+}
+
+function deleteActivity(person, idx){
+  const key = 'sport-'+person+'-'+todayKey();
+  const acts = load(key) || [];
+  acts.splice(idx,1);
+  save(key, acts);
+  renderSportToday(); renderMonthLog(); renderOggi();
+}
+
+function renderSportToday(){
+  const container = document.getElementById('sportTodayLog');
+  const acts = getTodayActivities(currentPerson);
+  if(!acts.length){ container.innerHTML=''; return; }
+  const totalKcal = acts.reduce((s,a)=>s+a.kcal,0);
+  const totalMin  = acts.reduce((s,a)=>s+a.min,0);
+  let html = '<div class="sport-log"><h4>Oggi – '+currentPerson.charAt(0).toUpperCase()+currentPerson === "ale" ? "Alessandra" : "Marco"+'</h4>';
+  acts.forEach((a,i)=>{
+    html += `<div class="sentry">
+      <span class="sico">${SPORT_ICON[a.type]||'⚡'}</span>
+      <div class="sinfo">
+        <div class="sname">${a.type.charAt(0).toUpperCase()+a.type.slice(1)}</div>
+        <div class="sdetail">${a.min?a.min+' min':''}${a.note?' · '+a.note:''}</div>
+      </div>
+      <span class="skcal">${a.kcal} kcal</span>
+      <button class="sdel" onclick="deleteActivity('${currentPerson}',${i})">✕</button>
+    </div>`;
+  });
+  html += `<div class="stot">
+    <span class="stot-lbl">Totale giornaliero</span>
+    <span class="stot-val">${totalMin} min · ${totalKcal} kcal</span>
+  </div></div>`;
+  container.innerHTML = html;
+}
+
+function renderMonthLog(){
+  const container = document.getElementById('monthLog');
+  const today = new Date();
+  const days = [];
+  for(let i=29;i>=0;i--){
+    const d = new Date(today);
+    d.setDate(today.getDate()-i);
+    const dk = d.toISOString().slice(0,10);
+    const acts = load('sport-'+currentPerson+'-'+dk) || [];
+    if(acts.length){
+      days.push({ date:d, dk, acts });
+    }
+  }
+  if(!days.length){ container.innerHTML='<div style="font-size:13px;color:var(--sub)">Nessuna attivit&agrave; registrata nell&apos;ultimo mese.</div>'; return; }
+  const months=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+  let html='';
+  days.forEach(({date,acts})=>{
+    const tot_kcal = acts.reduce((s,a)=>s+a.kcal,0);
+    const tot_min  = acts.reduce((s,a)=>s+a.min,0);
+    const label = acts.map(a=>SPORT_ICON[a.type]+' '+a.type).join(', ');
+    html += `<div class="mentry">
+      <div class="mdate">${date.getDate()} ${months[date.getMonth()]}</div>
+      <div class="macts">${label}${tot_min?' · '+tot_min+' min':''}</div>
+      <div class="mkcal">${tot_kcal} kcal</div>
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+// ── PROFILO & TDEE ────────────────────────────────────────────────────────
+function getTDEE(person){
+  const p = load('profile-'+person);
+  if(!p || !p.peso || !p.altezza || !p.eta) return 0;
+  // Mifflin-St Jeor
+  let bmr;
+  if(p.sesso === 'm') bmr = 10*p.peso + 6.25*p.altezza - 5*p.eta + 5;
+  else                bmr = 10*p.peso + 6.25*p.altezza - 5*p.eta - 161;
+  return Math.round(bmr * ACTIVITY_FACTOR);
+}
+
+function saveProfile(person){
+  const eta     = parseInt(document.getElementById(person+'-eta').value);
+  const sesso   = document.getElementById(person+'-sesso').value;
+  const peso    = parseFloat(document.getElementById(person+'-peso').value);
+  const altezza = parseFloat(document.getElementById(person+'-altezza').value);
+  if(!eta||!peso||!altezza){ alert('Compila tutti i campi'); return; }
+  save('profile-'+person, {eta,sesso,peso,altezza});
+  const tdee = getTDEE(person);
+  const badge = document.getElementById(person+'-tdee-badge');
+  badge.style.display = 'block';
+  badge.textContent = 'Fabbisogno base: '+tdee+' kcal/giorno (moderatamente attivo)';
+  renderOggi();
+}
+
+function loadProfileForm(person){
+  const p = load('profile-'+person);
+  if(!p) return;
+  document.getElementById(person+'-eta').value     = p.eta||'';
+  document.getElementById(person+'-sesso').value   = p.sesso||'f';
+  document.getElementById(person+'-peso').value    = p.peso||'';
+  document.getElementById(person+'-altezza').value = p.altezza||'';
+  const tdee = getTDEE(person);
+  if(tdee>0){
+    const badge = document.getElementById(person+'-tdee-badge');
+    badge.style.display='block';
+    badge.textContent='Fabbisogno base: '+tdee+' kcal/giorno (moderatamente attivo)';
+  }
+}
+
+// ── NAVIGAZIONE ───────────────────────────────────────────────────────────
+function setView(v, el){
   document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
   document.getElementById('view-'+v).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
   el.classList.add('active');
+  if(v==='sport'){ renderSportToday(); renderMonthLog(); }
+  if(v==='oggi') renderOggi();
 }
-renderWeekNav(); renderDays();
+
+
+const ALTERNATIVES = {
+  carbo: [
+    "Pasta di semola","Pasta all'uovo","Riso parboiled","Orzo","Farro",
+    "Pane comune","Pane carasau","Patate","Ceci in scatola","Ceci secchi",
+    "Fagioli in scatola","Fagioli secchi","Lenticchie in scatola",
+    "Lenticchie secche","Piselli freschi/surgel."
+  ],
+  prot_ale: [
+    "Tonno al naturale 100g","Sgombro al naturale 70g","Uova di gallina 70g",
+    "Prosciutto crudo 70g","Prosciutto cotto 60g","Bresaola 70g",
+    "Prosciutto di tacchino 80g","Mozzarella di vacca 50g",
+    "Fiocchi di latte 100g","Ricotta magra 100g","Orata 110g",
+    "Merluzzo 150g","Spigola 130g","Pollo petto 110g","Pollo coscia 80g",
+    "Tacchino petto 100g","Manzo magro 90g","Vitellone magro 100g"
+  ],
+  prot_mar: [
+    "Tonno al naturale 140g","Sgombro al naturale 80g","Uova di gallina (due)",
+    "Prosciutto crudo 90g","Prosciutto cotto 80g","Bresaola 90g",
+    "Prosciutto di tacchino 100g","Mozzarella di vacca 50g",
+    "Fiocchi di latte 100g","Ricotta magra 120g","Orata 140g",
+    "Merluzzo 200g","Spigola 170g","Pollo petto 140g","Pollo coscia 100g",
+    "Tacchino petto 130g","Manzo magro 110g","Vitellone magro 120g"
+  ],
+  verd: [
+    "Pomodori 200g","Cetrioli 250g","Zucchine 300g","Carote 100g",
+    "Rucola 100g","Insalata mista 250g","Radicchio rosso 250g",
+    "Broccoli 150g","Peperoni 150g","Fagiolini 200g","Asparagi 150g",
+    "Finocchi 400g","Spinaci 200g","Melanzane 300g"
+  ]
+};
+
+// Recupera il grammo originale da un'etichetta carbo e lo preserva
+function getGrams(label){
+  const m = label.match(/(\d+)g/);
+  return m ? m[1] : null;
+}
+
+function carboWithGrams(base, originalLabel){
+  const g = getGrams(originalLabel);
+  // Rimuovi grammi esistenti dal base
+  const cleanBase = base.replace(/\s*\d+g$/,'');
+  return g ? cleanBase + ' ' + g + 'g' : cleanBase;
+}
+
+// Chiave localStorage per una modifica giornaliera
+// formato: mod-{person}-{weekAbsolute}-{dayIndex}-{meal}-{slot}
+function modKey(person, weekIdx, dayIdx, meal, slot){
+  return 'mod-'+person+'-'+weekIdx+'-'+dayIdx+'-'+meal+'-'+slot;
+}
+
+// Recupera il valore modificato oppure quello originale
+function getMeal(person, weekIdx, dayIdx, meal, slot){
+  const k = modKey(person, weekIdx, dayIdx, meal, slot);
+  const stored = localStorage.getItem(k);
+  return stored || DATA[person][meal][weekIdx*7+dayIdx][slot];
+}
+
+let openEditPanel = null;
+
+function closeAllEdits(){
+  document.querySelectorAll('.edit-panel.open').forEach(p=>p.classList.remove('open'));
+  openEditPanel = null;
+}
+
+function toggleEdit(panelId, event){
+  event.stopPropagation();
+  const panel = document.getElementById(panelId);
+  if(panel.classList.contains('open')){
+    panel.classList.remove('open');
+    openEditPanel = null;
+  } else {
+    closeAllEdits();
+    panel.classList.add('open');
+    openEditPanel = panelId;
+  }
+}
+
+function applyEdit(person, weekIdx, dayIdx, meal, slot, selectId, tagId){
+  const sel = document.getElementById(selectId);
+  const val = sel.value;
+  const k = modKey(person, weekIdx, dayIdx, meal, slot);
+  localStorage.setItem(k, val);
+  closeAllEdits();
+  renderDays();
+  // Riapri la card
+  setTimeout(()=>{ 
+    const card = document.getElementById('card-'+dayIdx);
+    if(card) card.classList.add('open');
+  }, 50);
+}
+
+function resetEdit(person, weekIdx, dayIdx, meal, slot){
+  const k = modKey(person, weekIdx, dayIdx, meal, slot);
+  localStorage.removeItem(k);
+  closeAllEdits();
+  renderDays();
+  setTimeout(()=>{ 
+    const card = document.getElementById('card-'+dayIdx);
+    if(card) card.classList.add('open');
+  }, 50);
+}
+
+document.addEventListener('click', function(e){
+  if(openEditPanel && !e.target.closest('.edit-panel') && !e.target.closest('.edit-btn')){
+    closeAllEdits();
+  }
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+loadProfileForm('ale');
+loadProfileForm('mar');
+document.getElementById('spesaWL').textContent = currentWeek+1;
+renderAll();
 </script>
 </body>
-</html>
 </html>
