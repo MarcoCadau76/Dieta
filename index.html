@@ -631,6 +631,9 @@ document.addEventListener('click', function(e){
     const p=btn.dataset.p, w=+btn.dataset.w, d=+btn.dataset.d,
           m=btn.dataset.m, s=+btn.dataset.s;
     resetEdit(p,w,d,m,s);
+  } else if(action === 'colazione'){
+    localStorage.setItem('colazione-mar', e.target.value);
+    renderOggi();
   }
 });
 
@@ -698,7 +701,7 @@ function buildExtraMealsHtml(person){
     html += '<div class="extra-item"><span>The + dolcificante</span><span class="extra-kcal">~5 kcal</span></div>';
     html += '<div class="extra-note">In alternativa: zucchero saccarosio 5g o zucchero integrale.</div>';
   } else {
-    html += '<select class="colazione-select" id="colazioneSelect">';
+    html += '<select class="colazione-select" id="colazioneSelect" data-action="colazione">';
     COLAZIONE_MAR.forEach(function(c){
       var kcal = c.indexOf('biscotti')>=0 ? 220 : c.indexOf('cereali')>=0 ? 230 : c.indexOf('avena')>=0 ? 210 : c.indexOf('yogurt')>=0||c.indexOf('Yogurt')>=0 ? 150 : 180;
       html += '<option value="'+kcal+'">'+c+' (~'+kcal+' kcal)</option>';
@@ -806,6 +809,24 @@ function buildTipHtml(tip){
     +actHtml+'</div>';
 }
 
+
+function getExtraKcal(person){
+  // Colazione
+  var colazioneKcal = 0;
+  if(person === 'ale'){
+    colazioneKcal = 5; // the + dolcificante
+  } else {
+    // Leggi selezione dal localStorage o usa default
+    var saved = localStorage.getItem('colazione-mar');
+    colazioneKcal = saved ? parseInt(saved) : 220; // default latte+biscotti
+  }
+  // Spuntini: 2 al giorno, media 80 kcal ciascuno (yogurt magro o frutta media)
+  var spuntiniKcal = 160;
+  // Frutta dopo pranzo solo Marco: media mela 150g = ~78 kcal
+  var fruttoDopoKcal = (person === 'mar') ? 78 : 0;
+  return colazioneKcal + spuntiniKcal + fruttoDopoKcal;
+}
+
 function renderOggi(){
   const now = new Date();
   const di = now.getDay() === 0 ? 6 : now.getDay()-1; // 0=lun
@@ -816,7 +837,8 @@ function renderOggi(){
   const cc=getMeal(currentPerson,week,di,'cena',0),   cp=getMeal(currentPerson,week,di,'cena',1),   cv=getMeal(currentPerson,week,di,'cena',2);
   const np = NUTRI_DATA[currentPerson].pranzo[idx];
   const nc = NUTRI_DATA[currentPerson].cena[idx];
-  const totalKcal = np[0] + nc[0];
+  const extraKcal = getExtraKcal(currentPerson);
+  const totalKcal = np[0] + nc[0] + extraKcal;
   const totalProt = np[1] + nc[1];
   const totalCarb = np[2] + nc[2];
 
@@ -844,7 +866,9 @@ function renderOggi(){
     bil = `
     <div class="divider"></div>
     <div class="bil-title">Bilancio calorico</div>
-    <div class="bil-row"><span>Ingerite (P+C)</span><span class="kcal-c">${totalKcal} kcal</span></div>
+    <div class="bil-row"><span>Pranzo + Cena</span><span class="kcal-c">${np[0]+nc[0]} kcal</span></div>
+    <div class="bil-row"><span>Colazione + spuntini</span><span class="kcal-c">${extraKcal} kcal</span></div>
+    <div class="bil-row" style="font-weight:600"><span>Totale ingerito</span><span class="kcal-c">${totalKcal} kcal</span></div>
     <div class="bil-row"><span>Fabbisogno base</span><span>${tdee} kcal</span></div>
     ${burnedKcal>0?`<div class="bil-row"><span>Bruciate attività (${burnedMin} min)</span><span class="prot-c">+${burnedKcal} kcal</span></div>`:''}
     <div class="bil-row"><span>Obiettivo giornaliero</span><span>${target} kcal</span></div>
@@ -888,6 +912,7 @@ function renderOggi(){
     </div>
     <div class="divider"></div>
     <div class="meal-title" style="margin-bottom:8px">Totale giornaliero</div>
+    <div style="font-size:11px;color:var(--sub);margin-bottom:4px">* include colazione e spuntini (~${extraKcal} kcal)</div>
     <div class="nutri-row">
       <div class="np"><div class="nv kcal-c">${totalKcal}</div><div class="nl">kcal tot.</div></div>
       <div class="np"><div class="nv prot-c">${totalProt}g</div><div class="nl">prot. tot.</div></div>
