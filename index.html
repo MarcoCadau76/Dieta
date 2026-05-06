@@ -10,101 +10,157 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F7F4EF;--card:#fff;--text:#1C1C1C;--sub:#6B6B6B;
-  --ale:#2D6A4F;--ale-light:#D8F3DC;--mar:#1D3557;--mar-light:#D6E8FA;
-  --accent:#E76F51;--border:#E5E0D8;--carbo:#FFF3CD;--prot:#D1ECF1;--verd:#D4EDDA;
-  --radius:16px;--shadow:0 2px 16px rgba(0,0,0,.07);
+  --bg:linear-gradient(145deg,#E8F4EC 0%,#EAF0FA 50%,#FBF0E8 100%);
+  --bg-solid:#EDF4F0;
+  --card:#FFFFFF;--text:#1A1A1A;--sub:#7A7A7A;
+  --ale:#2A6B4F;--ale-light:#DFF2E8;--ale-mid:#A8D8BC;
+  --mar:#1C3A6B;--mar-light:#DDE8F7;--mar-mid:#9ABDE0;
+  --accent:#E8622A;--accent-light:#FDE8DC;
+  --border:#DDD8D0;
+  --carbo:#FEF5DC;--carbo-border:#EDD06A;
+  --prot:#DCF0F8;--prot-border:#72B8D8;
+  --verd:#DCF5E4;--verd-border:#72C890;
+  --radius:14px;--radius-sm:10px;
+  --shadow:0 1px 3px rgba(0,0,0,.07),0 4px 20px rgba(0,0,0,.08);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.05),0 2px 10px rgba(0,0,0,.06);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:90px}
-.header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:12px 16px 0}
-.app-title{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:10px}
+
+/* HEADER */
+.header{position:sticky;top:0;z-index:100;background:var(--bg-solid);border-bottom:1px solid var(--border);padding:12px 16px 0}
+.app-title{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:10px;letter-spacing:-0.3px}
 .person-tabs{display:flex;gap:8px;margin-bottom:10px}
-.person-tab{flex:1;padding:9px;border:2px solid var(--border);border-radius:12px;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:var(--sub);font-family:'DM Sans',sans-serif}
+.person-tab{flex:1;padding:9px;border:2px solid var(--border);border-radius:var(--radius-sm);background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:var(--sub);font-family:'DM Sans',sans-serif;transition:all .2s}
 .person-tab.ale.active{border-color:var(--ale);background:var(--ale-light);color:var(--ale)}
 .person-tab.mar.active{border-color:var(--mar);background:var(--mar-light);color:var(--mar)}
 .week-nav{display:flex;gap:6px;padding:10px 16px;overflow-x:auto;scrollbar-width:none}
 .week-nav::-webkit-scrollbar{display:none}
-.week-btn{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:500;cursor:pointer;color:var(--sub);font-family:'DM Sans',sans-serif}
+.week-btn{flex-shrink:0;padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;font-size:12px;font-weight:500;cursor:pointer;color:var(--sub);font-family:'DM Sans',sans-serif;transition:all .2s}
 .week-btn.active.ale{background:var(--ale);border-color:var(--ale);color:#fff}
 .week-btn.active.mar{background:var(--mar);border-color:var(--mar);color:#fff}
+
+/* LAYOUT */
 .content{padding:0 16px}
-/* OGGI */
 .wrap{padding:0 16px}
-.card{background:#fff;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:12px}
-.oggi-lbl{font-size:11px;color:var(--sub);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
-.oggi-day{font-family:'DM Serif Display',serif;font-size:26px;margin-bottom:16px}
-.meal-block{margin-bottom:14px}
-.meal-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--sub);margin-bottom:8px}
-.meal-items{display:flex;flex-direction:column;gap:5px}
-.meal-item{padding:9px 12px;border-radius:10px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px}
-.meal-item.c{background:var(--carbo)}.meal-item.p{background:var(--prot)}.meal-item.v{background:var(--verd)}
-.ilbl{font-size:10px;font-weight:700;opacity:.45;min-width:12px}
-.nutri-row{display:flex;gap:6px;margin-top:10px}
-.np{flex:1;background:#F8F8F8;border-radius:10px;padding:8px;text-align:center}
-.nv{font-size:15px;font-weight:700}.nl{font-size:10px;color:var(--sub)}
-.kcal-c{color:#E76F51}.prot-c{color:#2D6A4F}.carb-c{color:#1D3557}
+
+/* CARD BASE — usata per tutto */
+.card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:12px;border:1px solid var(--border)}
+
+/* OGGI — header giorno */
+.oggi-lbl{font-size:10px;color:var(--sub);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:2px}
+.oggi-day{font-family:'DM Serif Display',serif;font-size:24px;margin-bottom:0;letter-spacing:-0.5px}
+
+/* SEZIONE PASTO — usata per colazione, pranzo, cena, spuntini */
+.meal-section{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:10px;border:1px solid var(--border);overflow:hidden}
+.meal-section-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 10px;border-bottom:1px solid var(--border)}
+.meal-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--sub)}
+.meal-section-kcal{font-size:11px;font-weight:600;color:var(--accent);background:var(--accent-light);padding:2px 8px;border-radius:20px}
+.meal-section-body{padding:12px 16px}
+
+/* ITEM PASTO — carboidrato/proteina/verdura */
+.meal-item-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #F5F3EF}
+.meal-item-row:last-child{border-bottom:none}
+.meal-item-badge{width:20px;height:20px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0;letter-spacing:0}
+.meal-item-badge.c{background:var(--carbo-border);color:#7A5800}
+.meal-item-badge.p{background:var(--prot-border);color:#006080}
+.meal-item-badge.v{background:var(--verd-border);color:#005520}
+.meal-item-text{font-size:13px;font-weight:500;flex:1;color:var(--text)}
+.meal-item-edit{background:none;border:none;cursor:pointer;font-size:14px;opacity:0.35;padding:2px 4px;flex-shrink:0;transition:opacity .15s}
+.meal-item-edit:hover{opacity:0.8}
+
+/* NUTRIENTI MINI */
+.nutri-strip{display:flex;gap:6px;margin-top:10px}
+.nutri-chip{flex:1;text-align:center;padding:6px 4px;border-radius:8px;background:#F8F6F2}
+.nutri-chip-val{font-size:14px;font-weight:700}
+.nutri-chip-lbl{font-size:9px;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-top:1px}
+.nc-kcal{color:var(--accent)}.nc-prot{color:var(--ale)}.nc-carb{color:var(--mar)}
+
+/* DIVIDER */
 .divider{height:1px;background:var(--border);margin:14px 0}
+
 /* BILANCIO */
-.bilancio{border-radius:var(--radius);padding:16px;margin-top:4px}
-.bil-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:var(--sub)}
-.bil-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.2);font-size:13px}
-.bil-row:last-child{border-bottom:none;padding-top:10px;font-weight:700;font-size:15px}
-.bil-pos{color:#2D6A4F}.bil-neg{color:#E76F51}.bil-neu{color:#1D3557}
-.progress-bar{height:8px;border-radius:4px;background:#eee;margin-top:10px;overflow:hidden}
-.progress-fill{height:100%;border-radius:4px;transition:width .4s ease}
-.progress-lbl{font-size:11px;color:var(--sub);margin-top:4px;text-align:right}
+.bil-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;color:var(--sub)}
+.bil-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.85)}
+.bil-row:last-child{border-bottom:none}
+.bil-total{padding-top:8px;font-weight:700;font-size:14px}
+.kcal-c{color:#FFD166!important}.prot-c{color:#95E8B8!important}
+.progress-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.15);margin-top:10px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width .5s ease}
+.progress-lbl{font-size:10px;color:rgba(255,255,255,.5);margin-top:3px;text-align:right}
+
+/* TOTALE GIORNALIERO */
+.total-strip{display:flex;gap:8px;margin-top:4px}
+.total-chip{flex:1;text-align:center;padding:10px 6px;border-radius:var(--radius-sm);background:#F8F6F2}
+.total-chip-val{font-size:18px;font-weight:700}
+.total-chip-lbl{font-size:9px;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+/* TIP BOX */
+.tip-box{border-radius:var(--radius-sm);padding:14px 16px;margin-top:4px;display:flex;gap:12px;align-items:flex-start}
+.tip-box.surplus{background:#FEF7E0;border:1px solid #F0DC8A}
+.tip-box.deficit{background:var(--ale-light);border:1px solid var(--ale-mid)}
+.tip-box.ok{background:var(--mar-light);border:1px solid var(--mar-mid)}
+.tip-box.neutral{background:#F5F3EF;border:1px solid var(--border)}
+.tip-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.tip-body{}
+.tip-title{font-weight:700;font-size:13px;margin-bottom:3px}
+.tip-text{font-size:12px;line-height:1.6;color:#555}
+.tip-activity{display:inline-block;margin-top:6px;background:rgba(0,0,0,.06);border-radius:6px;padding:4px 9px;font-size:11px;font-weight:600}
+
 /* PROFILO */
 .profile-form{display:flex;flex-direction:column;gap:10px}
 .pf-row{display:flex;gap:8px}
-.pf-input{flex:1;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--text)}
-.pf-input:focus{outline:none;border-color:var(--accent)}
-.pf-select{flex:1;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--text)}
-.save-btn{padding:11px;border-radius:10px;background:var(--ale);color:#fff;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
-.save-btn:active{opacity:.85}
-.tdee-badge{background:var(--ale-light);color:var(--ale);border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;margin-top:4px;text-align:center}
+.pf-input,.pf-select{flex:1;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--text)}
+.pf-input:focus,.pf-select:focus{outline:none;border-color:var(--accent)}
+.save-btn{padding:11px;border-radius:var(--radius-sm);background:var(--ale);color:#fff;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.tdee-badge{background:var(--ale-light);color:var(--ale);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;font-weight:600;margin-top:4px;text-align:center;border:1px solid var(--ale-mid)}
+
 /* SPESA */
-.spesa-bar{margin:8px 16px 0;padding:13px 18px;border-radius:var(--radius);background:var(--accent);color:#fff;font-weight:600;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 12px rgba(231,111,81,.3)}
-.spesa-panel{display:none;margin:8px 16px;background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.spesa-bar{margin:8px 16px 0;padding:13px 18px;border-radius:var(--radius);background:var(--accent);color:#fff;font-weight:600;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 12px rgba(232,98,42,.25)}
+.spesa-panel{display:none;margin:8px 16px;background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);border:1px solid var(--border)}
 .spesa-panel.open{display:block;animation:sd .2s ease}
 @keyframes sd{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 .spesa-panel h3{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:4px}
 .spesa-sub{font-size:12px;color:var(--sub);margin-bottom:16px}
 .spesa-cat{margin-bottom:14px}
-.spesa-cat h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--sub);margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--border)}
-.spesa-item{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:14px;border-bottom:1px solid #F5F5F5;cursor:pointer}
+.spesa-cat h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--sub);margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+.spesa-item{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:14px;border-bottom:1px solid #F5F3EF;cursor:pointer}
 .spesa-item:last-child{border-bottom:none}
-.ck{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px}
+.ck{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .15s}
 .spesa-item.done .ck{background:var(--ale);border-color:var(--ale);color:#fff}
 .spesa-item.done .iname{text-decoration:line-through;color:var(--sub)}
-.qty-badge{margin-left:auto;font-size:11px;color:var(--sub);background:#F0F0F0;padding:2px 7px;border-radius:10px;flex-shrink:0}
-/* PIANO */
-.day-card{background:#fff;border-radius:var(--radius);margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
+.qty-badge{margin-left:auto;font-size:11px;color:var(--sub);background:#F0EDE8;padding:2px 7px;border-radius:20px;flex-shrink:0}
+
+/* PIANO — card giorno */
+.day-card{background:#fff;border-radius:var(--radius);margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--border)}
 .day-hd{padding:14px 18px;font-weight:600;font-size:15px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
 .day-hd.ale{border-left:4px solid var(--ale)}.day-hd.mar{border-left:4px solid var(--mar)}
-.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .dot.ale{background:var(--ale)}.dot.mar{background:var(--mar)}
-.chv{margin-left:auto;color:var(--sub);transition:transform .2s}
+.chv{margin-left:auto;color:var(--sub);transition:transform .2s;font-size:12px}
 .day-card.open .chv{transform:rotate(180deg)}
-.day-body{display:none;padding:0 18px 16px}
+.day-body{display:none;padding:0 16px 16px;border-top:1px solid var(--border)}
 .day-card.open .day-body{display:block}
 .msec{margin-top:12px}
-.mlbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--sub);margin-bottom:8px}
+.mlbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--sub);margin-bottom:8px}
 .mrow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
 .tag{padding:5px 10px;border-radius:8px;font-size:12px;font-weight:500;line-height:1.3}
-.tag.c{background:var(--carbo)}.tag.p{background:var(--prot)}.tag.v{background:var(--verd)}
-.tlbl{font-size:10px;font-weight:700;margin-right:3px;opacity:.55}
+.tag.c{background:var(--carbo);border:1px solid var(--carbo-border)}
+.tag.p{background:var(--prot);border:1px solid var(--prot-border)}
+.tag.v{background:var(--verd);border:1px solid var(--verd-border)}
+.tlbl{font-size:10px;font-weight:700;margin-right:3px;opacity:.5}
 .nmini{display:flex;gap:6px;margin-top:6px}
-.nm{font-size:11px;padding:3px 8px;border-radius:8px;background:#F4F4F4;color:var(--sub)}
+.nm{font-size:11px;padding:3px 8px;border-radius:6px;background:#F5F3EF;color:var(--sub)}
 .nm b{color:var(--text)}
+
 /* SPORT */
 .sport-form{display:flex;flex-direction:column;gap:10px}
 .srow{display:flex;gap:8px}
-.sselect,.sinput{flex:1;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--text)}
+.sselect,.sinput{flex:1;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:'DM Sans',sans-serif;background:#fff;color:var(--text)}
 .sselect:focus,.sinput:focus{outline:none;border-color:var(--accent)}
-.add-btn{padding:11px;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
-.sport-log h4,.month-hd{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--sub);margin:14px 0 10px}
-.sentry{display:flex;align-items:center;padding:9px 0;border-bottom:1px solid #F5F5F5;gap:10px}
+.add-btn{padding:11px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.sport-log h4,.month-hd{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--sub);margin:14px 0 10px}
+.sentry{display:flex;align-items:center;padding:9px 0;border-bottom:1px solid #F5F3EF;gap:10px}
 .sentry:last-child{border-bottom:none}
 .sico{font-size:20px;flex-shrink:0}
 .sinfo{flex:1}
@@ -112,68 +168,47 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .sdetail{font-size:12px;color:var(--sub)}
 .skcal{font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap}
 .sdel{background:none;border:none;color:#ccc;font-size:16px;cursor:pointer;padding:4px}
-.stot{background:var(--ale-light);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.stot{background:var(--ale-light);border-radius:var(--radius-sm);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:10px;border:1px solid var(--ale-mid)}
 .stot-lbl{font-size:12px;color:var(--ale)}
 .stot-val{font-size:15px;font-weight:700;color:var(--ale)}
-/* STORICO */
-.mentry{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid #F5F5F5;gap:10px}
+.mentry{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid #F5F3EF;gap:10px}
 .mentry:last-child{border-bottom:none}
 .mdate{font-size:12px;font-weight:600;color:var(--sub);min-width:76px}
 .macts{flex:1;font-size:12px;color:var(--text);line-height:1.5}
 .mkcal{font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap}
 
-/* MODIFICA ALIMENTI */
+/* MODIFICA — edit panel */
 .tag-wrap{position:relative;display:inline-block}
-.edit-btn{background:none;border:none;cursor:pointer;font-size:13px;opacity:0.4;padding:2px 4px;vertical-align:middle;line-height:1}
+.edit-btn{background:none;border:none;cursor:pointer;font-size:13px;opacity:0.35;padding:2px 4px;vertical-align:middle;line-height:1;transition:opacity .15s}
 .edit-btn:hover{opacity:0.8}
-.edit-panel{display:none;position:absolute;left:0;top:110%;z-index:200;background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:10px;box-shadow:0 8px 24px rgba(0,0,0,.12);min-width:200px}
+.meal-item-edit{background:none;border:none;cursor:pointer;font-size:13px;opacity:0.35;padding:2px 4px;line-height:1;transition:opacity .15s}
+.meal-item-edit:hover{opacity:0.8}
+.edit-panel{display:none;position:absolute;left:0;top:110%;z-index:200;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px;box-shadow:0 8px 24px rgba(0,0,0,.12);min-width:220px}
 .edit-panel.open{display:block;animation:sd .15s ease}
+.edit-panel.inline{position:static;margin-top:8px;box-shadow:var(--shadow-sm);border-radius:var(--radius-sm)}
 .edit-panel select{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;margin-bottom:8px}
 .edit-panel select:focus{outline:none;border-color:var(--accent)}
 .edit-actions{display:flex;gap:6px}
 .edit-ok{flex:1;padding:7px;border-radius:8px;background:var(--ale);color:#fff;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
-.edit-cancel{flex:1;padding:7px;border-radius:8px;background:#F0F0F0;color:var(--sub);font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
-.edit-reset{width:100%;padding:6px;border-radius:8px;background:#FFF0ED;color:var(--accent);font-size:11px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:4px}
-.modified{border:1.5px solid var(--accent)!important;position:relative}
-
-
-
-/* COLAZIONE & SPUNTINI */
-.extra-meal{background:#fff;border-radius:var(--radius);padding:16px;margin-bottom:10px;box-shadow:var(--shadow)}
-.extra-meal-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--sub);margin-bottom:10px}
-.extra-item{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid #F5F5F5;font-size:13px}
-.extra-item:last-child{border-bottom:none}
-.extra-kcal{font-size:11px;font-weight:600;color:var(--accent);background:#FFF0ED;padding:2px 7px;border-radius:8px}
-.extra-note{font-size:11px;color:var(--sub);margin-top:6px;line-height:1.5}
-.frutta-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-.frutta-tag{font-size:12px;background:#D4EDDA;color:#2D6A4F;padding:4px 9px;border-radius:8px;font-weight:500}
-.colazione-select{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;background:#fff;margin-top:6px}
+.edit-cancel{flex:1;padding:7px;border-radius:8px;background:#F0EDE8;color:var(--sub);font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.edit-reset{width:100%;padding:6px;border-radius:8px;background:#FEF0EA;color:var(--accent);font-size:11px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:4px}
+.modified{border:1.5px solid var(--accent)!important}
 
 /* TIPS */
-.tip-box{border-radius:var(--radius);padding:16px;margin-top:12px}
-.tip-box.surplus{background:#FFF3CD;border-left:4px solid #E76F51}
-.tip-box.deficit{background:#D4EDDA;border-left:4px solid #2D6A4F}
-.tip-box.ok{background:#D1ECF1;border-left:4px solid #1D3557}
-.tip-box.neutral{background:#F4F4F4;border-left:4px solid #aaa}
-.tip-icon{font-size:22px;margin-bottom:6px}
-.tip-title{font-weight:700;font-size:14px;margin-bottom:4px}
-.tip-text{font-size:13px;line-height:1.6;color:#444}
-.tip-activity{display:inline-block;margin-top:8px;background:rgba(0,0,0,.06);border-radius:8px;padding:5px 10px;font-size:12px;font-weight:600}
 .tips-section{margin-bottom:20px}
 .tips-section h3{font-family:'DM Serif Display',serif;font-size:17px;margin-bottom:12px;color:var(--text)}
-.tips-card{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,.05);display:flex;gap:12px;align-items:flex-start}
-.tips-card-icon{font-size:22px;flex-shrink:0;margin-top:1px}
-.tips-card-body{}
+.tips-card{background:#fff;border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:8px;box-shadow:var(--shadow-sm);display:flex;gap:12px;align-items:flex-start;border:1px solid var(--border)}
+.tips-card-icon{font-size:20px;flex-shrink:0;margin-top:1px}
 .tips-card-title{font-weight:600;font-size:13px;margin-bottom:3px}
 .tips-card-text{font-size:12px;color:#555;line-height:1.6}
 
 /* BOTTOM NAV */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);display:flex;padding:10px 0 20px;z-index:100}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:var(--sub);cursor:pointer}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-top:1px solid var(--border);display:flex;padding:10px 0 20px;z-index:100}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:var(--sub);cursor:pointer;transition:color .15s}
 .nav-item.active{color:var(--accent)}
 .nav-icon{font-size:20px}
 .view{display:none}.view.active{display:block}
-.section-title{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:14px}
+.section-title{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:14px;letter-spacing:-0.3px}
 </style>
 </head>
 <body>
@@ -728,6 +763,70 @@ const FRUTTA_DOPO_PRANZO_MAR = [
   "Arancia 200g","Pera 200g","Kiwi 100g","Pesche 200g",
 ];
 
+
+function buildMealItemRow(label, cls, tlbl, opts, person, weekIdx, dayIdx, meal, slot){
+  const panelId = 'ep-'+person+'-'+weekIdx+'-'+dayIdx+'-'+meal+'-'+slot;
+  const selectId = 'es-'+person+'-'+weekIdx+'-'+dayIdx+'-'+meal+'-'+slot;
+  const isModified = !!localStorage.getItem(modKey(person,weekIdx,dayIdx,meal,slot));
+  _panelOpts[selectId] = {opts:opts, label:label};
+  const modCls = isModified ? ' modified' : '';
+  const resetData = isModified
+    ? '<button class="edit-reset" data-action="reset" data-p="'+person+'" data-w="'+weekIdx+'" data-d="'+dayIdx+'" data-m="'+meal+'" data-s="'+slot+'">&#8617; Ripristina</button>'
+    : '';
+  return '<div class="meal-item-row">'
+    +'<div class="meal-item-badge '+cls+'">'+tlbl+'</div>'
+    +'<span class="meal-item-text'+modCls+'">'+label+'</span>'
+    +'<div style="position:relative">'
+    +'<button class="meal-item-edit" data-action="open" data-panel="'+panelId+'">&#9999;&#65039;</button>'
+    +'<div class="edit-panel" id="'+panelId+'">'
+    +'<select id="'+selectId+'"></select>'
+    +'<div class="edit-actions">'
+    +'<button class="edit-cancel" data-action="cancel">Annulla</button>'
+    +'<button class="edit-ok" data-action="save" data-p="'+person+'" data-w="'+weekIdx+'" data-d="'+dayIdx+'" data-m="'+meal+'" data-s="'+slot+'" data-sel="'+selectId+'">Salva</button>'
+    +'</div>'
+    +resetData
+    +'</div>'
+    +'</div>'
+    +'</div>';
+}
+
+function buildMealSection(title, slot, person, list, kcalOverride){
+  var key = slot === 'frutta-pranzo' ? slot+'-mar' : slot+'-'+person;
+  var saved = localStorage.getItem(key);
+  var savedKcal = saved ? parseInt(saved) : list[0].kcal;
+  var currentItem = list.find(function(i){return i.kcal===savedKcal;}) || list[0];
+  var currentLabel = currentItem.label;
+  var kcal = kcalOverride !== null ? kcalOverride : currentItem.kcal;
+  var panelId = 'ep-extra-'+key;
+  var selectId = 'es-extra-'+key;
+  _panelOpts[selectId] = {
+    opts: list.map(function(i){return i.label+' (~'+i.kcal+' kcal)';}),
+    vals: list.map(function(i){return i.kcal;}),
+    label: currentLabel+' (~'+kcal+' kcal)'
+  };
+  return '<div class="meal-section">'
+    +'<div class="meal-section-header">'
+    +'<span class="meal-section-title">'+title+'</span>'
+    +'<span class="meal-section-kcal">~'+kcal+' kcal</span>'
+    +'</div>'
+    +'<div class="meal-section-body">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between">'
+    +'<span style="font-size:13px;font-weight:500;color:var(--text)">'+currentLabel+'</span>'
+    +'<div style="position:relative">'
+    +'<button class="meal-item-edit" data-action="open" data-panel="'+panelId+'">&#9999;&#65039;</button>'
+    +'<div class="edit-panel" id="'+panelId+'">'
+    +'<select id="'+selectId+'"></select>'
+    +'<div class="edit-actions">'
+    +'<button class="edit-cancel" data-action="cancel">Annulla</button>'
+    +'<button class="edit-ok" data-action="mealselect" data-key="'+key+'" data-sel="'+selectId+'">Salva</button>'
+    +'</div>'
+    +'</div>'
+    +'</div>'
+    +'</div>'
+    +'</div>'
+    +'</div>';
+}
+
 function buildMealSelect(title, slot, person, list){
   var key = slot === 'frutta-pranzo' ? slot+'-mar' : slot+'-'+person;
   var saved = localStorage.getItem(key);
@@ -751,11 +850,12 @@ function buildMealSelect(title, slot, person, list){
   html += '<span style="font-size:13px;font-weight:500;flex:1">'+currentLabel+'</span>';
   html += '<button class="edit-btn" data-action="open" data-panel="'+panelId+'" style="opacity:0.6">&#9999;&#65039;</button>';
   html += '</div>';
-  html += '<div class="edit-panel" id="'+panelId+'">';
+  html += '<div class="edit-panel inline" id="'+panelId+'">';
   html += '<select id="'+selectId+'"></select>';
   html += '<div class="edit-actions">';
   html += '<button class="edit-cancel" data-action="cancel">Annulla</button>';
   html += '<button class="edit-ok" data-action="mealselect" data-key="'+key+'" data-sel="'+selectId+'">Salva</button>';
+  html += '</div>';
   html += '</div>';
   html += '</div>';
   html += '</div>';
@@ -870,8 +970,8 @@ function renderOggi(){
     const balCol = balance > 200 ? '#E76F51' : balance < -200 ? '#1D3557' : '#2D6A4F';
     bil = `
     <div class="divider"></div>
-    <div class="bil-title">Bilancio calorico</div>
-    <div class="bil-row"><span>Pranzo + Cena</span><span class="kcal-c">${np[0]+nc[0]} kcal</span></div>
+    <div style="height:1px;background:rgba(255,255,255,.2);margin:12px 0"></div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,.6);margin-bottom:10px">Bilancio calorico</div>
+    <div class="bil-row" style="color:rgba(255,255,255,.85);border-bottom-color:rgba(255,255,255,.1)"><span>Pranzo + Cena</span><span class="kcal-c">${np[0]+nc[0]} kcal</span></div>
     <div class="bil-row"><span>Colazione + spuntini</span><span class="kcal-c">${extraKcal} kcal</span></div>
     <div class="bil-row" style="font-weight:600"><span>Totale ingerito</span><span class="kcal-c">${totalKcal} kcal</span></div>
     <div class="bil-row"><span>Fabbisogno base</span><span>${tdee} kcal</span></div>
@@ -885,61 +985,80 @@ function renderOggi(){
   }
 
   document.getElementById('oggiContent').innerHTML = `
-  <div class="card">
-    <div class="oggi-lbl">Oggi – Sett. ${week+1}</div>
-    <div class="oggi-day">${DAYS[di]}, ${dateStr}</div>
+  <div style="padding-top:4px">
+    <div class="card" style="margin-bottom:10px">
+      <div class="oggi-lbl">Oggi – Settimana ${week+1}</div>
+      <div class="oggi-day">${DAYS[di]}, ${dateStr}</div>
+    </div>
 
-    ${buildMealSelect('☕ Colazione', 'colazione', currentPerson,
-        currentPerson==='ale' ? COLAZIONE_ALE : COLAZIONE_MAR)}
+    ${buildMealSection('☕ Colazione', 'colazione', currentPerson,
+        currentPerson==='ale' ? COLAZIONE_ALE : COLAZIONE_MAR, null)}
 
-    ${buildMealSelect('🍎 Spuntino metà mattina', 'spuntino-mattina', currentPerson, SPUNTINI)}
+    ${buildMealSection('🍎 Spuntino mattina', 'spuntino-mattina', currentPerson, SPUNTINI, null)}
 
-    <div class="meal-block">
-      <div class="meal-title">☀️ Pranzo <span style="font-size:10px;color:var(--sub);font-weight:400">· tocca ✏️ per modificare</span></div>
-      <div class="meal-items">
-        <div class="meal-item c">${buildTagWithEdit(pc,'c','C',carboOptsP,currentPerson,week,di,'pranzo',0)}</div>
-        <div class="meal-item p">${buildTagWithEdit(pp,'p','P',protOpts,currentPerson,week,di,'pranzo',1)}</div>
-        <div class="meal-item v">${buildTagWithEdit(pv,'v','V',(currentPerson==="ale"?ALTERNATIVES.verd_ale:ALTERNATIVES.verd_mar),currentPerson,week,di,'pranzo',2)}</div>
+    <div class="meal-section">
+      <div class="meal-section-header">
+        <span class="meal-section-title">☀️ Pranzo</span>
+        <span class="meal-section-kcal">${np[0]} kcal</span>
       </div>
-      <div class="nutri-row">
-        <div class="np"><div class="nv kcal-c">${np[0]}</div><div class="nl">kcal</div></div>
-        <div class="np"><div class="nv prot-c">${np[1]}g</div><div class="nl">prot.</div></div>
-        <div class="np"><div class="nv carb-c">${np[2]}g</div><div class="nl">carb.</div></div>
+      <div class="meal-section-body">
+        ${buildMealItemRow(pc,'c','C',carboOptsP,currentPerson,week,di,'pranzo',0)}
+        ${buildMealItemRow(pp,'p','P',protOpts,currentPerson,week,di,'pranzo',1)}
+        ${buildMealItemRow(pv,'v','V',(currentPerson==="ale"?ALTERNATIVES.verd_ale:ALTERNATIVES.verd_mar),currentPerson,week,di,'pranzo',2)}
+        <div class="nutri-strip">
+          <div class="nutri-chip"><div class="nutri-chip-val nc-kcal">${np[0]}</div><div class="nutri-chip-lbl">kcal</div></div>
+          <div class="nutri-chip"><div class="nutri-chip-val nc-prot">${np[1]}g</div><div class="nutri-chip-lbl">prot</div></div>
+          <div class="nutri-chip"><div class="nutri-chip-val nc-carb">${np[2]}g</div><div class="nutri-chip-lbl">carb</div></div>
+        </div>
       </div>
     </div>
 
-    ${currentPerson==='mar' ? buildMealSelect('🍇 Frutta dopo pranzo', 'frutta-pranzo', 'mar', SPUNTINI) : ''}
+    ${currentPerson==='mar' ? buildMealSection('🍇 Frutta dopo pranzo', 'frutta-pranzo', 'mar', SPUNTINI, null) : ''}
 
-    ${buildMealSelect('🍊 Spuntino metà pomeriggio', 'spuntino-pomeriggio', currentPerson, SPUNTINI)}
+    ${buildMealSection('🍊 Spuntino pomeriggio', 'spuntino-pomeriggio', currentPerson, SPUNTINI, null)}
 
-    <div class="meal-block">
-      <div class="meal-title">🌙 Cena <span style="font-size:10px;color:var(--sub);font-weight:400">· tocca ✏️ per modificare</span></div>
-      <div class="meal-items">
-        <div class="meal-item c">${buildTagWithEdit(cc,'c','C',carboOptsC,currentPerson,week,di,'cena',0)}</div>
-        <div class="meal-item p">${buildTagWithEdit(cp,'p','P',protOpts,currentPerson,week,di,'cena',1)}</div>
-        <div class="meal-item v">${buildTagWithEdit(cv,'v','V',(currentPerson==="ale"?ALTERNATIVES.verd_ale:ALTERNATIVES.verd_mar),currentPerson,week,di,'cena',2)}</div>
+    <div class="meal-section">
+      <div class="meal-section-header">
+        <span class="meal-section-title">🌙 Cena</span>
+        <span class="meal-section-kcal">${nc[0]} kcal</span>
       </div>
-      <div class="nutri-row">
-        <div class="np"><div class="nv kcal-c">${nc[0]}</div><div class="nl">kcal</div></div>
-        <div class="np"><div class="nv prot-c">${nc[1]}g</div><div class="nl">prot.</div></div>
-        <div class="np"><div class="nv carb-c">${nc[2]}g</div><div class="nl">carb.</div></div>
+      <div class="meal-section-body">
+        ${buildMealItemRow(cc,'c','C',carboOptsC,currentPerson,week,di,'cena',0)}
+        ${buildMealItemRow(cp,'p','P',protOpts,currentPerson,week,di,'cena',1)}
+        ${buildMealItemRow(cv,'v','V',(currentPerson==="ale"?ALTERNATIVES.verd_ale:ALTERNATIVES.verd_mar),currentPerson,week,di,'cena',2)}
+        <div class="nutri-strip">
+          <div class="nutri-chip"><div class="nutri-chip-val nc-kcal">${nc[0]}</div><div class="nutri-chip-lbl">kcal</div></div>
+          <div class="nutri-chip"><div class="nutri-chip-val nc-prot">${nc[1]}g</div><div class="nutri-chip-lbl">prot</div></div>
+          <div class="nutri-chip"><div class="nutri-chip-val nc-carb">${nc[2]}g</div><div class="nutri-chip-lbl">carb</div></div>
+        </div>
       </div>
     </div>
 
-    <div class="divider"></div>
-    <div class="meal-title" style="margin-bottom:8px">Totale giornaliero</div>
-    <div style="font-size:11px;color:var(--sub);margin-bottom:4px">Colazione + spuntini inclusi (~${extraKcal} kcal)</div>
-    <div class="nutri-row">
-      <div class="np"><div class="nv kcal-c">${totalKcal}</div><div class="nl">kcal tot.</div></div>
-      <div class="np"><div class="nv prot-c">${totalProt}g</div><div class="nl">prot. tot.</div></div>
-      <div class="np"><div class="nv carb-c">${totalCarb}g</div><div class="nl">carb. tot.</div></div>
+    <div style="background:linear-gradient(135deg,#2A6B4F 0%,#1C3A6B 100%);border-radius:var(--radius);padding:18px;margin-bottom:10px;box-shadow:0 4px 20px rgba(28,58,107,.25)">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,.6);margin-bottom:10px">Totale giornaliero</div>
+      <div style="display:flex;gap:8px">
+        <div style="flex:1;text-align:center;background:rgba(255,255,255,.12);border-radius:10px;padding:10px 6px">
+          <div style="font-size:20px;font-weight:700;color:#FFD166">${totalKcal}</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.5px;margin-top:2px">kcal</div>
+        </div>
+        <div style="flex:1;text-align:center;background:rgba(255,255,255,.12);border-radius:10px;padding:10px 6px">
+          <div style="font-size:20px;font-weight:700;color:#95E8B8">${totalProt}g</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.5px;margin-top:2px">proteine</div>
+        </div>
+        <div style="flex:1;text-align:center;background:rgba(255,255,255,.12);border-radius:10px;padding:10px 6px">
+          <div style="font-size:20px;font-weight:700;color:#90C8F0">${totalCarb}g</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.5px;margin-top:2px">carboidrati</div>
+        </div>
+      </div>
+      <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:8px;text-align:center">Colazione + spuntini inclusi (~${extraKcal} kcal)</div>
+      ${bil}
     </div>
-    ${bil}
+
     ${buildTipHtml(getTipOfDay(balance, burnedKcal, acts))}
   </div>`;
 }
 
-// ── PIANO ───────────────────────────────────────────────────────────────── ─────────────────────────────────────────────────────────────────
+// ── PIANO ───────────────────────────────────────────────────────────────── ───────────────────────────────────────────────────────────────── ─────────────────────────────────────────────────────────────────
 function renderWeekNav(){
   document.getElementById('weekNav').innerHTML =
     ['Sett. 1','Sett. 2','Sett. 3','Sett. 4'].map((l,i)=>
