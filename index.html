@@ -776,19 +776,18 @@ function buildMealItemRow(label, cls, tlbl, opts, person, weekIdx, dayIdx, meal,
   return '<div class="meal-item-row">'
     +'<div class="meal-item-badge '+cls+'">'+tlbl+'</div>'
     +'<span class="meal-item-text'+modCls+'">'+label+'</span>'
-    +'<div style="position:relative">'
     +'<button class="meal-item-edit" data-action="open" data-panel="'+panelId+'">&#9999;&#65039;</button>'
-    +'<div class="edit-panel" id="'+panelId+'">'
+    +'</div>'
+    +'<div class="edit-panel inline" id="'+panelId+'">'
     +'<select id="'+selectId+'"></select>'
     +'<div class="edit-actions">'
     +'<button class="edit-cancel" data-action="cancel">Annulla</button>'
     +'<button class="edit-ok" data-action="save" data-p="'+person+'" data-w="'+weekIdx+'" data-d="'+dayIdx+'" data-m="'+meal+'" data-s="'+slot+'" data-sel="'+selectId+'">Salva</button>'
     +'</div>'
     +resetData
-    +'</div>'
-    +'</div>'
     +'</div>';
 }
+
 
 function buildMealSection(title, slot, person, list, kcalOverride){
   var key = slot === 'frutta-pranzo' ? slot+'-mar' : slot+'-'+person;
@@ -812,9 +811,9 @@ function buildMealSection(title, slot, person, list, kcalOverride){
     +'<div class="meal-section-body">'
     +'<div style="display:flex;align-items:center;justify-content:space-between">'
     +'<span style="font-size:13px;font-weight:500;color:var(--text)">'+currentLabel+'</span>'
-    +'<div style="position:relative">'
     +'<button class="meal-item-edit" data-action="open" data-panel="'+panelId+'">&#9999;&#65039;</button>'
-    +'<div class="edit-panel" id="'+panelId+'">'
+    +'</div>'
+    +'<div class="edit-panel inline" id="'+panelId+'">'
     +'<select id="'+selectId+'"></select>'
     +'<div class="edit-actions">'
     +'<button class="edit-cancel" data-action="cancel">Annulla</button>'
@@ -822,10 +821,9 @@ function buildMealSection(title, slot, person, list, kcalOverride){
     +'</div>'
     +'</div>'
     +'</div>'
-    +'</div>'
-    +'</div>'
     +'</div>';
 }
+
 
 function buildMealSelect(title, slot, person, list){
   var key = slot === 'frutta-pranzo' ? slot+'-mar' : slot+'-'+person;
@@ -1082,15 +1080,15 @@ function buildTagWithEdit(label, cls, tlbl, opts, person, weekIdx, dayIdx, meal,
     +'<span class="tlbl">'+tlbl+'</span>'+label
     +'<button class="edit-btn" data-action="open" data-panel="'+panelId+'">&#9999;&#65039;</button>'
     +'</span>'
-    +'<div class="edit-panel" id="'+panelId+'">'
+    +'</span>'
+    +'<div class="edit-panel inline" id="'+panelId+'" style="margin-top:6px;margin-bottom:4px">'
     +'<select id="'+selectId+'"></select>'
     +'<div class="edit-actions">'
     +'<button class="edit-cancel" data-action="cancel">Annulla</button>'
     +'<button class="edit-ok" data-action="save" data-p="'+person+'" data-w="'+weekIdx+'" data-d="'+dayIdx+'" data-m="'+meal+'" data-s="'+slot+'" data-sel="'+selectId+'">Salva</button>'
     +'</div>'
     +resetData
-    +'</div>'
-    +'</span>';
+    +'</div>';
 }
 
 function renderDays(){
