@@ -406,6 +406,9 @@ const MET = { corsa:10, camminata:3.5, palestra:6, cyclette:8, nuoto:9, altro:5 
 const SPORT_ICON = { corsa:'🏃', camminata:'🚶', palestra:'🏋️', cyclette:'🚴', nuoto:'🏊', altro:'⚡' };
 const ACTIVITY_FACTOR = 1.55; // moderatamente attivo
 
+// Registro globale delle opzioni per ogni panel
+const _panelOpts = {};
+
 let currentPerson = 'ale';
 let currentWeek = getAutoWeek();
 let spesaOpen = false;
@@ -944,8 +947,6 @@ function renderWeekNav(){
     ).join('');
 }
 
-// Registro globale delle opzioni per ogni panel
-const _panelOpts = {};
 
 function buildTagWithEdit(label, cls, tlbl, opts, person, weekIdx, dayIdx, meal, slot){
   const panelId = 'ep-'+person+'-'+weekIdx+'-'+dayIdx+'-'+meal+'-'+slot;
