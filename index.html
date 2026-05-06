@@ -431,18 +431,7 @@ function closeAllEdits(){
   openEditPanel = null;
 }
 
-function toggleEdit(panelId, event){
-  event.stopPropagation();
-  const panel = document.getElementById(panelId);
-  if(panel.classList.contains('open')){
-    panel.classList.remove('open');
-    openEditPanel = null;
-  } else {
-    closeAllEdits();
-    panel.classList.add('open');
-    openEditPanel = panelId;
-  }
-}
+// toggleEdit rimosso - usa event delegation
 
 function applyEdit(person, weekIdx, dayIdx, meal, slot, selectId, tagId){
   const sel = document.getElementById(selectId);
@@ -475,10 +464,54 @@ function resetEdit(person, weekIdx, dayIdx, meal, slot){
 }
 
 document.addEventListener('click', function(e){
-  if(openEditPanel && !e.target.closest('.edit-panel') && !e.target.closest('.edit-btn')){
+  if(openEditPanel && !e.target.closest('.edit-panel') && !e.target.closest('[data-action]')){
     closeAllEdits();
   }
 });
+
+// Event delegation per i bottoni di modifica
+document.addEventListener('click', function(e){
+  const btn = e.target.closest('[data-action]');
+  if(!btn) return;
+  const action = btn.dataset.action;
+  if(action === 'open'){
+    e.stopPropagation();
+    const panelId = btn.dataset.panel;
+    const panel = document.getElementById(panelId);
+    if(!panel) return;
+    if(panel.classList.contains('open')){
+      panel.classList.remove('open');
+      openEditPanel = null;
+    } else {
+      closeAllEdits();
+      const selectId = panelId.replace('ep-','es-');
+      const sel = document.getElementById(selectId);
+      const reg = _panelOpts[selectId];
+      if(sel && reg){
+        sel.innerHTML = '';
+        reg.opts.forEach(function(o){
+          const opt = document.createElement('option');
+          opt.value = o; opt.textContent = o;
+          if(o === reg.label) opt.selected = true;
+          sel.appendChild(opt);
+        });
+      }
+      panel.classList.add('open');
+      openEditPanel = panelId;
+    }
+  } else if(action === 'cancel'){
+    closeAllEdits();
+  } else if(action === 'save'){
+    const p=btn.dataset.p, w=+btn.dataset.w, d=+btn.dataset.d,
+          m=btn.dataset.m, s=+btn.dataset.s, selId=btn.dataset.sel;
+    applyEdit(p,w,d,m,s,selId,'');
+  } else if(action === 'reset'){
+    const p=btn.dataset.p, w=+btn.dataset.w, d=+btn.dataset.d,
+          m=btn.dataset.m, s=+btn.dataset.s;
+    resetEdit(p,w,d,m,s);
+  }
+});
+
 
 function renderOggi(){
   const now = new Date();
@@ -579,25 +612,33 @@ function renderWeekNav(){
     ).join('');
 }
 
+// Registro globale delle opzioni per ogni panel
+const _panelOpts = {};
+
 function buildTagWithEdit(label, cls, tlbl, opts, person, weekIdx, dayIdx, meal, slot){
-  const panelId = `ep-${person}-${weekIdx}-${dayIdx}-${meal}-${slot}`;
-  const selectId = `es-${person}-${weekIdx}-${dayIdx}-${meal}-${slot}`;
+  const panelId = 'ep-'+person+'-'+weekIdx+'-'+dayIdx+'-'+meal+'-'+slot;
+  const selectId = 'es-'+person+'-'+weekIdx+'-'+dayIdx+'-'+meal+'-'+slot;
   const isModified = !!localStorage.getItem(modKey(person,weekIdx,dayIdx,meal,slot));
-  const optHtml = opts.map(o=>`<option value="${o}" ${o===label?'selected':''}>${o}</option>`).join('');
-  return `<span class="tag-wrap">
-    <span class="tag ${cls} ${isModified?'modified':''}">
-      <span class="tlbl">${tlbl}</span>${label}
-      <button class="edit-btn" onclick="toggleEdit('${panelId}',event)" title="Modifica">✏️</button>
-    </span>
-    <div class="edit-panel" id="${panelId}">
-      <select id="${selectId}">${optHtml}</select>
-      <div class="edit-actions">
-        <button class="edit-cancel" onclick="closeAllEdits()">Annulla</button>
-        <button class="edit-ok" onclick="applyEdit('${person}',${weekIdx},${dayIdx},'${meal}',${slot},'${selectId}','')">Salva</button>
-      </div>
-      ${isModified?`<button class="edit-reset" onclick="resetEdit('${person}',${weekIdx},${dayIdx},'${meal}',${slot})">↩ Ripristina originale</button>`:''}
-    </div>
-  </span>`;
+  _panelOpts[selectId] = {opts:opts, label:label};
+  // Usiamo data-* per evitare qualsiasi problema con escape negli onclick
+  const modFlag = isModified ? ' modified' : '';
+  const resetData = isModified
+    ? '<button class="edit-reset" data-action="reset" data-p="'+person+'" data-w="'+weekIdx+'" data-d="'+dayIdx+'" data-m="'+meal+'" data-s="'+slot+'">&#8617; Ripristina</button>'
+    : '';
+  return '<span class="tag-wrap">'
+    +'<span class="tag '+cls+modFlag+'">'
+    +'<span class="tlbl">'+tlbl+'</span>'+label
+    +'<button class="edit-btn" data-action="open" data-panel="'+panelId+'">&#9999;&#65039;</button>'
+    +'</span>'
+    +'<div class="edit-panel" id="'+panelId+'">'
+    +'<select id="'+selectId+'"></select>'
+    +'<div class="edit-actions">'
+    +'<button class="edit-cancel" data-action="cancel">Annulla</button>'
+    +'<button class="edit-ok" data-action="save" data-p="'+person+'" data-w="'+weekIdx+'" data-d="'+dayIdx+'" data-m="'+meal+'" data-s="'+slot+'" data-sel="'+selectId+'">Salva</button>'
+    +'</div>'
+    +resetData
+    +'</div>'
+    +'</span>';
 }
 
 function renderDays(){
