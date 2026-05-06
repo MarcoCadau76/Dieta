@@ -201,7 +201,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="sport-log" id="sportTodayLog"></div>
     </div>
     <div class="card" id="monthLogCard">
-      <div class="section-title">📅 Storico ultimo mese</div>
+      <div class="section-title">📅 Storico attività</div>
       <div id="monthLog"></div>
     </div>
   </div>
@@ -324,14 +324,127 @@ function setWeek(w){
 function renderAll(){ renderOggi(); renderWeekNav(); renderDays(); renderSportToday(); renderMonthLog(); }
 
 // ── OGGI ─────────────────────────────────────────────────────────────────
+const ALTERNATIVES = {
+  carbo: [
+    "Pasta di semola","Pasta all'uovo","Riso parboiled","Orzo","Farro",
+    "Pane comune","Pane carasau","Patate","Ceci in scatola","Ceci secchi",
+    "Fagioli in scatola","Fagioli secchi","Lenticchie in scatola",
+    "Lenticchie secche","Piselli freschi/surgel."
+  ],
+  prot_ale: [
+    "Tonno al naturale 100g","Sgombro al naturale 70g","Uova di gallina 70g",
+    "Prosciutto crudo 70g","Prosciutto cotto 60g","Bresaola 70g",
+    "Prosciutto di tacchino 80g","Mozzarella di vacca 50g",
+    "Fiocchi di latte 100g","Ricotta magra 100g","Orata 110g",
+    "Merluzzo 150g","Spigola 130g","Pollo petto 110g","Pollo coscia 80g",
+    "Tacchino petto 100g","Manzo magro 90g","Vitellone magro 100g"
+  ],
+  prot_mar: [
+    "Tonno al naturale 140g","Sgombro al naturale 80g","Uova di gallina (due)",
+    "Prosciutto crudo 90g","Prosciutto cotto 80g","Bresaola 90g",
+    "Prosciutto di tacchino 100g","Mozzarella di vacca 50g",
+    "Fiocchi di latte 100g","Ricotta magra 120g","Orata 140g",
+    "Merluzzo 200g","Spigola 170g","Pollo petto 140g","Pollo coscia 100g",
+    "Tacchino petto 130g","Manzo magro 110g","Vitellone magro 120g"
+  ],
+  verd: [
+    "Pomodori 200g","Cetrioli 250g","Zucchine 300g","Carote 100g",
+    "Rucola 100g","Insalata mista 250g","Radicchio rosso 250g",
+    "Broccoli 150g","Peperoni 150g","Fagiolini 200g","Asparagi 150g",
+    "Finocchi 400g","Spinaci 200g","Melanzane 300g"
+  ]
+};
+
+// Recupera il grammo originale da un'etichetta carbo e lo preserva
+function getGrams(label){
+  const m = label.match(/(\d+)g/);
+  return m ? m[1] : null;
+}
+
+function carboWithGrams(base, originalLabel){
+  const g = getGrams(originalLabel);
+  // Rimuovi grammi esistenti dal base
+  const cleanBase = base.replace(/\s*\d+g$/,'');
+  return g ? cleanBase + ' ' + g + 'g' : cleanBase;
+}
+
+// Chiave localStorage per una modifica giornaliera
+// formato: mod-{person}-{weekAbsolute}-{dayIndex}-{meal}-{slot}
+function modKey(person, weekIdx, dayIdx, meal, slot){
+  return 'mod-'+person+'-'+weekIdx+'-'+dayIdx+'-'+meal+'-'+slot;
+}
+
+// Recupera il valore modificato oppure quello originale
+function getMeal(person, weekIdx, dayIdx, meal, slot){
+  const k = modKey(person, weekIdx, dayIdx, meal, slot);
+  const stored = localStorage.getItem(k);
+  return stored || DATA[person][meal][weekIdx*7+dayIdx][slot];
+}
+
+let openEditPanel = null;
+
+function closeAllEdits(){
+  document.querySelectorAll('.edit-panel.open').forEach(p=>p.classList.remove('open'));
+  openEditPanel = null;
+}
+
+function toggleEdit(panelId, event){
+  event.stopPropagation();
+  const panel = document.getElementById(panelId);
+  if(panel.classList.contains('open')){
+    panel.classList.remove('open');
+    openEditPanel = null;
+  } else {
+    closeAllEdits();
+    panel.classList.add('open');
+    openEditPanel = panelId;
+  }
+}
+
+function applyEdit(person, weekIdx, dayIdx, meal, slot, selectId, tagId){
+  const sel = document.getElementById(selectId);
+  const val = sel.value;
+  const k = modKey(person, weekIdx, dayIdx, meal, slot);
+  localStorage.setItem(k, val);
+  closeAllEdits();
+  const oggiActive = document.getElementById('view-oggi').classList.contains('active');
+  if(oggiActive){ renderOggi(); } else {
+    renderDays();
+    setTimeout(()=>{
+      const card = document.getElementById('card-'+dayIdx);
+      if(card) card.classList.add('open');
+    }, 50);
+  }
+}
+
+function resetEdit(person, weekIdx, dayIdx, meal, slot){
+  const k = modKey(person, weekIdx, dayIdx, meal, slot);
+  localStorage.removeItem(k);
+  closeAllEdits();
+  const oggiActiveR = document.getElementById('view-oggi').classList.contains('active');
+  if(oggiActiveR){ renderOggi(); } else {
+    renderDays();
+    setTimeout(()=>{
+      const card = document.getElementById('card-'+dayIdx);
+      if(card) card.classList.add('open');
+    }, 50);
+  }
+}
+
+document.addEventListener('click', function(e){
+  if(openEditPanel && !e.target.closest('.edit-panel') && !e.target.closest('.edit-btn')){
+    closeAllEdits();
+  }
+});
+
 function renderOggi(){
   const now = new Date();
   const di = now.getDay() === 0 ? 6 : now.getDay()-1; // 0=lun
   const week = getAutoWeek();
   const idx = week*7 + di;
   const d = DATA[currentPerson];
-  const [pc,pp,pv] = d.pranzo[idx];
-  const [cc,cp,cv] = d.cena[idx];
+  const pc=getMeal(currentPerson,week,di,'pranzo',0), pp=getMeal(currentPerson,week,di,'pranzo',1), pv=getMeal(currentPerson,week,di,'pranzo',2);
+  const cc=getMeal(currentPerson,week,di,'cena',0),   cp=getMeal(currentPerson,week,di,'cena',1),   cv=getMeal(currentPerson,week,di,'cena',2);
   const np = NUTRI_DATA[currentPerson].pranzo[idx];
   const nc = NUTRI_DATA[currentPerson].cena[idx];
   const totalKcal = np[0] + nc[0];
@@ -339,6 +452,9 @@ function renderOggi(){
   const totalCarb = np[2] + nc[2];
 
   // Attività di oggi
+  const protOpts = currentPerson==='ale' ? ALTERNATIVES.prot_ale : ALTERNATIVES.prot_mar;
+  const carboOptsP = ALTERNATIVES.carbo.map(c=>carboWithGrams(c, DATA[currentPerson].pranzo[idx][0]));
+  const carboOptsC = ALTERNATIVES.carbo.map(c=>carboWithGrams(c, DATA[currentPerson].cena[idx][0]));
   const acts = getTodayActivities(currentPerson);
   const burnedKcal = acts.reduce((s,a)=>s+a.kcal,0);
   const burnedMin  = acts.reduce((s,a)=>s+a.min,0);
@@ -375,11 +491,11 @@ function renderOggi(){
     <div class="oggi-lbl">Oggi – Sett. ${week+1}</div>
     <div class="oggi-day">${DAYS[di]}, ${dateStr}</div>
     <div class="meal-block">
-      <div class="meal-title">☀️ Pranzo</div>
+      <div class="meal-title">☀️ Pranzo <span style="font-size:10px;color:var(--sub);font-weight:400">· tocca ✏️ per modificare</span></div>
       <div class="meal-items">
-        <div class="meal-item c"><span class="ilbl">C</span>${pc}</div>
-        <div class="meal-item p"><span class="ilbl">P</span>${pp}</div>
-        <div class="meal-item v"><span class="ilbl">V</span>${pv}</div>
+        <div class="meal-item c">${buildTagWithEdit(pc,'c','C',carboOptsP,currentPerson,week,di,'pranzo',0)}</div>
+        <div class="meal-item p">${buildTagWithEdit(pp,'p','P',protOpts,currentPerson,week,di,'pranzo',1)}</div>
+        <div class="meal-item v">${buildTagWithEdit(pv,'v','V',ALTERNATIVES.verd,currentPerson,week,di,'pranzo',2)}</div>
       </div>
       <div class="nutri-row">
         <div class="np"><div class="nv kcal-c">${np[0]}</div><div class="nl">kcal</div></div>
@@ -389,11 +505,11 @@ function renderOggi(){
     </div>
     <div class="divider"></div>
     <div class="meal-block">
-      <div class="meal-title">🌙 Cena</div>
+      <div class="meal-title">🌙 Cena <span style="font-size:10px;color:var(--sub);font-weight:400">· tocca ✏️ per modificare</span></div>
       <div class="meal-items">
-        <div class="meal-item c"><span class="ilbl">C</span>${cc}</div>
-        <div class="meal-item p"><span class="ilbl">P</span>${cp}</div>
-        <div class="meal-item v"><span class="ilbl">V</span>${cv}</div>
+        <div class="meal-item c">${buildTagWithEdit(cc,'c','C',carboOptsC,currentPerson,week,di,'cena',0)}</div>
+        <div class="meal-item p">${buildTagWithEdit(cp,'p','P',protOpts,currentPerson,week,di,'cena',1)}</div>
+        <div class="meal-item v">${buildTagWithEdit(cv,'v','V',ALTERNATIVES.verd,currentPerson,week,di,'cena',2)}</div>
       </div>
       <div class="nutri-row">
         <div class="np"><div class="nv kcal-c">${nc[0]}</div><div class="nl">kcal</div></div>
@@ -611,6 +727,9 @@ function deleteActivity(person, idx){
 
 function renderSportToday(){
   const container = document.getElementById('sportTodayLog');
+  const protOpts = currentPerson==='ale' ? ALTERNATIVES.prot_ale : ALTERNATIVES.prot_mar;
+  const carboOptsP = ALTERNATIVES.carbo.map(c=>carboWithGrams(c, DATA[currentPerson].pranzo[idx][0]));
+  const carboOptsC = ALTERNATIVES.carbo.map(c=>carboWithGrams(c, DATA[currentPerson].cena[idx][0]));
   const acts = getTodayActivities(currentPerson);
   if(!acts.length){ container.innerHTML=''; return; }
   const totalKcal = acts.reduce((s,a)=>s+a.kcal,0);
@@ -636,42 +755,102 @@ function renderSportToday(){
 
 function renderMonthLog(){
   const container = document.getElementById('monthLog');
-  const today = new Date();
-  const days = [];
-  for(let i=29;i>=0;i--){
-    const d = new Date(today);
-    d.setDate(today.getDate()-i);
-    const dk = d.toISOString().slice(0,10);
-    const acts = load('sport-'+currentPerson+'-'+dk) || [];
-    if(acts.length){
-      days.push({ date:d, dk, acts });
+
+  // Raccoglie TUTTE le chiavi sport-{person}-{date} dal localStorage
+  const prefix = 'sport-'+currentPerson+'-';
+  const allDays = [];
+  for(let i=0; i<localStorage.length; i++){
+    const k = localStorage.key(i);
+    if(k && k.startsWith(prefix)){
+      const dateStr = k.replace(prefix,'');
+      if(/^\d{4}-\d{2}-\d{2}$/.test(dateStr)){
+        const acts = load(k) || [];
+        if(acts.length) allDays.push({ dateStr, acts });
+      }
     }
   }
-  if(!days.length){ container.innerHTML='<div style="font-size:13px;color:var(--sub)">Nessuna attivit&agrave; registrata nell&apos;ultimo mese.</div>'; return; }
+
+  if(!allDays.length){
+    container.innerHTML='<div style="font-size:13px;color:var(--sub)">Nessuna attivit&agrave; registrata.</div>';
+    return;
+  }
+
+  // Ordina decrescente
+  allDays.sort((a,b)=>b.dateStr.localeCompare(a.dateStr));
+
+  // Mesi disponibili
+  const monthsAvail = [...new Set(allDays.map(d=>d.dateStr.slice(0,7)))];
+
+  // Filtro attivo (default: mese corrente se presente, altrimenti primo disponibile)
+  const nowMonth = new Date().toISOString().slice(0,7);
+  if(!window.sportFilterMonth || !monthsAvail.includes(window.sportFilterMonth)){
+    window.sportFilterMonth = monthsAvail.includes(nowMonth) ? nowMonth : monthsAvail[0];
+  }
+
+  // Filtra
+  const filtered = allDays.filter(d=>d.dateStr.startsWith(window.sportFilterMonth));
+
+  // Totali mese
+  const totKcal = filtered.reduce((s,d)=>s+d.acts.reduce((a,x)=>a+x.kcal,0),0);
+  const totMin  = filtered.reduce((s,d)=>s+d.acts.reduce((a,x)=>a+x.min,0),0);
+  const totSess = filtered.reduce((s,d)=>s+d.acts.length,0);
+
   const months=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
-  let html='';
-  days.forEach(({date,acts})=>{
-    const tot_kcal = acts.reduce((s,a)=>s+a.kcal,0);
-    const tot_min  = acts.reduce((s,a)=>s+a.min,0);
-    const label = acts.map(a=>SPORT_ICON[a.type]+' '+a.type).join(', ');
-    html += `<div class="mentry">
-      <div class="mdate">${date.getDate()} ${months[date.getMonth()]}</div>
-      <div class="macts">${label}${tot_min?' · '+tot_min+' min':''}</div>
-      <div class="mkcal">${tot_kcal} kcal</div>
-    </div>`;
-  });
-  container.innerHTML = html;
+
+  function fmtMonth(ym){
+    const [y,m] = ym.split('-');
+    return months[parseInt(m)-1]+' '+y;
+  }
+
+  // Costruisci filtro mesi
+  const filterHtml = `<div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:6px;margin-bottom:12px">
+    ${monthsAvail.map(m=>`<button onclick="setSportMonth('${m}')"
+      style="flex-shrink:0;padding:5px 12px;border-radius:20px;border:1.5px solid ${m===window.sportFilterMonth?'var(--ale)':'var(--border)'};
+      background:${m===window.sportFilterMonth?'var(--ale)':'#fff'};
+      color:${m===window.sportFilterMonth?'#fff':'var(--sub)'};
+      font-size:12px;font-weight:500;cursor:pointer;font-family:DM Sans,sans-serif">${fmtMonth(m)}</button>`).join('')}
+  </div>`;
+
+  // Riepilogo mese
+  const summaryHtml = `<div style="display:flex;gap:8px;margin-bottom:14px">
+    <div class="np" style="background:#FFF3CD"><div class="nv kcal-c">${totKcal}</div><div class="nl">kcal tot.</div></div>
+    <div class="np" style="background:#D4EDDA"><div class="nv prot-c">${totMin}</div><div class="nl">min tot.</div></div>
+    <div class="np" style="background:#D1ECF1"><div class="nv carb-c">${totSess}</div><div class="nl">sessioni</div></div>
+  </div>`;
+
+  // Lista giorni
+  let listHtml = '';
+  if(!filtered.length){
+    listHtml = '<div style="font-size:13px;color:var(--sub)">Nessuna attivit&agrave; in questo mese.</div>';
+  } else {
+    filtered.forEach(({dateStr, acts})=>{
+      const d = new Date(dateStr+'T12:00:00');
+      const tot_kcal = acts.reduce((s,a)=>s+a.kcal,0);
+      const tot_min  = acts.reduce((s,a)=>s+a.min,0);
+      const label = acts.map(a=>(SPORT_ICON[a.type]||'⚡')+' '+a.type+(a.note?' ('+a.note+')':'')).join(', ');
+      listHtml += `<div class="mentry">
+        <div class="mdate">${d.getDate()} ${months[d.getMonth()]}</div>
+        <div class="macts">${label}${tot_min?' · '+tot_min+' min':''}</div>
+        <div class="mkcal">${tot_kcal} kcal</div>
+      </div>`;
+    });
+  }
+
+  container.innerHTML = filterHtml + summaryHtml + listHtml;
 }
 
-// ── PROFILO & TDEE ────────────────────────────────────────────────────────
+function setSportMonth(ym){
+  window.sportFilterMonth = ym;
+  renderMonthLog();
+}
+
 function getTDEE(person){
   const p = load('profile-'+person);
   if(!p || !p.peso || !p.altezza || !p.eta) return 0;
-  // Mifflin-St Jeor
   let bmr;
   if(p.sesso === 'm') bmr = 10*p.peso + 6.25*p.altezza - 5*p.eta + 5;
   else                bmr = 10*p.peso + 6.25*p.altezza - 5*p.eta - 161;
-  return Math.round(bmr * ACTIVITY_FACTOR);
+  return Math.round(bmr * 1.55);
 }
 
 function saveProfile(person){
@@ -713,114 +892,6 @@ function setView(v, el){
   if(v==='oggi') renderOggi();
 }
 
-
-const ALTERNATIVES = {
-  carbo: [
-    "Pasta di semola","Pasta all'uovo","Riso parboiled","Orzo","Farro",
-    "Pane comune","Pane carasau","Patate","Ceci in scatola","Ceci secchi",
-    "Fagioli in scatola","Fagioli secchi","Lenticchie in scatola",
-    "Lenticchie secche","Piselli freschi/surgel."
-  ],
-  prot_ale: [
-    "Tonno al naturale 100g","Sgombro al naturale 70g","Uova di gallina 70g",
-    "Prosciutto crudo 70g","Prosciutto cotto 60g","Bresaola 70g",
-    "Prosciutto di tacchino 80g","Mozzarella di vacca 50g",
-    "Fiocchi di latte 100g","Ricotta magra 100g","Orata 110g",
-    "Merluzzo 150g","Spigola 130g","Pollo petto 110g","Pollo coscia 80g",
-    "Tacchino petto 100g","Manzo magro 90g","Vitellone magro 100g"
-  ],
-  prot_mar: [
-    "Tonno al naturale 140g","Sgombro al naturale 80g","Uova di gallina (due)",
-    "Prosciutto crudo 90g","Prosciutto cotto 80g","Bresaola 90g",
-    "Prosciutto di tacchino 100g","Mozzarella di vacca 50g",
-    "Fiocchi di latte 100g","Ricotta magra 120g","Orata 140g",
-    "Merluzzo 200g","Spigola 170g","Pollo petto 140g","Pollo coscia 100g",
-    "Tacchino petto 130g","Manzo magro 110g","Vitellone magro 120g"
-  ],
-  verd: [
-    "Pomodori 200g","Cetrioli 250g","Zucchine 300g","Carote 100g",
-    "Rucola 100g","Insalata mista 250g","Radicchio rosso 250g",
-    "Broccoli 150g","Peperoni 150g","Fagiolini 200g","Asparagi 150g",
-    "Finocchi 400g","Spinaci 200g","Melanzane 300g"
-  ]
-};
-
-// Recupera il grammo originale da un'etichetta carbo e lo preserva
-function getGrams(label){
-  const m = label.match(/(\d+)g/);
-  return m ? m[1] : null;
-}
-
-function carboWithGrams(base, originalLabel){
-  const g = getGrams(originalLabel);
-  // Rimuovi grammi esistenti dal base
-  const cleanBase = base.replace(/\s*\d+g$/,'');
-  return g ? cleanBase + ' ' + g + 'g' : cleanBase;
-}
-
-// Chiave localStorage per una modifica giornaliera
-// formato: mod-{person}-{weekAbsolute}-{dayIndex}-{meal}-{slot}
-function modKey(person, weekIdx, dayIdx, meal, slot){
-  return 'mod-'+person+'-'+weekIdx+'-'+dayIdx+'-'+meal+'-'+slot;
-}
-
-// Recupera il valore modificato oppure quello originale
-function getMeal(person, weekIdx, dayIdx, meal, slot){
-  const k = modKey(person, weekIdx, dayIdx, meal, slot);
-  const stored = localStorage.getItem(k);
-  return stored || DATA[person][meal][weekIdx*7+dayIdx][slot];
-}
-
-let openEditPanel = null;
-
-function closeAllEdits(){
-  document.querySelectorAll('.edit-panel.open').forEach(p=>p.classList.remove('open'));
-  openEditPanel = null;
-}
-
-function toggleEdit(panelId, event){
-  event.stopPropagation();
-  const panel = document.getElementById(panelId);
-  if(panel.classList.contains('open')){
-    panel.classList.remove('open');
-    openEditPanel = null;
-  } else {
-    closeAllEdits();
-    panel.classList.add('open');
-    openEditPanel = panelId;
-  }
-}
-
-function applyEdit(person, weekIdx, dayIdx, meal, slot, selectId, tagId){
-  const sel = document.getElementById(selectId);
-  const val = sel.value;
-  const k = modKey(person, weekIdx, dayIdx, meal, slot);
-  localStorage.setItem(k, val);
-  closeAllEdits();
-  renderDays();
-  // Riapri la card
-  setTimeout(()=>{ 
-    const card = document.getElementById('card-'+dayIdx);
-    if(card) card.classList.add('open');
-  }, 50);
-}
-
-function resetEdit(person, weekIdx, dayIdx, meal, slot){
-  const k = modKey(person, weekIdx, dayIdx, meal, slot);
-  localStorage.removeItem(k);
-  closeAllEdits();
-  renderDays();
-  setTimeout(()=>{ 
-    const card = document.getElementById('card-'+dayIdx);
-    if(card) card.classList.add('open');
-  }, 50);
-}
-
-document.addEventListener('click', function(e){
-  if(openEditPanel && !e.target.closest('.edit-panel') && !e.target.closest('.edit-btn')){
-    closeAllEdits();
-  }
-});
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 loadProfileForm('ale');
