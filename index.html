@@ -611,9 +611,11 @@ document.addEventListener('click', function(e){
       const reg = _panelOpts[selectId];
       if(sel && reg){
         sel.innerHTML = '';
-        reg.opts.forEach(function(o){
+        reg.opts.forEach(function(o, idx){
           const opt = document.createElement('option');
-          opt.value = o; opt.textContent = o;
+          // Se ha vals[], usa il valore numerico; altrimenti usa la stringa
+          opt.value = reg.vals ? reg.vals[idx] : o;
+          opt.textContent = o;
           if(o === reg.label) opt.selected = true;
           sel.appendChild(opt);
         });
@@ -632,8 +634,10 @@ document.addEventListener('click', function(e){
           m=btn.dataset.m, s=+btn.dataset.s;
     resetEdit(p,w,d,m,s);
   } else if(action === 'mealselect'){
-    var key = e.target.dataset.key;
-    localStorage.setItem(key, e.target.value);
+    var key = btn.dataset.key;
+    var selEl = document.getElementById(btn.dataset.sel);
+    if(selEl) localStorage.setItem(key, selEl.value);
+    closeAllEdits();
     renderOggi();
   }
 });
@@ -725,14 +729,32 @@ function buildMealSelect(title, slot, person, list){
   var key = slot === 'frutta-pranzo' ? slot+'-mar' : slot+'-'+person;
   var saved = localStorage.getItem(key);
   var savedKcal = saved ? parseInt(saved) : list[0].kcal;
+  // Trova label corrente
+  var currentItem = list.find(function(i){return i.kcal===savedKcal;}) || list[0];
+  var currentLabel = currentItem.label + ' (~' + currentItem.kcal + ' kcal)';
+  // Salva opzioni nel registro globale (stessa logica di _panelOpts)
+  var panelId = 'ep-extra-'+key;
+  var selectId = 'es-extra-'+key;
+  _panelOpts[selectId] = {
+    opts: list.map(function(i){return i.label+' (~'+i.kcal+' kcal)';}),
+    vals: list.map(function(i){return i.kcal;}),
+    label: currentLabel
+  };
   var html = '<div class="extra-meal">';
-  html += '<div class="extra-meal-title">'+title+'</div>';
-  html += '<select class="colazione-select" data-action="mealselect" data-key="'+key+'">';
-  list.forEach(function(item){
-    var sel = (item.kcal === savedKcal) ? ' selected' : '';
-    html += '<option value="'+item.kcal+'"'+sel+'>'+item.label+' (~'+item.kcal+' kcal)</option>';
-  });
-  html += '</select>';
+  html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">';
+  html += '<div class="extra-meal-title" style="margin-bottom:0">'+title+'</div>';
+  html += '</div>';
+  html += '<div style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:#F8F8F8;border-radius:10px">';
+  html += '<span style="font-size:13px;font-weight:500;flex:1">'+currentLabel+'</span>';
+  html += '<button class="edit-btn" data-action="open" data-panel="'+panelId+'" style="opacity:0.6">&#9999;&#65039;</button>';
+  html += '</div>';
+  html += '<div class="edit-panel" id="'+panelId+'">';
+  html += '<select id="'+selectId+'"></select>';
+  html += '<div class="edit-actions">';
+  html += '<button class="edit-cancel" data-action="cancel">Annulla</button>';
+  html += '<button class="edit-ok" data-action="mealselect" data-key="'+key+'" data-sel="'+selectId+'">Salva</button>';
+  html += '</div>';
+  html += '</div>';
   html += '</div>';
   return html;
 }
