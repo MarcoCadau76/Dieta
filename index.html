@@ -315,8 +315,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="card">
       <div style="font-size:12px;color:var(--sub);line-height:1.7">
         <b>Come calcoliamo il fabbisogno:</b><br>
-        Formula di Mifflin-St Jeor + moltiplicatore attività (1.55 per moderatamente attivo).<br>
-        Le calorie bruciate con l'attività registrata vengono aggiunte al fabbisogno base del giorno.
+        Formula Mifflin-St Jeor × 1.55 (moderatamente attivo) = fabbisogno reale.<br>
+        <b>Obiettivo dimagrimento</b>: fabbisogno reale − 600 kcal = deficit per perdere ~0.5 kg/settimana.<br>
+        Le calorie bruciate con l'attività vengono aggiunte all'obiettivo del giorno.<br><br>
+        <b>Nota sui valori nutrizionali:</b> le kcal dei pasti sono stime approssimative basate sulle tabelle nutrizionali medie. I valori reali possono variare del ±10%.
       </div>
     </div>
   </div>
@@ -757,6 +759,14 @@ const SPUNTINI = [
   {label:"Yogurt alla frutta 125g", kcal:110},
 ];
 
+const SPUNTINI_MAR = [
+  ...SPUNTINI,
+  {label:"Proteine in polvere 30g (acqua)", kcal:120},
+  {label:"Proteine in polvere 30g (latte scremato 200ml)", kcal:190},
+  {label:"Proteine in polvere 40g (acqua)", kcal:160},
+  {label:"Proteine in polvere 40g (latte scremato 200ml)", kcal:230},
+];
+
 // Frutta dopo pranzo Marco
 const FRUTTA_DOPO_PRANZO_MAR = [
   "Mela 150g","Mandarancio 150g","Banana 100g","Cocomero 300g",
@@ -922,12 +932,15 @@ function getExtraKcal(person){
   var colList = person === 'ale' ? COLAZIONE_ALE : COLAZIONE_MAR;
   var col = localStorage.getItem('colazione-'+person);
   var colazioneKcal = col ? parseInt(col) : colList[0].kcal;
+  var spList = person === 'mar' ? SPUNTINI_MAR : SPUNTINI;
   var sp1 = localStorage.getItem('spuntino-mattina-'+person);
   var sp2 = localStorage.getItem('spuntino-pomeriggio-'+person);
-  var spuntiniKcal = (sp1 ? parseInt(sp1) : SPUNTINI[0].kcal) + (sp2 ? parseInt(sp2) : SPUNTINI[0].kcal);
+  var spuntiniKcal = (sp1 ? parseInt(sp1) : spList[0].kcal) + (sp2 ? parseInt(sp2) : spList[0].kcal);
   var fp = localStorage.getItem('frutta-pranzo-mar');
   var fruttoDopoKcal = (person === 'mar') ? (fp ? parseInt(fp) : SPUNTINI[0].kcal) : 0;
-  return colazioneKcal + spuntiniKcal + fruttoDopoKcal;
+  var pp = localStorage.getItem('post-palestra-mar');
+  var postPalestraKcal = (person === 'mar' && pp) ? parseInt(pp) : 0;
+  return colazioneKcal + spuntiniKcal + fruttoDopoKcal + postPalestraKcal;
 }
 
 function renderOggi(){
@@ -972,9 +985,9 @@ function renderOggi(){
     <div class="bil-row" style="color:rgba(255,255,255,.85);border-bottom-color:rgba(255,255,255,.1)"><span>Pranzo + Cena</span><span class="kcal-c">${np[0]+nc[0]} kcal</span></div>
     <div class="bil-row"><span>Colazione + spuntini</span><span class="kcal-c">${extraKcal} kcal</span></div>
     <div class="bil-row" style="font-weight:600"><span>Totale ingerito</span><span class="kcal-c">${totalKcal} kcal</span></div>
-    <div class="bil-row"><span>Fabbisogno base</span><span>${tdee} kcal</span></div>
-    ${burnedKcal>0?`<div class="bil-row"><span>Bruciate attività (${burnedMin} min)</span><span class="prot-c">+${burnedKcal} kcal</span></div>`:''}
-    <div class="bil-row"><span>Obiettivo giornaliero</span><span>${target} kcal</span></div>
+    <div class="bil-row"><span>Obiettivo (-600 kcal deficit)</span><span style="color:rgba(255,255,255,.85)">${tdee} kcal</span></div>
+    ${burnedKcal>0?`<div class="bil-row"><span>+ Attività (${burnedMin} min)</span><span class="prot-c">+${burnedKcal} kcal</span></div>`:''}
+    <div class="bil-row"><span>Target giornaliero</span><span style="color:rgba(255,255,255,.9);font-weight:600">${target} kcal</span></div>
     <div class="bil-row"><span>Bilancio</span><span style="color:${balCol};font-weight:700">${balSign}${balance} kcal</span></div>
     <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${pct>105?'#E76F51':'#2D6A4F'}"></div></div>
     <div class="progress-lbl">${pct}% dell obiettivo coperto</div>`;
@@ -992,7 +1005,7 @@ function renderOggi(){
     ${buildMealSection('☕ Colazione', 'colazione', currentPerson,
         currentPerson==='ale' ? COLAZIONE_ALE : COLAZIONE_MAR, null)}
 
-    ${buildMealSection('🍎 Spuntino mattina', 'spuntino-mattina', currentPerson, SPUNTINI, null)}
+    ${buildMealSection('🍎 Spuntino mattina', 'spuntino-mattina', currentPerson, currentPerson==='mar'?SPUNTINI_MAR:SPUNTINI, null)}
 
     <div class="meal-section">
       <div class="meal-section-header">
@@ -1011,9 +1024,22 @@ function renderOggi(){
       </div>
     </div>
 
-    ${currentPerson==='mar' ? buildMealSection('🍇 Frutta dopo pranzo', 'frutta-pranzo', 'mar', SPUNTINI, null) : ''}
+    ${currentPerson==='mar' ? buildMealSection('🍇 Frutta dopo pranzo', 'frutta-pranzo', 'mar', SPUNTINI_MAR, null) : ''}
 
-    ${buildMealSection('🍊 Spuntino pomeriggio', 'spuntino-pomeriggio', currentPerson, SPUNTINI, null)}
+    ${buildMealSection('🍊 Spuntino pomeriggio', 'spuntino-pomeriggio', currentPerson, currentPerson==='mar'?SPUNTINI_MAR:SPUNTINI, null)}
+
+    ${(()=>{
+      if(currentPerson !== 'mar') return '';
+      const hasPalestra = acts.some(function(a){return a.type==='palestra';});
+      if(!hasPalestra) return '';
+      return buildMealSection('💪 Post-palestra (proteine)', 'post-palestra', 'mar', [
+        {label:"Proteine in polvere 30g (acqua)", kcal:120},
+        {label:"Proteine in polvere 30g (latte scremato 200ml)", kcal:190},
+        {label:"Proteine in polvere 40g (acqua)", kcal:160},
+        {label:"Proteine in polvere 40g (latte scremato 200ml)", kcal:230},
+        {label:"Nessun integratore oggi", kcal:0},
+      ], null);
+    })()}
 
     <div class="meal-section">
       <div class="meal-section-header">
@@ -1381,6 +1407,17 @@ function getTDEE(person){
   let bmr;
   if(p.sesso === 'm') bmr = 10*p.peso + 6.25*p.altezza - 5*p.eta + 5;
   else                bmr = 10*p.peso + 6.25*p.altezza - 5*p.eta - 161;
+  const tdee = Math.round(bmr * 1.55);
+  // Deficit 600 kcal per perdita peso ~0.5 kg/settimana
+  return Math.max(1200, tdee - 600);
+}
+
+function getTDEEBase(person){
+  const p = load('profile-'+person);
+  if(!p || !p.peso || !p.altezza || !p.eta) return 0;
+  let bmr;
+  if(p.sesso === 'm') bmr = 10*p.peso + 6.25*p.altezza - 5*p.eta + 5;
+  else                bmr = 10*p.peso + 6.25*p.altezza - 5*p.eta - 161;
   return Math.round(bmr * 1.55);
 }
 
@@ -1391,10 +1428,11 @@ function saveProfile(person){
   const altezza = parseFloat(document.getElementById(person+'-altezza').value);
   if(!eta||!peso||!altezza){ alert('Compila tutti i campi'); return; }
   save('profile-'+person, {eta,sesso,peso,altezza});
-  const tdee = getTDEE(person);
+  const tdeeBase = getTDEEBase(person);
+  const tdeeObj  = getTDEE(person);
   const badge = document.getElementById(person+'-tdee-badge');
   badge.style.display = 'block';
-  badge.textContent = 'Fabbisogno base: '+tdee+' kcal/giorno (moderatamente attivo)';
+  badge.innerHTML = 'Fabbisogno reale: <b>'+tdeeBase+' kcal</b><br>Obiettivo dimagrimento (-600): <b>'+tdeeObj+' kcal/giorno</b>';
   renderOggi();
 }
 
@@ -1405,11 +1443,12 @@ function loadProfileForm(person){
   document.getElementById(person+'-sesso').value   = p.sesso||'f';
   document.getElementById(person+'-peso').value    = p.peso||'';
   document.getElementById(person+'-altezza').value = p.altezza||'';
-  const tdee = getTDEE(person);
-  if(tdee>0){
+  const tdeeBase = getTDEEBase(person);
+  const tdeeObj  = getTDEE(person);
+  if(tdeeBase>0){
     const badge = document.getElementById(person+'-tdee-badge');
     badge.style.display='block';
-    badge.textContent='Fabbisogno base: '+tdee+' kcal/giorno (moderatamente attivo)';
+    badge.innerHTML = 'Fabbisogno reale: <b>'+tdeeBase+' kcal</b><br>Obiettivo dimagrimento (-600): <b>'+tdeeObj+' kcal/giorno</b>';
   }
 }
 
