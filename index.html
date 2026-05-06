@@ -635,6 +635,11 @@ document.addEventListener('click', function(e){
     var person = e.target.dataset.person || currentPerson;
     localStorage.setItem('colazione-'+person, e.target.value);
     renderOggi();
+  } else if(action === 'spuntino'){
+    var slot = e.target.dataset.slot;
+    var spPerson = e.target.dataset.person || currentPerson;
+    localStorage.setItem(slot+'-'+spPerson, e.target.value);
+    renderOggi();
   }
 });
 
@@ -692,10 +697,27 @@ const FRUTTA = {
 
 // Spuntino = yogurt O frutta (uguale per entrambi, porzioni Ale)
 const SPUNTINI = [
+  {label:"Mela 150g",              kcal:78},
+  {label:"Banana 100g",            kcal:89},
+  {label:"Mandarini 100g",         kcal:53},
+  {label:"Arancia 200g",           kcal:94},
+  {label:"Pera 200g",              kcal:104},
+  {label:"Pesche 200g",            kcal:78},
+  {label:"Kiwi 100g",              kcal:61},
+  {label:"Fragole 200g",           kcal:64},
+  {label:"Albicocche 200g",        kcal:96},
+  {label:"Cachi 100g",             kcal:70},
+  {label:"Uva 100g",               kcal:69},
+  {label:"Melagrana 100g",         kcal:83},
+  {label:"Fichi 100g",             kcal:74},
+  {label:"Ciliege 100g",           kcal:63},
+  {label:"Susine 100g",            kcal:46},
+  {label:"Nespole 200g",           kcal:86},
+  {label:"Melone 200g",            kcal:60},
+  {label:"Cocomero 300g",          kcal:90},
   {label:"Yogurt bianco magro 125g", kcal:60},
-  {label:"Yogurt greco 0% 125g", kcal:70},
+  {label:"Yogurt greco 0% 125g",   kcal:70},
   {label:"Yogurt alla frutta 125g", kcal:110},
-  {label:"Frutta (vedi lista)", kcal:null}, // usa FRUTTA
 ];
 
 // Frutta dopo pranzo Marco
@@ -726,24 +748,20 @@ function buildExtraMealsHtml(person){
   // SPUNTINO META MATTINA
   html += '<div class="extra-meal">';
   html += '<div class="extra-meal-title">🍎 Spuntino meta mattina</div>';
-  html += buildSpuntinoHtml();
+  html += buildSpuntinoHtml('spuntino-mattina', person);
   html += '</div>';
 
   // SPUNTINO META POMERIGGIO
   html += '<div class="extra-meal">';
   html += '<div class="extra-meal-title">🍊 Spuntino meta pomeriggio</div>';
-  html += buildSpuntinoHtml();
+  html += buildSpuntinoHtml('spuntino-pomeriggio', person);
   html += '</div>';
 
   // FRUTTA DOPO PRANZO (solo Marco)
   if(person === 'mar'){
     html += '<div class="extra-meal">';
     html += '<div class="extra-meal-title">🍇 Frutta dopo pranzo (Marco)</div>';
-    html += '<div class="frutta-grid">';
-    FRUTTA_DOPO_PRANZO_MAR.forEach(function(f){
-      html += '<span class="frutta-tag">'+f+'</span>';
-    });
-    html += '</div>';
+    html += buildSpuntinoHtml('frutta-pranzo', 'mar');
     html += '</div>';
   }
 
@@ -751,19 +769,16 @@ function buildExtraMealsHtml(person){
   return html;
 }
 
-function buildSpuntinoHtml(){
-  var html = '';
+function buildSpuntinoHtml(slot, person){
+  // slot = 'spuntino-mattina' o 'spuntino-pomeriggio' o 'frutta-pranzo'
+  var saved = localStorage.getItem(slot+'-'+person);
+  var savedKcal = saved ? parseInt(saved) : SPUNTINI[0].kcal;
+  var html = '<select class="colazione-select" data-action="spuntino" data-slot="'+slot+'" data-person="'+person+'">';
   SPUNTINI.forEach(function(s){
-    if(s.kcal){
-      html += '<div class="extra-item"><span>'+s.label+'</span><span class="extra-kcal">~'+s.kcal+' kcal</span></div>';
-    }
+    var sel = (s.kcal === savedKcal) ? ' selected' : '';
+    html += '<option value="'+s.kcal+'"'+sel+'>'+s.label+' (~'+s.kcal+' kcal)</option>';
   });
-  html += '<div class="extra-meal-title" style="margin-top:10px;margin-bottom:6px">oppure frutta:</div>';
-  html += '<div class="frutta-grid">';
-  Object.keys(FRUTTA).forEach(function(f){
-    html += '<span class="frutta-tag">'+f+' (~'+FRUTTA[f]+' kcal)</span>';
-  });
-  html += '</div>';
+  html += '</select>';
   return html;
 }
 
@@ -827,8 +842,13 @@ function getExtraKcal(person){
   var list = person === 'ale' ? COLAZIONE_ALE : COLAZIONE_MAR;
   var saved = localStorage.getItem('colazione-'+person);
   var colazioneKcal = saved ? parseInt(saved) : list[0].kcal;
-  var spuntiniKcal = 160;
-  var fruttoDopoKcal = (person === 'mar') ? 78 : 0;
+  // Spuntini: leggi selezione salvata o usa default (Mela 150g = 78 kcal)
+  var sp1 = localStorage.getItem('spuntino-mattina-'+person);
+  var sp2 = localStorage.getItem('spuntino-pomeriggio-'+person);
+  var spuntiniKcal = (sp1 ? parseInt(sp1) : 78) + (sp2 ? parseInt(sp2) : 78);
+  // Frutta dopo pranzo solo Marco
+  var fp = localStorage.getItem('frutta-pranzo-mar');
+  var fruttoDopoKcal = (person === 'mar') ? (fp ? parseInt(fp) : 78) : 0;
   return colazioneKcal + spuntiniKcal + fruttoDopoKcal;
 }
 
