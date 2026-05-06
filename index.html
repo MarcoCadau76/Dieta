@@ -325,33 +325,76 @@ function renderAll(){ renderOggi(); renderWeekNav(); renderDays(); renderSportTo
 
 // ── OGGI ─────────────────────────────────────────────────────────────────
 const ALTERNATIVES = {
+  // Carboidrati — stessi per entrambi, i grammi vengono adattati da carboWithGrams
   carbo: [
     "Pasta di semola","Pasta all'uovo","Riso parboiled","Orzo","Farro",
-    "Pane comune","Pane carasau","Patate","Ceci in scatola","Ceci secchi",
-    "Fagioli in scatola","Fagioli secchi","Lenticchie in scatola",
-    "Lenticchie secche","Piselli freschi/surgel."
+    "Gnocchi di patate","Ceci secchi","Fave secche","Fagioli secchi",
+    "Lenticchie secche","Piselli secchi","Piselli freschi/surgel.",
+    "Fagioli freschi","Fave fresche","Legumi in scatola","Mais in scatola",
+    "Patate","Pane comune","Pane carasau","Minestrone QB"
   ],
+  // Proteine Alessandra (no NG: Wurstel pollo, Coniglio, Carne bovina gelatina,
+  //   Caprino fresco, Caciotta, Brie, Riso integrale, Fregola, ecc.)
   prot_ale: [
-    "Tonno al naturale 100g","Sgombro al naturale 70g","Uova di gallina 70g",
-    "Prosciutto crudo 70g","Prosciutto cotto 60g","Bresaola 70g",
-    "Prosciutto di tacchino 80g","Mozzarella di vacca 50g",
-    "Fiocchi di latte 100g","Ricotta magra 100g","Orata 110g",
-    "Merluzzo 150g","Spigola 130g","Pollo petto 110g","Pollo coscia 80g",
-    "Tacchino petto 100g","Manzo magro 90g","Vitellone magro 100g"
+    "Parmigiano o grana 5g",
+    "Vitello 100g","Hamburger bovino 60g","Hamburger di pollo 70g",
+    "Cavallo 80g","Pollo coscia 80g","Manzo magro 90g","Tacchino coscia 90g",
+    "Vitellone magro 100g","Maiale magro 100g","Pollo 100g",
+    "Tacchino petto 100g","Pollo petto 110g",
+    "Salmone al naturale 60g","Sgombro al naturale 70g","Tonno fresco 70g",
+    "Salmone affumicato 70g","Tonno sott'olio 70g","Pesce spada 100g",
+    "Tonno al naturale 100g","Orata 110g","Spigola 130g","Cozze 130g",
+    "Seppie 140g","Vongole 140g","Merluzzo 150g","Nasello 150g",
+    "Calamaro 150g","Gamberi 150g","Surimi 120g","Polpo 180g","Platessa 130g",
+    "Parmigiano reggiano 30g","Grana padano 30g","Pecorino fresco 30g",
+    "Stracchino 40g","Rabiola 40g","Certosino 50g","Crescenza 50g",
+    "Mozzarella di vacca 50g","Feta 50g","Ricotta di pecora 70g",
+    "Philadelphia light 70g","Ricotta di vacca 80g",
+    "Mozzarella light 80g","Fiocchi di latte magro 100g",
+    "Prosciutto cotto 60g","Prosciutto crudo 70g","Bresaola 70g",
+    "Prosciutto di tacchino 80g","Uova di gallina 70g"
   ],
+  // Proteine Marco (no NG: Wurstel pollo, Coniglio, Sarago, Pesce spada,
+  //   Dentice, Pagello, Mormora, Occhiata, Cernia, Trota, Corvina,
+  //   S.Pietro, Sogliola, Scorfano, Cavoli Bruxelles, Cavolo, Cavolfiore)
   prot_mar: [
-    "Tonno al naturale 140g","Sgombro al naturale 80g","Uova di gallina (due)",
-    "Prosciutto crudo 90g","Prosciutto cotto 80g","Bresaola 90g",
-    "Prosciutto di tacchino 100g","Mozzarella di vacca 50g",
-    "Fiocchi di latte 100g","Ricotta magra 120g","Orata 140g",
-    "Merluzzo 200g","Spigola 170g","Pollo petto 140g","Pollo coscia 100g",
-    "Tacchino petto 130g","Manzo magro 110g","Vitellone magro 120g"
+    "Parmigiano o grana 5g",
+    "Vitello 130g","Hamburger bovino 80g","Hamburger di pollo 90g",
+    "Cavallo 100g","Pollo coscia 100g","Manzo magro 110g","Tacchino coscia 120g",
+    "Vitellone magro 120g","Maiale magro 130g","Pollo 130g",
+    "Tacchino petto 130g","Pollo petto 140g","Carne bovina gelatina 150g",
+    "Salmone al naturale 80g","Sgombro al naturale 80g","Tonno fresco 90g",
+    "Salmone affumicato 90g","Tonno sott'olio 90g",
+    "Tonno al naturale 140g","Orata 140g","Platessa 170g","Spigola 170g",
+    "Cozze 170g","Seppie 190g","Vongole 190g","Merluzzo 200g",
+    "Nasello 200g","Calamaro 200g","Gamberi 200g","Surimi 150g","Polpo 240g",
+    "Parmigiano reggiano 35g","Grana padano 35g","Pecorino fresco 35g",
+    "Stracchino 50g","Rabiola 50g","Certosino 50g","Crescenza 50g",
+    "Mozzarella di vacca 50g","Feta 50g","Caprino fresco 85g",
+    "Caciotta fresca 85g","Brie 85g","Philadelphia light 95g",
+    "Mozzarella light 120g","Fiocchi di latte magro 70g",
+    "Prosciutto cotto 80g","Prosciutto crudo 90g","Bresaola 90g",
+    "Prosciutto di tacchino 100g","Uova di gallina (due)"
   ],
-  verd: [
-    "Pomodori 200g","Cetrioli 250g","Zucchine 300g","Carote 100g",
-    "Rucola 100g","Insalata mista 250g","Radicchio rosso 250g",
-    "Broccoli 150g","Peperoni 150g","Fagiolini 200g","Asparagi 150g",
-    "Finocchi 400g","Spinaci 200g","Melanzane 300g"
+  // Verdure Alessandra (no NG: Spinaci, Funghi)
+  verd_ale: [
+    "Insalata mista 250g","Rucola 100g","Carote 100g","Cavoli di Bruxelles 100g",
+    "Cipolle 100g","Asparagi 150g","Peperoni 150g","Broccoli 150g",
+    "Carciofi 150g","Lattuga 200g","Indivia 200g","Indivia belga 200g",
+    "Cavolo 200g","Cavolfiore 200g","Fagiolini 200g","Bieta 200g",
+    "Sedano 200g","Zucca 200g","Melanzane 200g","Pomodori 200g",
+    "Scarola 250g","Radicchio rosso 250g","Cetrioli 250g","Zucchine 300g",
+    "Cicoria 300g","Cardi 300g","Ravanelli 300g","Finocchi 400g"
+  ],
+  // Verdure Marco (no NG: Cavoli Bruxelles, Cavolo, Cavolfiore — Funghi OK per Marco)
+  verd_mar: [
+    "Insalata mista 250g","Spinaci 100g","Rucola 100g","Carote 100g",
+    "Cipolle 100g","Asparagi 150g","Peperoni 150g","Broccoli 150g",
+    "Carciofi 150g","Lattuga 200g","Indivia 200g","Indivia belga 200g",
+    "Fagiolini 200g","Bieta 200g","Sedano 200g","Zucca 200g",
+    "Melanzane 200g","Pomodori 200g","Funghi 200g","Scarola 250g",
+    "Radicchio rosso 250g","Cetrioli 250g","Zucchine 300g",
+    "Cicoria 300g","Cardi 300g","Ravanelli 300g","Finocchi 400g"
   ]
 };
 
@@ -495,7 +538,7 @@ function renderOggi(){
       <div class="meal-items">
         <div class="meal-item c">${buildTagWithEdit(pc,'c','C',carboOptsP,currentPerson,week,di,'pranzo',0)}</div>
         <div class="meal-item p">${buildTagWithEdit(pp,'p','P',protOpts,currentPerson,week,di,'pranzo',1)}</div>
-        <div class="meal-item v">${buildTagWithEdit(pv,'v','V',ALTERNATIVES.verd,currentPerson,week,di,'pranzo',2)}</div>
+        <div class="meal-item v">${buildTagWithEdit(pv,'v','V',(currentPerson==="ale"?ALTERNATIVES.verd_ale:ALTERNATIVES.verd_mar),currentPerson,week,di,'pranzo',2)}</div>
       </div>
       <div class="nutri-row">
         <div class="np"><div class="nv kcal-c">${np[0]}</div><div class="nl">kcal</div></div>
@@ -509,7 +552,7 @@ function renderOggi(){
       <div class="meal-items">
         <div class="meal-item c">${buildTagWithEdit(cc,'c','C',carboOptsC,currentPerson,week,di,'cena',0)}</div>
         <div class="meal-item p">${buildTagWithEdit(cp,'p','P',protOpts,currentPerson,week,di,'cena',1)}</div>
-        <div class="meal-item v">${buildTagWithEdit(cv,'v','V',ALTERNATIVES.verd,currentPerson,week,di,'cena',2)}</div>
+        <div class="meal-item v">${buildTagWithEdit(cv,'v','V',(currentPerson==="ale"?ALTERNATIVES.verd_ale:ALTERNATIVES.verd_mar),currentPerson,week,di,'cena',2)}</div>
       </div>
       <div class="nutri-row">
         <div class="np"><div class="nv kcal-c">${nc[0]}</div><div class="nl">kcal</div></div>
@@ -579,7 +622,7 @@ function renderDays(){
           <div class="mrow">
             ${buildTagWithEdit(pc,'c','C',carboOptsP,p,currentWeek,di,'pranzo',0)}
             ${buildTagWithEdit(pp,'p','P',protOpts,p,currentWeek,di,'pranzo',1)}
-            ${buildTagWithEdit(pv,'v','V',ALTERNATIVES.verd,p,currentWeek,di,'pranzo',2)}
+            ${buildTagWithEdit(pv,'v','V',(p==="ale"?ALTERNATIVES.verd_ale:ALTERNATIVES.verd_mar),p,currentWeek,di,'pranzo',2)}
           </div>
           <div class="nmini">
             <span class="nm"><b class="kcal-c">${np[0]}</b> kcal</span>
@@ -591,7 +634,7 @@ function renderDays(){
           <div class="mrow">
             ${buildTagWithEdit(cc,'c','C',carboOptsC,p,currentWeek,di,'cena',0)}
             ${buildTagWithEdit(cp,'p','P',protOpts,p,currentWeek,di,'cena',1)}
-            ${buildTagWithEdit(cv,'v','V',ALTERNATIVES.verd,p,currentWeek,di,'cena',2)}
+            ${buildTagWithEdit(cv,'v','V',(p==="ale"?ALTERNATIVES.verd_ale:ALTERNATIVES.verd_mar),p,currentWeek,di,'cena',2)}
           </div>
           <div class="nmini">
             <span class="nm"><b class="kcal-c">${nc[0]}</b> kcal</span>
