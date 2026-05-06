@@ -136,6 +136,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .edit-reset{width:100%;padding:6px;border-radius:8px;background:#FFF0ED;color:var(--accent);font-size:11px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:4px}
 .modified{border:1.5px solid var(--accent)!important;position:relative}
 
+
+/* TIPS */
+.tip-box{border-radius:var(--radius);padding:16px;margin-top:12px}
+.tip-box.surplus{background:#FFF3CD;border-left:4px solid #E76F51}
+.tip-box.deficit{background:#D4EDDA;border-left:4px solid #2D6A4F}
+.tip-box.ok{background:#D1ECF1;border-left:4px solid #1D3557}
+.tip-box.neutral{background:#F4F4F4;border-left:4px solid #aaa}
+.tip-icon{font-size:22px;margin-bottom:6px}
+.tip-title{font-weight:700;font-size:14px;margin-bottom:4px}
+.tip-text{font-size:13px;line-height:1.6;color:#444}
+.tip-activity{display:inline-block;margin-top:8px;background:rgba(0,0,0,.06);border-radius:8px;padding:5px 10px;font-size:12px;font-weight:600}
+.tips-section{margin-bottom:20px}
+.tips-section h3{font-family:'DM Serif Display',serif;font-size:17px;margin-bottom:12px;color:var(--text)}
+.tips-card{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,.05);display:flex;gap:12px;align-items:flex-start}
+.tips-card-icon{font-size:22px;flex-shrink:0;margin-top:1px}
+.tips-card-body{}
+.tips-card-title{font-weight:600;font-size:13px;margin-bottom:3px}
+.tips-card-text{font-size:12px;color:#555;line-height:1.6}
+
 /* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);display:flex;padding:10px 0 20px;z-index:100}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:var(--sub);cursor:pointer}
@@ -256,6 +275,94 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </div>
 </div>
 
+
+<!-- TIPS -->
+<div id="view-tips" class="view">
+  <div class="wrap" style="padding-top:4px">
+
+    <div class="tips-section">
+      <h3>⚖️ Gestire il deficit calorico</h3>
+      <div class="tips-card"><div class="tips-card-icon">🎯</div><div class="tips-card-body">
+        <div class="tips-card-title">Punta a un deficit moderato</div>
+        <div class="tips-card-text">Un deficit di 300–500 kcal al giorno è sostenibile e preserva la massa muscolare. Deficit troppo aggressivi rallentano il metabolismo.</div>
+      </div></div>
+      <div class="tips-card"><div class="tips-card-icon">📊</div><div class="tips-card-body">
+        <div class="tips-card-title">Non eliminare i carboidrati</div>
+        <div class="tips-card-text">La tua dieta prevede carboidrati calibrati. Sono carburante per il cervello e l'attività fisica — tagliarli troppo peggiora le prestazioni e l'umore.</div>
+      </div></div>
+      <div class="tips-card"><div class="tips-card-icon">🔄</div><div class="tips-card-body">
+        <div class="tips-card-title">Un giorno di surplus non rovina tutto</div>
+        <div class="tips-card-text">Quello che conta è la media settimanale, non il singolo giorno. Se esci dal piano, riprendi il giorno dopo senza compensazioni eccessive.</div>
+      </div></div>
+      <div class="tips-card"><div class="tips-card-icon">⏰</div><div class="tips-card-body">
+        <div class="tips-card-title">Rispetta i ritmi dei pasti</div>
+        <div class="tips-card-text">Mangiare a orari regolari aiuta a controllare la fame e stabilizza i livelli di insulina. Cerca di non saltare pranzo e di non cenare troppo tardi.</div>
+      </div></div>
+    </div>
+
+    <div class="tips-section">
+      <h3>🏃 Consigli per la corsa</h3>
+      <div class="tips-card"><div class="tips-card-icon">🍝</div><div class="tips-card-body">
+        <div class="tips-card-title">Mangia i carboidrati prima</div>
+        <div class="tips-card-text">Corri 2–3 ore dopo un pasto principale, oppure con uno spuntino leggero (frutta) 30–45 min prima. Non correre a stomaco completamente vuoto se superi i 45 min.</div>
+      </div></div>
+      <div class="tips-card"><div class="tips-card-icon">💧</div><div class="tips-card-body">
+        <div class="tips-card-title">Idratati prima, durante e dopo</div>
+        <div class="tips-card-text">Bevi 400–600ml nelle 2 ore precedenti. Durante la corsa, 150–200ml ogni 20 minuti se superi i 30 min. Dopo, reidratati con acqua e qualcosa di salato.</div>
+      </div></div>
+      <div class="tips-card"><div class="tips-card-icon">📈</div><div class="tips-card-body">
+        <div class="tips-card-title">Alterna intensità</div>
+        <div class="tips-card-text">Non correre sempre alla stessa velocità. Inserisci una sessione lenta (recupero attivo), una media e una più intensa a settimana per progressi costanti.</div>
+      </div></div>
+    </div>
+
+    <div class="tips-section">
+      <h3>🚶 Consigli per la camminata</h3>
+      <div class="tips-card"><div class="tips-card-icon">🔥</div><div class="tips-card-body">
+        <div class="tips-card-title">È più efficace di quanto pensi</div>
+        <div class="tips-card-text">30 min di camminata veloce bruciano 150–200 kcal e migliorano la sensibilità insulinica. È ideale dopo i pasti per abbassare la glicemia.</div>
+      </div></div>
+      <div class="tips-card"><div class="tips-card-icon">🌅</div><div class="tips-card-body">
+        <div class="tips-card-title">Cammina dopo cena</div>
+        <div class="tips-card-text">Una camminata di 20–30 min dopo cena aiuta la digestione, riduce il picco glicemico e migliora la qualità del sonno.</div>
+      </div></div>
+      <div class="tips-card"><div class="tips-card-icon">⛰️</div><div class="tips-card-body">
+        <div class="tips-card-title">Aumenta il dislivello</div>
+        <div class="tips-card-text">Camminare in salita o su terreno irregolare aumenta il consumo calorico del 30–50% rispetto al piano. In Sardegna hai tutto il necessario.</div>
+      </div></div>
+    </div>
+
+    <div class="tips-section">
+      <h3>🏋️ Consigli per la palestra</h3>
+      <div class="tips-card"><div class="tips-card-icon">🥩</div><div class="tips-card-body">
+        <div class="tips-card-title">Le proteine sono fondamentali</div>
+        <div class="tips-card-text">Nei giorni di palestra le proteine della tua dieta (pollo, pesce, legumi) sono ancora più importanti. Cerca di mangiare una fonte proteica entro 2 ore dall'allenamento.</div>
+      </div></div>
+      <div class="tips-card"><div class="tips-card-icon">💤</div><div class="tips-card-body">
+        <div class="tips-card-title">Il recupero è allenamento</div>
+        <div class="tips-card-text">I muscoli crescono durante il riposo, non in palestra. 7–8 ore di sonno e almeno un giorno di recupero attivo a settimana sono indispensabili.</div>
+      </div></div>
+      <div class="tips-card"><div class="tips-card-icon">📅</div><div class="tips-card-body">
+        <div class="tips-card-title">Non allenare lo stesso muscolo due giorni di fila</div>
+        <div class="tips-card-text">Alterna i gruppi muscolari: gambe/glutei un giorno, petto/tricipiti un altro, schiena/bicipiti un altro. Questo massimizza i progressi e riduce gli infortuni.</div>
+      </div></div>
+    </div>
+
+    <div class="tips-section">
+      <h3>💧 Idratazione e abitudini</h3>
+      <div class="tips-card"><div class="tips-card-icon">🥤</div><div class="tips-card-body">
+        <div class="tips-card-title">2 litri al giorno come base</div>
+        <div class="tips-card-text">Nei giorni di attività fisica aggiungi 500–800ml per ogni ora di allenamento. In estate in Sardegna aumenta ancora.</div>
+      </div></div>
+      <div class="tips-card"><div class="tips-card-icon">☕</div><div class="tips-card-body">
+        <div class="tips-card-title">Attenzione alle bevande</div>
+        <div class="tips-card-text">Caffè e tè vanno bene ma non contano come acqua. Succhi, bevande zuccherate e alcolici aggiungono calorie nascoste che non saziano.</div>
+      </div></div>
+    </div>
+
+  </div>
+</div>
+
 <div class="bottom-nav">
   <div class="nav-item active" id="nav-oggi" onclick="setView('oggi',this)">
     <div class="nav-icon">☀️</div><div>Oggi</div>
@@ -268,6 +375,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </div>
   <div class="nav-item" id="nav-profilo" onclick="setView('profilo',this)">
     <div class="nav-icon">👤</div><div>Profilo</div>
+  </div>
+  <div class="nav-item" id="nav-tips" onclick="setView('tips',this)">
+    <div class="nav-icon">💡</div><div>Tips</div>
   </div>
 </div>
 
@@ -513,6 +623,62 @@ document.addEventListener('click', function(e){
 });
 
 
+
+function getTipOfDay(balance, burnedKcal, acts){
+  if(balance === null){
+    return {type:'neutral',icon:'💡',
+      title:'Inserisci il tuo profilo',
+      text:'Vai nella tab Profilo e inserisci peso, altezza ed eta per vedere il bilancio calorico personalizzato.',
+      activity:null};
+  }
+  const todayTypes = acts.map(function(a){return a.type;});
+  const hasCardio = todayTypes.indexOf('corsa')>=0 || todayTypes.indexOf('camminata')>=0 || todayTypes.indexOf('cyclette')>=0;
+  const hasGym = todayTypes.indexOf('palestra')>=0;
+
+  if(balance > 400){
+    return {type:'surplus',icon:'⚠️',
+      title:'Sei in surplus di '+balance+' kcal',
+      text:'Oggi hai ingerito piu del necessario. Una sessione di cardio moderato ti aiuta a riequilibrare il bilancio senza stress.',
+      activity:!burnedKcal ? '🏃 Corsa 25-30 min a ritmo moderato (~280 kcal)' : null};
+  } else if(balance > 150){
+    return {type:'surplus',icon:'🟡',
+      title:'Leggero surplus: +'+balance+' kcal',
+      text:'Sei appena sopra il target. Una camminata serale di 20-25 minuti dopo cena e sufficiente per pareggiare.',
+      activity:!hasCardio ? '🚶 Camminata serale 20-25 min' : null};
+  } else if(balance >= -150){
+    var msgs = [
+      'Ottimo equilibrio! Sei esattamente nella zona target. Mantieni questo ritmo.',
+      'Perfetto! Calorie in linea con il target. Il corpo e in condizioni ideali per recuperare.',
+      'Sei in target: ben fatto. Idratati bene e riposa per massimizzare i risultati.'
+    ];
+    return {type:'ok',icon:'✅',
+      title:'In target!',
+      text:msgs[new Date().getDate()%msgs.length],
+      activity:null};
+  } else if(balance >= -400){
+    return {type:'deficit',icon:'🎯',
+      title:'Deficit ottimale: '+Math.abs(balance)+' kcal',
+      text:'Sei nella zona ideale per la perdita di peso graduale. Assicurati di bere almeno 2 litri di acqua oggi'+(hasGym?' e di recuperare bene dopo la palestra.':'.'),
+      activity:null};
+  } else {
+    return {type:'deficit',icon:'🔋',
+      title:'Deficit elevato: attenzione',
+      text:'Hai un deficit di '+Math.abs(balance)+' kcal. Un deficit troppo grande puo ridurre la massa muscolare. Valuta uno spuntino leggero (frutta, yogurt).',
+      activity:hasGym ? '💡 Oggi in palestra preferisci volume moderato anziche alta intensita' : null};
+  }
+}
+
+function buildTipHtml(tip){
+  const actHtml = tip.activity
+    ? '<div class="tip-activity">'+tip.activity+'</div>'
+    : '';
+  return '<div class="tip-box '+tip.type+'">'
+    +'<div class="tip-icon">'+tip.icon+'</div>'
+    +'<div class="tip-title">'+tip.title+'</div>'
+    +'<div class="tip-text">'+tip.text+'</div>'
+    +actHtml+'</div>';
+}
+
 function renderOggi(){
   const now = new Date();
   const di = now.getDay() === 0 ? 6 : now.getDay()-1; // 0=lun
@@ -557,7 +723,7 @@ function renderOggi(){
     <div class="bil-row"><span>Obiettivo giornaliero</span><span>${target} kcal</span></div>
     <div class="bil-row"><span>Bilancio</span><span style="color:${balCol};font-weight:700">${balSign}${balance} kcal</span></div>
     <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${pct>105?'#E76F51':'#2D6A4F'}"></div></div>
-    <div class="progress-lbl">${pct}% dell'obiettivo coperto</div>`;
+    <div class="progress-lbl">${pct}% dell obiettivo coperto</div>`;
   } else {
     bil = `<div style="margin-top:10px;font-size:12px;color:var(--sub)">Inserisci i dati nel profilo per vedere il bilancio calorico.</div>`;
   }
@@ -601,6 +767,7 @@ function renderOggi(){
       <div class="np"><div class="nv carb-c">${totalCarb}g</div><div class="nl">carb. tot.</div></div>
     </div>
     ${bil}
+    ${buildTipHtml(getTipOfDay(balance, burnedKcal, acts))}
   </div>`;
 }
 
